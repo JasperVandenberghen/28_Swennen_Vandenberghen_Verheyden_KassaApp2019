@@ -6,19 +6,18 @@ import domain.DomainException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class ArtikelDb {
-    Map<String, Artikel> artikelMap;
+    private Map<String, Artikel> artikelMap;
 
-    public ArtikelDb(Map<String, Artikel> artikelMap) {
-        artikelMap = new HashMap<>();
+    public ArtikelDb() {
+        Map<String, Artikel> artikelMap = new HashMap<>();
         this.artikelMap = artikelMap;
     }
 
-    public void leesArtikelen(){
+    public List<Artikel> leesArtikelen(){
+        List<Artikel> artikelen = new ArrayList<>();
         File artikelFile = new File("artikel.txt");
         try{
             Scanner scannerFile = new Scanner(artikelFile);
@@ -33,19 +32,20 @@ public class ArtikelDb {
                 double prijs = Double.parseDouble(prijsString);
                 int voorraad = Integer.parseInt(voorraadString);
                 Artikel artikel = new Artikel(artikelId,artikelNaam, artikelCat, prijs,voorraad);
-                artikelMap.put(artikelId, artikel);
+                artikelen.add(artikel);
             }
-            System.out.println(artikelMap.toString());
+           return artikelen;
         }
         catch(FileNotFoundException ex){
             throw new DomainException("Fout bij inlezen", ex);
         }
     }
 
-    public void schrijfArtikelen(){
-        File artikelen = new File("artikel.txt");
+    public List schrijfArtikelen(){
+        List artikelen = new ArrayList();
+        File artikelFile = new File("artikel.txt");
         try{
-            PrintWriter writer = new PrintWriter(artikelen);
+            PrintWriter writer = new PrintWriter(artikelFile);
             writer.println("14,Nutella,beleg,3.5,10");
             writer.println("15,Lays Naturel,chips,2.7,13");
             writer.println("16,Dash,wasproduct,5.5,15");
@@ -54,6 +54,7 @@ public class ArtikelDb {
         } catch (FileNotFoundException ex){
             throw new DomainException("Fout bij wegschrijven", ex);
         }
+        return artikelen;
     }
 
 

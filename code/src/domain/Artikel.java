@@ -8,14 +8,18 @@ public class Artikel {
     private int voorraad;
 
     public Artikel(String artikelId, String artikelNaam,String categorie, double prijs, int voorraad) {
-
+        setArtikelId(artikelId);
+        setArtikelNaam(artikelNaam);
+        setCategorie(categorie);
+        setPrijs(prijs);
+        setVoorraad(voorraad);
     }
 
     public String getArtikelId() {
         return artikelId;
     }
 
-    public void setArtikelId(String artikelId) {
+    private void setArtikelId(String artikelId) {
         this.artikelId = artikelId;
     }
 
@@ -23,15 +27,19 @@ public class Artikel {
         return artikelNaam;
     }
 
-    public void setArtikelNaam(String artikelNaam) {
+    private void setArtikelNaam(String artikelNaam) {
         this.artikelNaam = artikelNaam;
+    }
+
+    private void setCategorie(String categorie) {
+        this.categorie = categorie;
     }
 
     public double getPrijs() {
         return prijs;
     }
 
-    public void setPrijs(double prijs) {
+    private void setPrijs(double prijs) {
         this.prijs = prijs;
     }
 
@@ -39,7 +47,7 @@ public class Artikel {
         return voorraad;
     }
 
-    public void setVoorraad(int voorraad) {
+    private void setVoorraad(int voorraad) {
         this.voorraad = voorraad;
     }
 
