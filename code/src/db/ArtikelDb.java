@@ -60,6 +60,7 @@ public class ArtikelDb {
             for(Artikel a: artikelenList){
                 writer.println(a.toString());
             }
+            writer.close();
 
         } catch (FileNotFoundException ex){
             throw new DomainException("Fout bij wegschrijven", ex);
