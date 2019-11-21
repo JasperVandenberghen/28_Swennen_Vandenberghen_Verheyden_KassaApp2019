@@ -12,8 +12,7 @@ public class ArtikelDb {
     private Map<String, Artikel> artikelMap;
 
     public ArtikelDb() {
-        Map<String, Artikel> artikelMap = new HashMap<>();
-        this.artikelMap = artikelMap;
+        artikelMap = new HashMap<>();
     }
 
     public List<Artikel> leesArtikelen(){
@@ -41,20 +40,31 @@ public class ArtikelDb {
         }
     }
 
-    public List schrijfArtikelen(){
-        List artikelen = new ArrayList();
+    public List<Artikel> schrijfArtikelen(){
+        List <Artikel> artikelenList = new ArrayList<>();
         File artikelFile = new File("artikel.txt");
         try{
+
+            Artikel nutella = new Artikel("14", "Nutella", "beleg",3.5, 10);
+            Artikel lays = new Artikel("15", "Lays Naturel", "chips",2.7,13);
+            Artikel dash = new Artikel("16", "Dash","wasproduct", 5.5, 15);
+            Artikel frosties = new Artikel("17", "Frosties","cornfalkes", 3.8, 17);
+            artikelenList.add(nutella);
+            artikelenList.add(lays);
+            artikelenList.add(dash);
+            artikelenList.add(frosties);
+
+
             PrintWriter writer = new PrintWriter(artikelFile);
-            writer.println("14,Nutella,beleg,3.5,10");
-            writer.println("15,Lays Naturel,chips,2.7,13");
-            writer.println("16,Dash,wasproduct,5.5,15");
-            writer.println("17,Frosties,cornflakes,3.8,17");
-            writer.close();
+
+            for(Artikel a: artikelenList){
+                writer.println(a.toString());
+            }
+
         } catch (FileNotFoundException ex){
             throw new DomainException("Fout bij wegschrijven", ex);
         }
-        return artikelen;
+        return artikelenList;
     }
 
 
