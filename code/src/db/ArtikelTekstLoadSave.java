@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate {
+public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate implements LoadSave{
 
     @Override
     public List load(){
