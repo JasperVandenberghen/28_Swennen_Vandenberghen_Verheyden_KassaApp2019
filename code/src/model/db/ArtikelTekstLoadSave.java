@@ -8,11 +8,9 @@ import model.DomainException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate{
+public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate implements LoadSave{
 
 
     @Override
@@ -21,30 +19,23 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate{
     }
 
     @Override
-    public List load(){
+    public Map<String, Artikel> load(){
+        ArrayList<ArrayList<String>> data = loadData();
+        Map<String, Artikel> artikelen = new HashMap<>();
 
-        List<Artikel> artikelen = new ArrayList<>();
-
-        try{
-            Scanner scannerFile = initializeLoad();
-            while(scannerFile.hasNextLine()){
-                Scanner scannerLijn = new Scanner(scannerFile.nextLine());
-                scannerLijn.useDelimiter(",");
-                String artikelId = scannerLijn.next();
-                String artikelNaam = scannerLijn.next();
-                String artikelCat = scannerLijn.next();
-                String prijsString = scannerLijn.next();
-                String voorraadString = scannerLijn.next();
-                double prijs = Double.parseDouble(prijsString);
-                int voorraad = Integer.parseInt(voorraadString);
-                Artikel artikel = new Artikel(artikelId,artikelNaam, artikelCat, prijs,voorraad);
-                artikelen.add(artikel);
-            }
-            return artikelen;
+        for(ArrayList<String> rij: data) {
+            ListIterator<String> it = rij.listIterator();
+            String artikelId = it.next();
+            String artikelNaam = it.next();
+            String artikelCat = it.next();
+            String prijsString = it.next();
+            String voorraadString = it.next();
+            double prijs = Double.parseDouble(prijsString);
+            int voorraad = Integer.parseInt(voorraadString);
+            Artikel artikel = new Artikel(artikelId,artikelNaam, artikelCat, prijs,voorraad);
+            artikelen.put(artikelId, artikel);
         }
-        catch(FileNotFoundException ex){
-            throw new DomainException("Fout bij inlezen", ex);
-        }
+        return artikelen;
     }
 
     @Override
@@ -74,8 +65,4 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate{
         }
     }
 
-    @Override
-    void save() {
-
-    }
 }

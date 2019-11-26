@@ -1,7 +1,10 @@
 package model.db;
 
+import model.DomainException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,12 +12,23 @@ abstract class TekstLoadSaveTemplate {
 
     abstract String getFile();
 
-    final void loadSaveTemplate(){
-        load();
-        save();
+    public ArrayList<ArrayList<String>> loadData() {
+        try {
+            Scanner scannerFile = initializeLoad();
+            ArrayList<ArrayList<String>> info = new ArrayList<ArrayList<String>>();
+            while (scannerFile.hasNextLine()) {
+                Scanner scannerEenLijn = new Scanner(scannerFile.nextLine());
+                ArrayList<String> rij = new ArrayList<String>();
+                while(scannerEenLijn.hasNext()){
+                    rij.add(scannerFile.next());
+                }
+                info.add(rij);
+            }
+            return info;
+        } catch(FileNotFoundException ex){
+            throw new DomainException("Fout bij inlezen", ex);
+        }
     }
-
-    abstract List load();
 
     public Scanner initializeLoad() throws FileNotFoundException {
         String file = getFile();
@@ -23,15 +37,9 @@ abstract class TekstLoadSaveTemplate {
         return scannerFile;
     }
 
-    abstract void save(List list);
+    public void saveData(List list){
 
-    abstract void save();
-
-    final void concreteOperation(){
-
-    }
-
-    void hook(){}
+    };
 
 
 }

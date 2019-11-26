@@ -6,11 +6,11 @@ import java.util.*;
 
 public class ArtikelDb implements Db{
     private Map<String, Artikel> artikelMap;
-
-    public ArtikelDb() {
-        artikelMap = new HashMap<>();
+    private LoadSave loadSave;
+    public ArtikelDb(LoadSaveFactory loadSaveFactory) {
+        this.loadSave = loadSaveFactory.getLoadSave("artikel");
+        artikelMap = loadSave.load();
     }
-
 
     @Override
     public Artikel get(String id) {
