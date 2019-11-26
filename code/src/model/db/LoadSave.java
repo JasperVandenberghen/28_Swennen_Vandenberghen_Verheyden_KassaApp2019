@@ -1,4 +1,4 @@
-package db;
+package model.db;
 
 import java.util.List;
 

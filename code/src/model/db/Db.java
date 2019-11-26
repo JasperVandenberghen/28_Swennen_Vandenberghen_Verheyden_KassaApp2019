@@ -1,8 +1,7 @@
-package db;
+package model.db;
 
-import domain.Artikel;
+import model.Artikel;
 
-import java.util.List;
 import java.util.Map;
 
 public interface Db {

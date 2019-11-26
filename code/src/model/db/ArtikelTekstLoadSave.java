@@ -1,7 +1,9 @@
-package db;
+package model.db;
 
-import domain.Artikel;
-import domain.DomainException;
+
+
+import model.Artikel;
+import model.DomainException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,14 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate implements LoadSave{
+public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate{
+
+
+    @Override
+    String getFile() {
+        return "artikel.txt";
+    }
 
     @Override
     public List load(){
+
         List<Artikel> artikelen = new ArrayList<>();
-        File artikelFile = new File("artikel.txt");
+
         try{
-            Scanner scannerFile = new Scanner(artikelFile);
+            Scanner scannerFile = initializeLoad();
             while(scannerFile.hasNextLine()){
                 Scanner scannerLijn = new Scanner(scannerFile.nextLine());
                 scannerLijn.useDelimiter(",");

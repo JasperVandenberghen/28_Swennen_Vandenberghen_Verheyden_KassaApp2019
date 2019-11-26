@@ -1,7 +1,5 @@
 package application;
-	
-import db.ArtikelDb;
-import db.ArtikelTekstLoadSave;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.KassaView;
@@ -18,11 +16,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		ArtikelDb artikelDb = new ArtikelDb();
-		ArtikelTekstLoadSave artikelTekstLoadSave = new ArtikelTekstLoadSave();
-		ArrayList artikelen = (ArrayList) artikelTekstLoadSave.load();
-		artikelDb.addMultiple(artikelen);
-		System.out.println(artikelDb);
+
 
 		launch(args);
 	}

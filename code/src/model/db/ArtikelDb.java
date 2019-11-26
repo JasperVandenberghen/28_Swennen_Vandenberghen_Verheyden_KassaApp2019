@@ -1,11 +1,7 @@
-package db;
+package model.db;
 
-import domain.Artikel;
-import domain.DomainException;
+import model.Artikel;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.*;
 
 public class ArtikelDb implements Db{
