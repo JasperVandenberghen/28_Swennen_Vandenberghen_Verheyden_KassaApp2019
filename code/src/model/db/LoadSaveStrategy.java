@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface LoadSaveStrategy {
 
-    List<ArrayList<String>> load();
+    List<?> load();
     void save(List list);
 
 }

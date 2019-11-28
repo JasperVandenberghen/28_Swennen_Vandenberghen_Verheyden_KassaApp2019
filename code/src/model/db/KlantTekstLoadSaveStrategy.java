@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class KlantTekstLoadSaveStrategy extends TekstLoadSaveStrategyTemplate implements LoadSaveStrategy {
+public class KlantTekstLoadSaveStrategy extends TekstLoadSaveTemplate implements LoadSaveStrategy {
 
 
     @Override
@@ -19,9 +19,9 @@ public class KlantTekstLoadSaveStrategy extends TekstLoadSaveStrategyTemplate im
     }
 
     @Override
-    public Map<String, Artikel> load(){
-        ArrayList<ArrayList<String>> data = loadData();
-        Map<String, Artikel> artikelen = new HashMap<>();
+    public ArrayList<ArrayList<String>> load(){
+        ArrayList<ArrayList<String>> data = load();
+        ArrayList<Artikel> artikelen = new ArrayList<>();
 
         for(ArrayList<String> rij: data) {
             ListIterator<String> it = rij.listIterator();
@@ -33,9 +33,9 @@ public class KlantTekstLoadSaveStrategy extends TekstLoadSaveStrategyTemplate im
             double prijs = Double.parseDouble(prijsString);
             int voorraad = Integer.parseInt(voorraadString);
             Artikel artikel = new Artikel(artikelId,artikelNaam, artikelCat, prijs,voorraad);
-            artikelen.put(artikelId, artikel);
+            artikelen.add(artikel);
         }
-        return artikelen;
+        return data;
     }
 
     @Override

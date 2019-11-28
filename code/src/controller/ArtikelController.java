@@ -36,21 +36,21 @@ public class ArtikelController {
         }
         TableView<Artikel> table = kassaMainPane.getTable();
         table.setItems((ObservableList<Artikel>) observableList);
-        TableColumn<Artikel, String> colArtikelID = new TableColumn<Artikel, String>("ArtikelID");
-        colArtikelID.setMinWidth(300);
-        colArtikelID.setCellValueFactory(new PropertyValueFactory<Artikel, String>("ArtikelID"));
+        TableColumn<Artikel, String> colArtikelID = new TableColumn<Artikel, String>("ArtikelId");
+        colArtikelID.setMinWidth(200);
+        colArtikelID.setCellValueFactory(new PropertyValueFactory<Artikel, String>("artikelId"));
         TableColumn<Artikel, String> colArtikelNaam = new TableColumn<Artikel, String>("Artikel Naam");
-        colArtikelNaam.setMinWidth(300);
-        colArtikelNaam.setCellValueFactory(new PropertyValueFactory<Artikel, String>("Artikel Naam"));
+        colArtikelNaam.setMinWidth(200);
+        colArtikelNaam.setCellValueFactory(new PropertyValueFactory<Artikel, String>("artikelNaam"));
         TableColumn<Artikel, String> colCat = new TableColumn<Artikel, String>("Categorie");
-        colCat.setMinWidth(300);
-        colCat.setCellValueFactory(new PropertyValueFactory<Artikel, String>("Categorie"));
+        colCat.setMinWidth(200);
+        colCat.setCellValueFactory(new PropertyValueFactory<Artikel, String>("categorie"));
         TableColumn<Artikel, String> colPrijs = new TableColumn<Artikel, String>("Prijs");
         colPrijs.setMinWidth(40);
-        colPrijs.setCellValueFactory(new PropertyValueFactory<Artikel, String>("Prijs"));
+        colPrijs.setCellValueFactory(new PropertyValueFactory<Artikel, String>("prijs"));
         TableColumn<Artikel, String> colVoorraad = new TableColumn<Artikel, String>("Voorraad");
         colVoorraad.setMinWidth(40);
-        colVoorraad.setCellValueFactory(new PropertyValueFactory<Artikel, String>("Voorraad"));
+        colVoorraad.setCellValueFactory(new PropertyValueFactory<Artikel, String>("voorraad"));
         table.getColumns().addAll(colArtikelID, colArtikelNaam, colCat, colPrijs, colVoorraad);
     }
 

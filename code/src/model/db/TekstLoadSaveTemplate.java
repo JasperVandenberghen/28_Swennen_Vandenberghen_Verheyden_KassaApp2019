@@ -12,7 +12,7 @@ abstract class TekstLoadSaveTemplate implements LoadSaveStrategy {
 
     abstract String getFile();
 
-    public ArrayList<ArrayList<String>> loadData() {
+    public ArrayList<ArrayList<String>> load() {
         try {
             Scanner scannerFile = initializeLoad();
             ArrayList<ArrayList<String>> info = new ArrayList<ArrayList<String>>();
@@ -37,7 +37,7 @@ abstract class TekstLoadSaveTemplate implements LoadSaveStrategy {
         return scannerFile;
     }
 
-    public void saveData(List list){
+    public void save(List list){
 
     }
 
