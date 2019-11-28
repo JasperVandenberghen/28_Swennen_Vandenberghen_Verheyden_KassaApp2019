@@ -4,10 +4,10 @@ import model.domain.Artikel;
 
 import java.util.*;
 
-public class ArtikelDb implements Db{
+public class ArtikelDbInMemory implements ArtikelDbStrategy{
     private Map<String, Artikel> artikelMap;
     private LoadSaveStrategy loadSaveStrategy;
-    public ArtikelDb(LoadSaveFactory loadSaveFactory) {
+    public ArtikelDbInMemory(LoadSaveFactory loadSaveFactory) {
         this.loadSaveStrategy = loadSaveFactory.getLoadSave("artikel");
         artikelMap = loadSaveStrategy.load();
     }
