@@ -7,11 +7,11 @@ import javafx.scene.layout.BorderPane;
 import view.panels.ProductOverviewPane;
 
 public class KassaMainPane extends BorderPane {
+    private ProductOverviewPane productOverviewPane = new ProductOverviewPane();
 	public KassaMainPane(){
 		
 	    TabPane tabPane = new TabPane(); 	    
         Tab kassaTab = new Tab("Kassa");
-        ProductOverviewPane productOverviewPane = new ProductOverviewPane();
         Tab artikelTab = new Tab("Artikelen",productOverviewPane);
         Tab instellingTab = new Tab("Instellingen");
         Tab logTab = new Tab("Log");
@@ -21,4 +21,8 @@ public class KassaMainPane extends BorderPane {
         tabPane.getTabs().add(logTab);
 	    this.setCenter(tabPane);
 	}
+
+    public ProductOverviewPane getProductOverviewPane() {
+        return productOverviewPane;
+    }
 }

@@ -1,13 +1,10 @@
 package application;
 
+import controller.ArtikelController;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.KassaView;
 import view.KlantView;
-
-import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -15,6 +12,8 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		KassaView kassaView = new KassaView();
 		KlantView klantView = new KlantView();
+
+		ArtikelController artikelController = new ArtikelController(kassaView.getKassaMainPane().getProductOverviewPane());
 
 
 

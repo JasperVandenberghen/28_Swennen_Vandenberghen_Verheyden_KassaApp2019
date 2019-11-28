@@ -1,11 +1,12 @@
 package model.db;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public interface LoadSave {
 
-    Map load();
+    ArrayList<ArrayList<String>> load();
     void save(List list);
 
 }

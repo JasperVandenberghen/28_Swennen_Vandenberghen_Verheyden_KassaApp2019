@@ -6,7 +6,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;	
 
 public class KassaView {
-	private Stage stage = new Stage();		
+	private Stage stage = new Stage();
+	KassaMainPane kassaMainPane = new KassaMainPane();
 		
 	public KassaView(){			
 		stage.setTitle("KASSA VIEW");
@@ -15,12 +16,15 @@ public class KassaView {
 		stage.setY(20);
 		Group root = new Group();
 		Scene scene = new Scene(root, 750, 500);
-		BorderPane borderPane = new KassaMainPane();
-		borderPane.prefHeightProperty().bind(scene.heightProperty());
-		borderPane.prefWidthProperty().bind(scene.widthProperty());
-		root.getChildren().add(borderPane);
+		kassaMainPane.prefHeightProperty().bind(scene.heightProperty());
+		kassaMainPane.prefWidthProperty().bind(scene.widthProperty());
+		root.getChildren().add(kassaMainPane);
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		
+	}
+
+	public KassaMainPane getKassaMainPane() {
+		return kassaMainPane;
 	}
 }
