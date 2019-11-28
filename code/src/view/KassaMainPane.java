@@ -1,15 +1,15 @@
 package view;
 
 
+import controller.ArtikelController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import view.panels.ProductOverviewPane;
 
 public class KassaMainPane extends BorderPane {
-    private ProductOverviewPane productOverviewPane = new ProductOverviewPane();
-	public KassaMainPane(){
-		
+	public KassaMainPane(ArtikelController cont){
+        ProductOverviewPane productOverviewPane = new ProductOverviewPane(cont);
 	    TabPane tabPane = new TabPane(); 	    
         Tab kassaTab = new Tab("Kassa");
         Tab artikelTab = new Tab("Artikelen",productOverviewPane);
@@ -22,7 +22,4 @@ public class KassaMainPane extends BorderPane {
 	    this.setCenter(tabPane);
 	}
 
-    public ProductOverviewPane getProductOverviewPane() {
-        return productOverviewPane;
-    }
 }

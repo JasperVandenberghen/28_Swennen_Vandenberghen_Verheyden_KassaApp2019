@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import model.domain.Artikel;
 import view.panels.ProductOverviewPane;
 
@@ -14,9 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 public class ArtikelController {
-    private ProductOverviewPane productOverviewPane;
+    private Pane productOverviewPane;
+    ProductOverviewPane kassaMainPane;
 
-    public ArtikelController(ProductOverviewPane kassaMainPane) {
+    public void setKassaMainPane(ProductOverviewPane kassaMainPane) {
+        this.kassaMainPane = kassaMainPane;
+    }
+
+    public ArtikelController() {
         this.productOverviewPane = kassaMainPane;
         Map<String, Artikel> artikelen = new HashMap<>();
         Artikel a = new Artikel("3","choco","Belg",3,3);
@@ -47,6 +53,7 @@ public class ArtikelController {
         colVoorraad.setCellValueFactory(new PropertyValueFactory<Artikel, String>("Voorraad"));
         table.getColumns().addAll(colArtikelID, colArtikelNaam, colCat, colPrijs, colVoorraad);
     }
+
 
 
 }

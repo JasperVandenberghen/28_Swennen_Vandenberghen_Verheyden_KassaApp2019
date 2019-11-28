@@ -10,11 +10,11 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		KassaView kassaView = new KassaView();
+
 		KlantView klantView = new KlantView();
 
-		ArtikelController artikelController = new ArtikelController(kassaView.getKassaMainPane().getProductOverviewPane());
-
+		ArtikelController artikelController = new ArtikelController();
+		KassaView kassaView = new KassaView(artikelController);
 
 
 	}

@@ -1,5 +1,6 @@
 package view.panels;
 
+import controller.ArtikelController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,7 +18,7 @@ public class ProductOverviewPane extends GridPane {
 	private TableView<Artikel> table;
 	
 	
-	public ProductOverviewPane() {
+	public ProductOverviewPane(ArtikelController cont) {
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
