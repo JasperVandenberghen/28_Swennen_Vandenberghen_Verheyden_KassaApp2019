@@ -1,6 +1,6 @@
 package model.db;
 
-import model.Artikel;
+import model.domain.Artikel;
 
 import java.util.*;
 

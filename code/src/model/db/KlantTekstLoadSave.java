@@ -2,8 +2,8 @@ package model.db;
 
 
 
-import model.Artikel;
-import model.DomainException;
+import model.domain.Artikel;
+import model.domain.DomainException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
