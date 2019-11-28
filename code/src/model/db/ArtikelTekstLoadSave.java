@@ -10,10 +10,10 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate{
-    LoadSave loadSave;
-    public ArtikelTekstLoadSave(LoadSave l) {
-        this.loadSave = l;
+public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate {
+    LoadSaveStrategy loadSaveStrategy;
+    public ArtikelTekstLoadSave(LoadSaveStrategy l) {
+        this.loadSaveStrategy = l;
     }
 
     @Override
@@ -21,8 +21,9 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate{
         return "artikel.txt";
     }
 
+    @Override
     public Map<String, Artikel> load(){
-        ArrayList<ArrayList<String>> data = loadSave.load();
+        ArrayList<ArrayList<String>> data = loadSaveStrategy.load();
         Map<String, Artikel> artikelen = new HashMap<>();
 
         for(ArrayList<String> rij: data) {

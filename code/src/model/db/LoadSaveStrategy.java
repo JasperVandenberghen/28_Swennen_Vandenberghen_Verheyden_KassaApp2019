@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public interface LoadSave {
+public interface LoadSaveStrategy {
 
-    ArrayList<ArrayList<String>> load();
+    List<ArrayList<String>> load();
     void save(List list);
 
 }

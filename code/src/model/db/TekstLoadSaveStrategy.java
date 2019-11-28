@@ -3,7 +3,7 @@ package model.db;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TekstLoadSaveStrategy implements LoadSave {
+public class TekstLoadSaveStrategy implements LoadSaveStrategy {
     @Override
     public ArrayList<ArrayList<String>> load() {
         return null;

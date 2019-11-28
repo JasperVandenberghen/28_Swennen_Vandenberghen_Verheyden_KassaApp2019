@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class KlantTekstLoadSave extends TekstLoadSaveTemplate implements LoadSave{
+public class KlantTekstLoadSaveStrategy extends TekstLoadSaveStrategyTemplate implements LoadSaveStrategy {
 
 
     @Override

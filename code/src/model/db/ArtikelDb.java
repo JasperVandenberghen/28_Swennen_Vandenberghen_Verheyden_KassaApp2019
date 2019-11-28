@@ -6,10 +6,10 @@ import java.util.*;
 
 public class ArtikelDb implements Db{
     private Map<String, Artikel> artikelMap;
-    private LoadSave loadSave;
+    private LoadSaveStrategy loadSaveStrategy;
     public ArtikelDb(LoadSaveFactory loadSaveFactory) {
-        this.loadSave = loadSaveFactory.getLoadSave("artikel");
-        artikelMap = loadSave.load();
+        this.loadSaveStrategy = loadSaveFactory.getLoadSave("artikel");
+        artikelMap = loadSaveStrategy.load();
     }
 
     @Override

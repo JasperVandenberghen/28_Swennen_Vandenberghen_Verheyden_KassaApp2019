@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-abstract class TekstLoadSaveTemplate implements LoadSave {
+abstract class TekstLoadSaveTemplate implements LoadSaveStrategy {
 
     abstract String getFile();
 
@@ -39,7 +39,7 @@ abstract class TekstLoadSaveTemplate implements LoadSave {
 
     public void saveData(List list){
 
-    };
+    }
 
 
 }

@@ -9,15 +9,15 @@ public class LoadSaveFactory {
         this.typeLoadSave = typeLoadSave;
     }
 
-   public LoadSave getLoadSave(String objectToRead){
-        LoadSave loadSave = null;
+   public LoadSaveStrategy getLoadSave(String objectToRead){
+        LoadSaveStrategy loadSaveStrategy = null;
        try {
            Class handlerClass = Class.forName("model.db" + objectToRead + this.typeLoadSave + "LoadSave");
            Object handlerObject = handlerClass.getConstructor().newInstance();
-           loadSave = (LoadSave) handlerObject;
+           loadSaveStrategy = (LoadSaveStrategy) handlerObject;
        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
            throw new RuntimeException("The requested page could not be found");
        }
-       return loadSave;
+       return loadSaveStrategy;
    }
 }

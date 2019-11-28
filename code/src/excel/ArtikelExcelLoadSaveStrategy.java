@@ -1,15 +1,14 @@
 package excel;
 
-import model.db.LoadSave;
+import model.db.LoadSaveStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class ExcelLoadSaveStrategy implements LoadSave {
+public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
     ExcelPlugin excelPlugin;
 
-    public ExcelLoadSaveStrategy(ExcelPlugin excelPlugin) {
+    public ArtikelExcelLoadSaveStrategy(ExcelPlugin excelPlugin) {
         this.excelPlugin = excelPlugin;
     }
 
