@@ -21,7 +21,7 @@ public class KlantTekstLoadSaveStrategy extends TekstLoadSaveTemplate implements
     @Override
     public ArrayList<ArrayList<String>> load(){
         ArrayList<ArrayList<String>> data = load();
-        Map<String, Artikel> artikelen = new HashMap<>();
+        ArrayList<Artikel> artikelen = new ArrayList<>();
 
         for(ArrayList<String> rij: data) {
             ListIterator<String> it = rij.listIterator();
@@ -33,9 +33,9 @@ public class KlantTekstLoadSaveStrategy extends TekstLoadSaveTemplate implements
             double prijs = Double.parseDouble(prijsString);
             int voorraad = Integer.parseInt(voorraadString);
             Artikel artikel = new Artikel(artikelId,artikelNaam, artikelCat, prijs,voorraad);
-            artikelen.put(artikelId, artikel);
+            artikelen.add(artikel);
         }
-        return artikelen;
+        return data;
     }
 
     @Override
