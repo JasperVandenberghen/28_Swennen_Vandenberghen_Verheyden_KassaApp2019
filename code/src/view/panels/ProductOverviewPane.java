@@ -22,6 +22,7 @@ public class ProductOverviewPane extends GridPane {
         this.setHgap(5);
         
 		this.add(new Label("Products:"), 0, 0, 1, 1);
+		this.add(new Label("Products:"), 0, 0, 1, 1);
 
 		
 		
