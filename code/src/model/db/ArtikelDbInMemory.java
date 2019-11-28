@@ -7,8 +7,8 @@ import java.util.*;
 public class ArtikelDbInMemory implements ArtikelDbStrategy{
     private Map<String, Artikel> artikelMap;
     private LoadSaveStrategy loadSaveStrategy;
-    public ArtikelDbInMemory(LoadSaveFactory loadSaveFactory) {
-        this.loadSaveStrategy = loadSaveFactory.getLoadSave("artikel");
+    public ArtikelDbInMemory(LoadSaveStrategyFactory loadSaveFactory) {
+        this.loadSaveStrategy = loadSaveFactory.getLoadSave("tekst");
         artikelMap = loadSaveStrategy.load();
     }
 

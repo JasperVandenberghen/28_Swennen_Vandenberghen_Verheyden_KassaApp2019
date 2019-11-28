@@ -18,8 +18,4 @@ public interface ArtikelDbStrategy {
 
     int getAantalArtikelen();
 
-
-
-
-
 }

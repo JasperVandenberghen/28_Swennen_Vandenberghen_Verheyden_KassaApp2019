@@ -2,17 +2,12 @@ package model.db;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class LoadSaveFactory {
-    private String typeLoadSave;
+public class LoadSaveStrategyFactory {
 
-    public LoadSaveFactory(String typeLoadSave) {
-        this.typeLoadSave = typeLoadSave;
-    }
-
-   public LoadSaveStrategy getLoadSave(String objectToRead){
+   public LoadSaveStrategy getLoadSave(String typeLoadSaveStrategy){
         LoadSaveStrategy loadSaveStrategy = null;
        try {
-           Class handlerClass = Class.forName("model.db" + objectToRead + this.typeLoadSave + "LoadSave");
+           Class handlerClass = Class.forName("model.db" + typeLoadSaveStrategy + "LoadSave");
            Object handlerObject = handlerClass.getConstructor().newInstance();
            loadSaveStrategy = (LoadSaveStrategy) handlerObject;
        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
