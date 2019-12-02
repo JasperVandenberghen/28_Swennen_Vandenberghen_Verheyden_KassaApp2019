@@ -1,38 +1,45 @@
 package model.db;
 
 import model.domain.Artikel;
+import model.domain.DomainException;
 
 import java.util.*;
 
 public class ArtikelDbInMemory implements ArtikelDbStrategy{
-    private Map<String, Artikel> artikelMap;
+    private List<Artikel> artikelList;
     private LoadSaveStrategy loadSaveStrategy;
-    public ArtikelDbInMemory(LoadSaveStrategyFactory loadSaveFactory) {
-        this.loadSaveStrategy = loadSaveFactory.getLoadSave("tekst");
-        artikelMap = loadSaveStrategy.load();
+    public ArtikelDbInMemory(String typeLoadSaveStrategy) {
+        LoadSaveStrategyFactory loadSaveStrategyFactory = LoadSaveStrategyFactory.getInstance();
+        this.loadSaveStrategy = loadSaveStrategyFactory.getLoadSave(typeLoadSaveStrategy);
+
     }
 
     @Override
     public Artikel get(String id) {
         if(id == null){throw new DbException("Geen id meegegeven");}
-        return artikelMap.get(id);
+        for(Artikel artikel: artikelList){
+            if(artikel.getArtikelId().equalsIgnoreCase(id)){
+                return artikel;
+            }
+        }
+        throw new DomainException("Geen artikel gevonden met id " + id);
     }
 
     @Override
-    public Map<String, Artikel> getAll() {
-        return artikelMap;
+    public List<Artikel> getAll() {
+        return artikelList;
     }
 
     @Override
     public void add(Artikel artikel) {
         if(artikel == null){throw new DbException("Artikel mag niet leeg zijn.");}
-        artikelMap.put(artikel.getArtikelId(),artikel);
+        artikelList.put(artikel.getArtikelId(),artikel);
     }
 
     public void addMultiple(List<Artikel> list){
         if(list == null || list.size() == 0){throw new DbException("Geen artikelen om toe te voegen.");}
         for(Artikel a: list){
-            artikelMap.put(a.getArtikelId(), a);
+            artikelList.put(a.getArtikelId(), a);
         }
     }
 
@@ -44,11 +51,11 @@ public class ArtikelDbInMemory implements ArtikelDbStrategy{
     @Override
     public void delete(String id) {
         if(id == null){throw new DbException("Geen id meegegeven");}
-        artikelMap.remove(id);
+        artikelList.remove(id);
     }
 
     @Override
     public int getAantalArtikelen() {
-        return artikelMap.size();
+        return artikelList.size();
     }
 }

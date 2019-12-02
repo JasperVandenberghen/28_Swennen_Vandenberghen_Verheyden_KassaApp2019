@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate {
+public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate implements LoadSaveStrategy {
     LoadSaveStrategy loadSaveStrategy;
     public ArtikelTekstLoadSave(LoadSaveStrategy l) {
         this.loadSaveStrategy = l;
@@ -22,9 +22,10 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate {
     }
 
     @Override
-    public Map<String, Artikel> load(){
-        ArrayList<ArrayList<String>> data = loadSaveStrategy.load();
-        Map<String, Artikel> artikelen = new HashMap<>();
+    public ArrayList<Artikel> load(){
+
+        ArrayList<ArrayList<String>> data = (ArrayList<ArrayList<String>>) super.load();
+        ArrayList<Artikel> artikelen = new ArrayList<>();
 
         for(ArrayList<String> rij: data) {
             ListIterator<String> it = rij.listIterator();
@@ -36,7 +37,7 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate {
             double prijs = Double.parseDouble(prijsString);
             int voorraad = Integer.parseInt(voorraadString);
             Artikel artikel = new Artikel(artikelId,artikelNaam, artikelCat, prijs,voorraad);
-            artikelen.put(artikelId, artikel);
+            artikelen.add(artikel);
         }
         return artikelen;
     }

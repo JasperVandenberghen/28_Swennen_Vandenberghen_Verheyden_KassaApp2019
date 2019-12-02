@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-abstract class TekstLoadSaveTemplate implements LoadSaveStrategy {
+abstract class TekstLoadSaveTemplate implements LoadSaveStrategy{
 
     abstract String getFile();
 
-    public ArrayList<ArrayList<String>> load() {
+    public ArrayList<?> load() {
         try {
             Scanner scannerFile = initializeLoad();
             ArrayList<ArrayList<String>> info = new ArrayList<ArrayList<String>>();

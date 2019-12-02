@@ -10,7 +10,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-
+		String typeLoadSave = "Tekst";
 		KlantView klantView = new KlantView();
 
 		ArtikelController artikelController = new ArtikelController();
