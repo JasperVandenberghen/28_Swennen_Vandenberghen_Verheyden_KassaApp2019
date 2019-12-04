@@ -14,6 +14,8 @@ public class ArtikelDbInMemory implements ArtikelDbStrategy{
 
     }
 
+
+
     @Override
     public Artikel get(String id) {
         if(id == null){throw new DbException("Geen id meegegeven");}
@@ -33,13 +35,13 @@ public class ArtikelDbInMemory implements ArtikelDbStrategy{
     @Override
     public void add(Artikel artikel) {
         if(artikel == null){throw new DbException("Artikel mag niet leeg zijn.");}
-        artikelList.put(artikel.getArtikelId(),artikel);
+        artikelList.add(artikel);
     }
 
     public void addMultiple(List<Artikel> list){
         if(list == null || list.size() == 0){throw new DbException("Geen artikelen om toe te voegen.");}
         for(Artikel a: list){
-            artikelList.put(a.getArtikelId(), a);
+            artikelList.add(a);
         }
     }
 
