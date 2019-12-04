@@ -26,6 +26,8 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
         return ConversionToObjectList.convertToArtikelList(data);
     }
 
+
+
     @Override
     public void save(List list) {
 

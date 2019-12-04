@@ -1,6 +1,8 @@
 package model.db;
 
-import java.lang.reflect.InvocationTargetException;
+import model.domain.SaveEnum;
+
+
 
 public class LoadSaveStrategyFactory {
     private volatile static LoadSaveStrategyFactory uniqueInstance = new LoadSaveStrategyFactory();
@@ -9,13 +11,15 @@ public class LoadSaveStrategyFactory {
     }
 
     public LoadSaveStrategy getLoadSave(String typeLoadSaveStrategy){
+        SaveEnum saveEnum = SaveEnum.getSave(typeLoadSaveStrategy);
+        String klasseNaam = saveEnum.getKlasseNaam();
         LoadSaveStrategy loadSaveStrategy = null;
        try {
-           Class handlerClass = Class.forName("model.db.Artikel" + typeLoadSaveStrategy + "LoadSave");
-           Object handlerObject = handlerClass.getConstructor().newInstance();
-           loadSaveStrategy = (LoadSaveStrategy) handlerObject;
-       } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-           throw new RuntimeException("The requested page could not be found");
+           Class dbClass = Class.forName(klasseNaam);
+           Object dbObject = dbClass.getConstructor().newInstance();
+           loadSaveStrategy = (LoadSaveStrategy) dbObject;
+       } catch (Exception e) {
+           throw new DbException("Geen strategie met deze naam gevonden.");
        }
        return loadSaveStrategy;
    }
