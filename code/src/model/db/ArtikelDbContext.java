@@ -2,6 +2,7 @@ package model.db;
 
 import model.domain.Artikel;
 
+import java.util.List;
 import java.util.Map;
 
 public class ArtikelDbContext {

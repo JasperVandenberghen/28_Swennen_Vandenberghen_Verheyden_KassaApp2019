@@ -15,7 +15,7 @@ public class Main extends Application {
 
 		ArtikelController artikelController = new ArtikelController();
 		KassaView kassaView = new KassaView(artikelController);
-
+		artikelController.setArtikelenInView();
 
 	}
 	

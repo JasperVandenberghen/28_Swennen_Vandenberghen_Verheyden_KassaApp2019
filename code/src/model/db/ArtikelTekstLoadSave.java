@@ -11,9 +11,8 @@ import java.io.PrintWriter;
 import java.util.*;
 
 public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate implements LoadSaveStrategy {
-    LoadSaveStrategy loadSaveStrategy;
-    public ArtikelTekstLoadSave(LoadSaveStrategy l) {
-        this.loadSaveStrategy = l;
+    public ArtikelTekstLoadSave() {
+
     }
 
     @Override
@@ -25,21 +24,7 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate implements LoadS
     public ArrayList<Artikel> load(){
 
         ArrayList<ArrayList<String>> data = (ArrayList<ArrayList<String>>) super.load();
-        ArrayList<Artikel> artikelen = new ArrayList<>();
-
-        for(ArrayList<String> rij: data) {
-            ListIterator<String> it = rij.listIterator();
-            String artikelId = it.next();
-            String artikelNaam = it.next();
-            String artikelCat = it.next();
-            String prijsString = it.next();
-            String voorraadString = it.next();
-            double prijs = Double.parseDouble(prijsString);
-            int voorraad = Integer.parseInt(voorraadString);
-            Artikel artikel = new Artikel(artikelId,artikelNaam, artikelCat, prijs,voorraad);
-            artikelen.add(artikel);
-        }
-        return artikelen;
+        return ConversionToObjectList.convertToArtikelList(data);
     }
 
     @Override

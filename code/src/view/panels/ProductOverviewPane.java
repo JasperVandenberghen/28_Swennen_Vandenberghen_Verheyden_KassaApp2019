@@ -27,8 +27,7 @@ public class ProductOverviewPane extends GridPane {
         
 		this.add(new Label("Products:"), 0, 0, 1, 1);
 		this.add(table, 0,1);
-
-		
+		cont.setView(this);
 		
 	}
 

@@ -31,6 +31,10 @@ public class Artikel {
         this.artikelNaam = artikelNaam;
     }
 
+    public String getCategorie() {
+        return categorie;
+    }
+
     private void setCategorie(String categorie) {
         this.categorie = categorie;
     }
