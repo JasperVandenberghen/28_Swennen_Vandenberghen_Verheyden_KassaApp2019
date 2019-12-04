@@ -18,17 +18,14 @@ public class ArtikelController {
 
     private ProductOverviewPane kassaMainPane = new ProductOverviewPane();
 
-    public void setKassaMainPane(ProductOverviewPane kassaMainPane) {
-        this.kassaMainPane = kassaMainPane;
-    }
+
 
     public ArtikelController() {
 
         Map<String, Artikel> artikelen = new HashMap<>();
         Artikel a = new Artikel("3","choco","Belg",3,3);
         artikelen.put(a.getArtikelId(), a);
-        ObservableList<Artikel> observableList;
-        observableList = FXCollections.observableArrayList();
+        List<Artikel> observableList = FXCollections.observableArrayList();
         Iterator it = artikelen.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry thisEntry = (Map.Entry) it.next();
@@ -38,12 +35,8 @@ public class ArtikelController {
 
 
 
-
-
-        setKassaMainPane(kassaMainPane);
-
         TableView<Artikel> table = kassaMainPane.getTable();
-        table.setItems(observableList);
+        table.setItems((ObservableList<Artikel>) observableList);
         TableColumn<Artikel, String> colArtikelID = new TableColumn<Artikel, String>("ArtikelId");
         colArtikelID.setMinWidth(200);
         colArtikelID.setCellValueFactory(new PropertyValueFactory<Artikel, String>("artikelId"));
@@ -60,6 +53,14 @@ public class ArtikelController {
         colVoorraad.setMinWidth(40);
         colVoorraad.setCellValueFactory(new PropertyValueFactory<Artikel, String>("voorraad"));
         table.getColumns().addAll(colArtikelID, colArtikelNaam, colCat, colPrijs, colVoorraad);
+    }
+
+    public void setKassaMainPane(ProductOverviewPane kassaMainPane) {
+        this.kassaMainPane = kassaMainPane;
+    }
+
+    public ProductOverviewPane getKassaMainPane() {
+        return kassaMainPane;
     }
 
 
