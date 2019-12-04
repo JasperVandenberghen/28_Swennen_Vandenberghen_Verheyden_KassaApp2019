@@ -15,13 +15,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ArtikelController {
+    private ProductOverviewPane productOverviewPane;
 
-    private ProductOverviewPane kassaMainPane = new ProductOverviewPane();
-
-
+    public void setView(ProductOverviewPane productOverviewPane){
+        this.productOverviewPane = productOverviewPane;
+    }
 
     public ArtikelController() {
 
+    }
+
+    public void setArtikelenInView(){
         Map<String, Artikel> artikelen = new HashMap<>();
         Artikel a = new Artikel("3","choco","Belg",3,3);
         artikelen.put(a.getArtikelId(), a);
@@ -32,10 +36,7 @@ public class ArtikelController {
             Artikel value = (Artikel) thisEntry.getValue();
             observableList.add(value);
         }
-
-
-
-        TableView<Artikel> table = kassaMainPane.getTable();
+        TableView<Artikel> table = productOverviewPane.getTable();
         table.setItems((ObservableList<Artikel>) observableList);
         TableColumn<Artikel, String> colArtikelID = new TableColumn<Artikel, String>("ArtikelId");
         colArtikelID.setMinWidth(200);
@@ -54,15 +55,6 @@ public class ArtikelController {
         colVoorraad.setCellValueFactory(new PropertyValueFactory<Artikel, String>("voorraad"));
         table.getColumns().addAll(colArtikelID, colArtikelNaam, colCat, colPrijs, colVoorraad);
     }
-
-    public void setKassaMainPane(ProductOverviewPane kassaMainPane) {
-        this.kassaMainPane = kassaMainPane;
-    }
-
-    public ProductOverviewPane getKassaMainPane() {
-        return kassaMainPane;
-    }
-
 
 
 }
