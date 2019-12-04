@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 abstract class TekstLoadSaveTemplate implements LoadSaveStrategy{
 
-    abstract String getFile();
+    public abstract String getFile();
 
     public ArrayList<?> load() {
         try {

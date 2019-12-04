@@ -16,7 +16,7 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate implements LoadS
     }
 
     @Override
-    String getFile() {
+    public String getFile() {
         return "artikel.txt";
     }
 

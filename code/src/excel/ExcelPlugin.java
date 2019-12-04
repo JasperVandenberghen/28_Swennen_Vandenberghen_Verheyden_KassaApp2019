@@ -2,7 +2,7 @@ package excel;
 
 
 public class ExcelPlugin {
-    public void writee(){
+    public void write(){
 
     }
 }
