@@ -27,7 +27,8 @@ public class ArtikelController {
         Map<String, Artikel> artikelen = new HashMap<>();
         Artikel a = new Artikel("3","choco","Belg",3,3);
         artikelen.put(a.getArtikelId(), a);
-        List<Artikel> observableList = FXCollections.observableArrayList();
+        ObservableList<Artikel> observableList;
+        observableList = FXCollections.observableArrayList();
         Iterator it = artikelen.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry thisEntry = (Map.Entry) it.next();
@@ -35,8 +36,14 @@ public class ArtikelController {
             observableList.add(value);
         }
 
+
+
+
+
+        setKassaMainPane(kassaMainPane);
+
         TableView<Artikel> table = kassaMainPane.getTable();
-        table.setItems((ObservableList<Artikel>) observableList);
+        table.setItems(observableList);
         TableColumn<Artikel, String> colArtikelID = new TableColumn<Artikel, String>("ArtikelId");
         colArtikelID.setMinWidth(200);
         colArtikelID.setCellValueFactory(new PropertyValueFactory<Artikel, String>("artikelId"));
