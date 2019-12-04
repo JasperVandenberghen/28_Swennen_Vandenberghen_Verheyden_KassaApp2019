@@ -15,15 +15,15 @@ import java.util.List;
 import java.util.Map;
 
 public class ArtikelController {
-    private Pane productOverviewPane;
-    ProductOverviewPane kassaMainPane;
+
+    private ProductOverviewPane kassaMainPane = new ProductOverviewPane();
 
     public void setKassaMainPane(ProductOverviewPane kassaMainPane) {
         this.kassaMainPane = kassaMainPane;
     }
 
     public ArtikelController() {
-        this.productOverviewPane = kassaMainPane;
+
         Map<String, Artikel> artikelen = new HashMap<>();
         Artikel a = new Artikel("3","choco","Belg",3,3);
         artikelen.put(a.getArtikelId(), a);

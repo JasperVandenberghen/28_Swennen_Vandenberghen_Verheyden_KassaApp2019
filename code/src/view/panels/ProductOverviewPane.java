@@ -32,6 +32,10 @@ public class ProductOverviewPane extends GridPane {
 		
 	}
 
+	public ProductOverviewPane() {
+
+	}
+
 	public TableView<Artikel> getTable() {
 		return table;
 	}
