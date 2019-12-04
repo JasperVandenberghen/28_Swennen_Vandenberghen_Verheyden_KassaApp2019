@@ -22,4 +22,6 @@ public class KassaMainPane extends BorderPane {
 	    this.setCenter(tabPane);
 	}
 
+
+
 }

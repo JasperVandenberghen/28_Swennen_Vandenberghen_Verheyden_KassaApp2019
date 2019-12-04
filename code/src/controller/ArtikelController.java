@@ -34,6 +34,7 @@ public class ArtikelController {
             Artikel value = (Artikel) thisEntry.getValue();
             observableList.add(value);
         }
+
         TableView<Artikel> table = kassaMainPane.getTable();
         table.setItems((ObservableList<Artikel>) observableList);
         TableColumn<Artikel, String> colArtikelID = new TableColumn<Artikel, String>("ArtikelId");
