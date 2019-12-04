@@ -5,7 +5,6 @@ import model.db.ConversionToObjectList;
 import model.db.LoadSaveStrategy;
 import model.domain.Artikel;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +15,8 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
     private String file;
 
 
-    public ArtikelExcelLoadSaveStrategy(ExcelPluginCode excelPlugin) {
-        this.excelPlugin = excelPlugin;
+    public ArtikelExcelLoadSaveStrategy() {
+        excelPlugin = new ExcelPluginCode();
     }
 
     @Override
