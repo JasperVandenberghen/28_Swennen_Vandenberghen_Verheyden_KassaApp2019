@@ -46,4 +46,8 @@ public class KassaKlantController implements Observer {
         }
         this.kassaKlantPane.setTotaal(totaal);
     }
+
+    public KassaKlantPane getKassaKlantPane() {
+        return kassaKlantPane;
+    }
 }

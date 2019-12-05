@@ -2,17 +2,17 @@ package view;
 
 
 import controller.ArtikelController;
+import controller.KassaKassierController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import view.panels.ProductOverviewPane;
 
 public class KassaMainPane extends BorderPane {
-	public KassaMainPane(ArtikelController cont){
-        ProductOverviewPane productOverviewPane = new ProductOverviewPane(cont);
+	public KassaMainPane(ArtikelController artikelController, KassaKassierController kassaKassierController){
 	    TabPane tabPane = new TabPane(); 	    
-        Tab kassaTab = new Tab("Kassa");
-        Tab artikelTab = new Tab("Artikelen",productOverviewPane);
+      Tab kassaTab = new Tab("Kassa", kassaKassierController.getKassaKassierPane());
+        Tab artikelTab = new Tab("Artikelen",artikelController.getProductOverviewPane());
         Tab instellingTab = new Tab("Instellingen");
         Tab logTab = new Tab("Log");
         tabPane.getTabs().add(kassaTab);

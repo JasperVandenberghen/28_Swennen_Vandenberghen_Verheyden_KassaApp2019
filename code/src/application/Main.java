@@ -21,18 +21,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		String typeDb = "InMemory";
 		String typeLoadSave = "Text";
-		KlantView klantView = new KlantView();
 
 		// DB INITIATION
 		ArtikelDbContext artikelDbContext = new ArtikelDbContext(typeDb, typeLoadSave);
 		Map<String, Artikel> artikelMap = artikelDbContext.getAll();
-
-
-
-		// TAB ARTIKELEN
-		ArtikelController artikelController = new ArtikelController(artikelMap);
-		KassaView kassaView = new KassaView(artikelController);
-		artikelController.setArtikelenInView();
 
 		// TAB KASSA
 		ArtikelData artikelData = new ArtikelData();
@@ -42,6 +34,14 @@ public class Main extends Application {
 
 		KassaKlantController kassaKlantController = new KassaKlantController(artikelMap);
 		KassaKlantPane kassaKlantPane = new KassaKlantPane(kassaKlantController);
+
+		// TAB ARTIKELEN
+		ArtikelController artikelController = new ArtikelController(artikelMap);
+		KassaView kassaView = new KassaView(artikelController, kassaKassierController);
+		artikelController.setArtikelenInView();
+
+
+		KlantView klantView = new KlantView(kassaKlantController);
 
 	}
 	

@@ -9,12 +9,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class ArtikelController {
+public class ArtikelController{
     private ProductOverviewPane productOverviewPane;
     private Map<String, Artikel> artikelen;
 
     public void setView(ProductOverviewPane productOverviewPane){
         this.productOverviewPane = productOverviewPane;
+    }
+
+    public ProductOverviewPane getProductOverviewPane(){
+        return productOverviewPane;
     }
 
     public ArtikelController(Map<String, Artikel> artikelen) {
