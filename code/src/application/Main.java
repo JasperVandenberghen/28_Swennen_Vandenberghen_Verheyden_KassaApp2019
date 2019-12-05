@@ -46,7 +46,6 @@ public class Main extends Application {
 		KassaKlantController kassaKlantController = new KassaKlantController(artikelMap);
 		KassaKlantPane kassaKlantPane = new KassaKlantPane(kassaKlantController);
 
-
 	}
 	
 	public static void main(String[] args) {
