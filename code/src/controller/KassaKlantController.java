@@ -24,6 +24,7 @@ public class KassaKlantController implements Observer {
 
     public void setView(KassaKlantPane kassaKlantPane) {
         this.kassaKlantPane = kassaKlantPane;
+        this.kassaKlantPane.setObservableList(artikelenInKassa);
     }
 
     @Override
