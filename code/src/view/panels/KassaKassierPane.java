@@ -1,7 +1,6 @@
 package view.panels;
 
 import controller.KassaKassierController;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -10,7 +9,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import model.domain.Artikel;
 import model.domain.ArtikelContainer;
 
 import java.util.List;
@@ -39,9 +37,9 @@ public class KassaKassierPane extends GridPane {
 		this.add(totaal, 0,3);
 		cont.setView(this);
 
-		inputArtikel.setOnAction(){
+		/*inputArtikel.setOnAction() {
 			cont.setNieuwArtikel(inputArtikel.getText());
-		};
+		};*/
 
 	}
 
