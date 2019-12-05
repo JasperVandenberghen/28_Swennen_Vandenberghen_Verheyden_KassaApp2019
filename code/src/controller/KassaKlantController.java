@@ -19,7 +19,7 @@ public class KassaKlantController implements Observer {
 
     public KassaKlantController(Map<String, Artikel> artikelMap) {
         this.artikelMap = artikelMap;
-        artikelenInKassa = ConversionToObjectList.convertArtikelenMapToObservableArtikelenList(artikelMap);
+        artikelenInKassa = FXCollections.observableArrayList();
     }
 
     public void setView(KassaKlantPane kassaKlantPane) {

@@ -10,6 +10,7 @@ import view.panels.ProductOverviewPane;
 
 public class KassaMainPane extends BorderPane {
 	public KassaMainPane(ArtikelController artikelController, KassaKassierController kassaKassierController){
+        ProductOverviewPane productOverviewPane = new ProductOverviewPane(artikelController);
 	    TabPane tabPane = new TabPane(); 	    
       Tab kassaTab = new Tab("Kassa", kassaKassierController.getKassaKassierPane());
         Tab artikelTab = new Tab("Artikelen",artikelController.getProductOverviewPane());

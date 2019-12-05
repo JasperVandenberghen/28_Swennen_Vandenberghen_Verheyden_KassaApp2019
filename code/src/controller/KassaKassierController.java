@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import model.db.ConversionToObjectList;
 import model.domain.Artikel;
 import model.domain.ArtikelContainer;
@@ -20,7 +21,7 @@ public class KassaKassierController implements Observer {
     public KassaKassierController(Map<String, Artikel> artikelMap, ArtikelData artikelData) {
         this.artikelMap = artikelMap;
         this.artikelData = artikelData;
-        artikelenInKassa = ConversionToObjectList.convertArtikelenMapToObservableArtikelenList(artikelMap);
+        artikelenInKassa = FXCollections.observableArrayList();
     }
 
     public void setView(KassaKassierPane kassaKassierPane){

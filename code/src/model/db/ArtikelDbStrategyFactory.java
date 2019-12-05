@@ -18,8 +18,6 @@ public class ArtikelDbStrategyFactory {
             Constructor<?> c = dbClass.getConstructor(String.class);
             artikelDbStrategy = new ArtikelDbInMemory(typeLoadSave);
             Object dbObject = c.newInstance(typeLoadSave);
-            System.out.println('t');
-            System.out.println(dbObject);
             artikelDbStrategy = (ArtikelDbStrategy) dbObject;
         } catch (Exception e) {
             throw new DbException("The requested strategy could not be found");

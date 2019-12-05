@@ -12,6 +12,7 @@ import view.KassaView;
 import view.KlantView;
 import view.panels.KassaKassierPane;
 import view.panels.KassaKlantPane;
+import view.panels.ProductOverviewPane;
 
 import java.util.Map;
 
@@ -42,7 +43,6 @@ public class Main extends Application {
 
 
 		KlantView klantView = new KlantView(kassaKlantController);
-		System.out.println("hll");
 	}
 	
 	public static void main(String[] args) {

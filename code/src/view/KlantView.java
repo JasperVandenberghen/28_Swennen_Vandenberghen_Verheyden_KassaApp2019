@@ -16,7 +16,7 @@ public class KlantView {
 		stage.setY(20);
 		Group root = new Group();
 		Scene scene = new Scene(root, 500, 500);
-//		root.getChildren().add(kassaKlantController.getKassaKlantPane());
+		root.getChildren().add(kassaKlantController.getKassaKlantPane());
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		
