@@ -1,10 +1,9 @@
 package model.db;
 
-import javafx.collections.FXCollections;
 import model.domain.Artikel;
-import model.domain.ArtikelContainer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
 public class ConversionToObjectList {
     public static ArrayList<Artikel> convertToArtikelList(ArrayList<ArrayList<String>> data){
@@ -23,16 +22,5 @@ public class ConversionToObjectList {
             artikelen.add(artikel);
         }
         return artikelen;
-    }
-
-    public static List<ArtikelContainer> convertArtikelenMapToObservableArtikelenList(Map<String, Artikel> artikelMap){
-        List<ArtikelContainer> observableList = FXCollections.observableArrayList();
-        Iterator it = artikelMap.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry thisEntry = (Map.Entry) it.next();
-            ArtikelContainer value = (ArtikelContainer) thisEntry.getValue();
-            observableList.add(value);
-        }
-        return observableList;
     }
 }

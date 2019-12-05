@@ -8,9 +8,9 @@ import java.util.Map;
 public class ArtikelDbContext {
     private Map<String, Artikel> artikelMap;
     private ArtikelDbStrategy artikelDbStrategy;
-    public ArtikelDbContext(String typeArtikelDbStrategy, String typeLoadSaveStrategy) {
+    public ArtikelDbContext(String typeArtikelDbStrategy) {
         ArtikelDbStrategyFactory artikelDbStrategyFactory = ArtikelDbStrategyFactory.getInstance();
-        this.artikelDbStrategy = artikelDbStrategyFactory.getArtikelDbStrategy(typeArtikelDbStrategy, typeLoadSaveStrategy);
+        this.artikelDbStrategy = artikelDbStrategyFactory.getArtikelDbStrategy(typeArtikelDbStrategy);
     }
 
     public Artikel get(String id) {
