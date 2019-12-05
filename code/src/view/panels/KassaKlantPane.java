@@ -15,20 +15,10 @@ import model.domain.ArtikelContainer;
 import java.util.List;
 
 
-public class KassaKlantPane extends GridPane {
-	private TableView<ArtikelContainer> table;
-	private List<ArtikelContainer> observableList;
-	private Label totaal;
-
+public class KassaKlantPane extends KassaViewTemplate {
 
 	public KassaKlantPane(KassaKlantController cont) {
-		this.setPadding(new Insets(5, 5, 5, 5));
-        this.setVgap(5);
-        this.setHgap(5);
-
-        this.table = new TableView<>();
-		this.totaal = new Label("0");
-
+		super();
 		this.add(new Label("Products:"), 0, 0, 1, 1);
 		this.add(table, 0,1);
 		this.add(totaal, 0,2);
@@ -51,9 +41,6 @@ public class KassaKlantPane extends GridPane {
 		table.getColumns().addAll(colAantal, colArtikelNaam, colPrijs);
 	}
 
-	public KassaKlantPane() {
-
-	}
 	public void setTotaal(double totaal) {
 		this.totaal.setText(Double.toString(totaal));
 	}

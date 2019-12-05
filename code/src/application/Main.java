@@ -33,7 +33,7 @@ public class Main extends Application {
 		KassaKassierController kassaKassierController = new KassaKassierController(artikelMap, artikelData);
 		KassaKassierPane kassaKassierPane = new KassaKassierPane(kassaKassierController);
 
-		KassaKlantController kassaKlantController = new KassaKlantController(artikelMap);
+		KassaKlantController kassaKlantController = new KassaKlantController(artikelMap, artikelData);
 		KassaKlantPane kassaKlantPane = new KassaKlantPane(kassaKlantController);
 
 		// TAB ARTIKELEN

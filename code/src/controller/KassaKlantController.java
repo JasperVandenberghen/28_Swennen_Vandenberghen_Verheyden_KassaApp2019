@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import model.db.ConversionToObjectList;
 import model.domain.Artikel;
 import model.domain.ArtikelContainer;
+import model.domain.ArtikelData;
 import model.domain.Observer;
 import view.panels.KassaKlantPane;
 
@@ -17,9 +18,10 @@ public class KassaKlantController implements Observer {
     private KassaKlantPane kassaKlantPane;
     private double totaal;
 
-    public KassaKlantController(Map<String, Artikel> artikelMap) {
+    public KassaKlantController(Map<String, Artikel> artikelMap, ArtikelData artikelData) {
         this.artikelMap = artikelMap;
         artikelenInKassa = FXCollections.observableArrayList();
+        artikelData.registerObserver(this);
     }
 
     public void setView(KassaKlantPane kassaKlantPane) {
@@ -30,11 +32,13 @@ public class KassaKlantController implements Observer {
     @Override
     public void update(String artikelId) {
         ArtikelContainer artikelGevondenInKassa = null;
+        int index = 0;
         for(ArtikelContainer artikelContainer:artikelenInKassa){
             if(artikelContainer.getArtikelId().equalsIgnoreCase(artikelId)){
                 artikelGevondenInKassa = artikelContainer;
                 break;
             }
+            index++;
         }
         if(artikelGevondenInKassa==null){
             ArtikelContainer artikelContainer = new ArtikelContainer(artikelMap.get(artikelId));
@@ -42,6 +46,7 @@ public class KassaKlantController implements Observer {
             totaal += artikelContainer.getPrijs();
         } else{
             artikelGevondenInKassa.verhoogAantal();
+            artikelenInKassa.set(index, artikelGevondenInKassa);
             totaal += artikelGevondenInKassa.getPrijs();
         }
         this.kassaKlantPane.setTotaal(totaal);

@@ -21,6 +21,7 @@ public class KassaKassierController implements Observer {
     public KassaKassierController(Map<String, Artikel> artikelMap, ArtikelData artikelData) {
         this.artikelMap = artikelMap;
         this.artikelData = artikelData;
+        artikelData.registerObserver(this);
         artikelenInKassa = FXCollections.observableArrayList();
     }
 
