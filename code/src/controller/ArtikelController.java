@@ -18,7 +18,7 @@ public class ArtikelController {
     }
 
     public ArtikelController(Map<String, Artikel> artikelen) {
-        this.artikelen = artikelen = new HashMap<>();
+        this.artikelen = artikelen;
     }
 
     public void setArtikelen(Map<String, Artikel> artikelen) {
@@ -27,6 +27,7 @@ public class ArtikelController {
 
     public void setArtikelenInView(){
         List<Artikel> observableList = FXCollections.observableArrayList();
+        System.out.println(artikelen);
         Iterator it = artikelen.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry thisEntry = (Map.Entry) it.next();
@@ -34,6 +35,7 @@ public class ArtikelController {
             observableList.add(value);
         }
         productOverviewPane.setObservableList(observableList);
+        System.out.println(observableList);
     }
 
 

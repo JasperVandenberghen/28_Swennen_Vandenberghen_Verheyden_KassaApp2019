@@ -33,8 +33,10 @@ public class ProductOverviewPane extends GridPane {
 		this.add(new Label("Products:"), 0, 0, 1, 1);
 		this.add(table, 0,1);
 		cont.setView(this);
+	}
 
-		observableList = FXCollections.observableArrayList();
+	public void setObservableList(List<Artikel> observableList) {
+		this.observableList = observableList;
 		table.setItems((javafx.collections.ObservableList<model.domain.Artikel>)observableList);
 		TableColumn<Artikel, String> colArtikelID = new TableColumn<Artikel, String>("ArtikelId");
 		colArtikelID.setMinWidth(200);
@@ -52,11 +54,7 @@ public class ProductOverviewPane extends GridPane {
 		colVoorraad.setMinWidth(40);
 		colVoorraad.setCellValueFactory(new PropertyValueFactory<Artikel, String>("voorraad"));
 		table.getColumns().addAll(colArtikelID, colArtikelNaam, colCat, colPrijs, colVoorraad);
-		
-	}
 
-	public void setObservableList(List<Artikel> observableList) {
-		this.observableList = observableList;
 	}
 
 	public ProductOverviewPane() {
