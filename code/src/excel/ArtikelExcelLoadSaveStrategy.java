@@ -21,8 +21,13 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
     }
 
     @Override
-    public ArrayList<Artikel> load() throws IOException, BiffException {
-        ArrayList<ArrayList<String>> data = excelPlugin.read(new File(getFile()));
+    public ArrayList<Artikel> load() {
+        ArrayList<ArrayList<String>> data = null;
+        try {
+            data = excelPlugin.read(new File(getFile()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return ConversionToObjectList.convertToArtikelList(data);
     }
 
