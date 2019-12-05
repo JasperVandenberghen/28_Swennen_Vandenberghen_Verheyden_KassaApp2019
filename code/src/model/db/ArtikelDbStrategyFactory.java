@@ -1,5 +1,7 @@
 package model.db;
 
+import model.domain.ArtikelDbEnum;
+
 import java.lang.reflect.InvocationTargetException;
 
 public class ArtikelDbStrategyFactory {
@@ -7,11 +9,13 @@ public class ArtikelDbStrategyFactory {
     private ArtikelDbStrategyFactory() {
     }
 
-    public ArtikelDbStrategy getArtikelDbStrategy(String type){
+    public ArtikelDbStrategy getArtikelDbStrategy(String typeDb, String typeLoadSave){
+        ArtikelDbEnum dbEnum = ArtikelDbEnum.getSave(typeDb);
+        String klasseNaam = dbEnum.getKlasseNaam();
         ArtikelDbStrategy artikelDbStrategy = null;
         try {
-            Class handlerClass = Class.forName("model.db.ArtikelDb" + type);
-            Object handlerObject = handlerClass.getConstructor().newInstance();
+            Class handlerClass = Class.forName(klasseNaam);
+            Object handlerObject = handlerClass.getConstructor(String.class).newInstance(typeLoadSave);
             artikelDbStrategy = (ArtikelDbStrategy) handlerObject;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             throw new RuntimeException("The requested page could not be found");

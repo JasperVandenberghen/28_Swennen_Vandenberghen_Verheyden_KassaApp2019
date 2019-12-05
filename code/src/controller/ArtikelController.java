@@ -16,19 +16,21 @@ import java.util.Map;
 
 public class ArtikelController {
     private ProductOverviewPane productOverviewPane;
+    private Map<String, Artikel> artikelen;
 
     public void setView(ProductOverviewPane productOverviewPane){
         this.productOverviewPane = productOverviewPane;
     }
 
-    public ArtikelController() {
+    public ArtikelController(Map<String, Artikel> artikelen) {
+        this.artikelen = artikelen;
+    }
 
+    public void setArtikelen(Map<String, Artikel> artikelen) {
+        this.artikelen = artikelen;
     }
 
     public void setArtikelenInView(){
-        Map<String, Artikel> artikelen = new HashMap<>();
-        Artikel a = new Artikel("3","choco","Belg",3,3);
-        artikelen.put(a.getArtikelId(), a);
         List<Artikel> observableList = FXCollections.observableArrayList();
         Iterator it = artikelen.entrySet().iterator();
         while(it.hasNext()){
@@ -36,24 +38,7 @@ public class ArtikelController {
             Artikel value = (Artikel) thisEntry.getValue();
             observableList.add(value);
         }
-        TableView<Artikel> table = productOverviewPane.getTable();
-        table.setItems((ObservableList<Artikel>) observableList);
-        TableColumn<Artikel, String> colArtikelID = new TableColumn<Artikel, String>("ArtikelId");
-        colArtikelID.setMinWidth(200);
-        colArtikelID.setCellValueFactory(new PropertyValueFactory<Artikel, String>("artikelId"));
-        TableColumn<Artikel, String> colArtikelNaam = new TableColumn<Artikel, String>("Artikel Naam");
-        colArtikelNaam.setMinWidth(200);
-        colArtikelNaam.setCellValueFactory(new PropertyValueFactory<Artikel, String>("artikelNaam"));
-        TableColumn<Artikel, String> colCat = new TableColumn<Artikel, String>("Categorie");
-        colCat.setMinWidth(200);
-        colCat.setCellValueFactory(new PropertyValueFactory<Artikel, String>("categorie"));
-        TableColumn<Artikel, String> colPrijs = new TableColumn<Artikel, String>("Prijs");
-        colPrijs.setMinWidth(40);
-        colPrijs.setCellValueFactory(new PropertyValueFactory<Artikel, String>("prijs"));
-        TableColumn<Artikel, String> colVoorraad = new TableColumn<Artikel, String>("Voorraad");
-        colVoorraad.setMinWidth(40);
-        colVoorraad.setCellValueFactory(new PropertyValueFactory<Artikel, String>("voorraad"));
-        table.getColumns().addAll(colArtikelID, colArtikelNaam, colCat, colPrijs, colVoorraad);
+        productOverviewPane.setObservableList(observableList);
     }
 
 
