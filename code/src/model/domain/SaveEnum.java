@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum SaveEnum {
     EXCEL ("Excel", "excel.ArtikelExcelLoadSaveStrategy"),
-    TXT ("Text", "db.ArtikelTekstLoadSave");
+    TXT ("Text", "model.db.ArtikelTekstLoadSave");
 
 
     private final String omschrijving;

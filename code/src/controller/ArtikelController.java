@@ -1,11 +1,6 @@
 package controller;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import model.domain.Artikel;
 import view.panels.ProductOverviewPane;
 
@@ -23,7 +18,7 @@ public class ArtikelController {
     }
 
     public ArtikelController(Map<String, Artikel> artikelen) {
-        this.artikelen = artikelen;
+        this.artikelen = artikelen = new HashMap<>();
     }
 
     public void setArtikelen(Map<String, Artikel> artikelen) {

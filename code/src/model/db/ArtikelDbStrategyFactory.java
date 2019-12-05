@@ -2,8 +2,6 @@ package model.db;
 
 import model.domain.ArtikelDbEnum;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class ArtikelDbStrategyFactory {
     private volatile static ArtikelDbStrategyFactory uniqueInstance = new ArtikelDbStrategyFactory();
     private ArtikelDbStrategyFactory() {
@@ -14,11 +12,11 @@ public class ArtikelDbStrategyFactory {
         String klasseNaam = dbEnum.getKlasseNaam();
         ArtikelDbStrategy artikelDbStrategy = null;
         try {
-            Class handlerClass = Class.forName(klasseNaam);
-            Object handlerObject = handlerClass.getConstructor(String.class).newInstance(typeLoadSave);
-            artikelDbStrategy = (ArtikelDbStrategy) handlerObject;
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            throw new RuntimeException("The requested page could not be found");
+            Class dbClass = Class.forName(klasseNaam);
+            Object dbObject = dbClass.getConstructor(String.class).newInstance(typeLoadSave);
+            artikelDbStrategy = (ArtikelDbStrategy) dbObject;
+        } catch (Exception e) {
+            throw new DbException("The requested strategy could not be found");
         }
         return artikelDbStrategy;
     }
