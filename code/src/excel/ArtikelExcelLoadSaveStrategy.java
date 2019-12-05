@@ -15,7 +15,6 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
     private ExcelPlugin excelPlugin;
     private String file;
 
-
     public ArtikelExcelLoadSaveStrategy() {
         excelPlugin = new ExcelPlugin();
     }

@@ -1,8 +1,6 @@
 package controller;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import model.db.ConversionToObjectList;
 import model.domain.Artikel;
 import model.domain.ArtikelContainer;
 import model.domain.ArtikelData;
@@ -51,6 +49,15 @@ public class KassaKlantController implements Observer {
         }
         this.kassaKlantPane.setTotaal(totaal);
     }
+
+    public void remove(String artikelId){
+        if(artikelenInKassa.contains(artikelId)){
+            artikelenInKassa.removeIf(a -> artikelId.equals(a.getArtikelId()));
+        } else {
+            throw new IllegalArgumentException("Dit artikel zit niet in de kassa");
+        }
+        }
+
 
     public KassaKlantPane getKassaKlantPane() {
         return kassaKlantPane;

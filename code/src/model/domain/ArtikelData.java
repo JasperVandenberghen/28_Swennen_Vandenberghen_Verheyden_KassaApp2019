@@ -13,7 +13,7 @@ public class ArtikelData implements Observable {
 
     public void setArtikelId(String artikelId) {
         this.artikelId = artikelId;
-        notifyObservers();
+        updateObservers();
     }
 
     @Override
@@ -27,14 +27,25 @@ public class ArtikelData implements Observable {
         if (i >= 0) {
             observers.remove(i);
         }
+    }
 
+    public void deleteObserver(){
+        for (int i = 0; i < observers.size(); i++) {
+            Observer observer = (Observer) observers.get(i);
+            observer.remove(artikelId);}
     }
 
     @Override
     public void notifyObservers() {
+
+    }
+
+
+    public void updateObservers() {
         for (int i = 0; i < observers.size(); i++) {
             Observer observer = (Observer) observers.get(i);
             observer.update(artikelId);
+
         }
     }
 }

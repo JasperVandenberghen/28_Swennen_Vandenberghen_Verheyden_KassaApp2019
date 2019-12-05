@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.collections.FXCollections;
-import model.db.ConversionToObjectList;
 import model.domain.Artikel;
 import model.domain.ArtikelContainer;
 import model.domain.ArtikelData;
@@ -38,6 +37,8 @@ public class KassaKassierController implements Observer {
         return kassaKassierPane;
     }
 
+
+
     @Override
         public void update(String artikelId) {
             ArtikelContainer artikelContainer = new ArtikelContainer(artikelMap.get(artikelId));
@@ -45,4 +46,11 @@ public class KassaKassierController implements Observer {
             totaal += artikelContainer.getPrijs();
             this.kassaKassierPane.setTotaal(totaal);
         }
+
+    @Override
+    public void remove(String artikelId) {
+        artikelenInKassa.removeIf(a -> a.getArtikelId().equals(artikelId));
+    }
+
+
 }

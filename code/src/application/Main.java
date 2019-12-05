@@ -12,9 +12,14 @@ import view.KassaView;
 import view.KlantView;
 import view.panels.KassaKassierPane;
 import view.panels.KassaKlantPane;
-import view.panels.ProductOverviewPane;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
+import java.util.Properties;
 
 public class Main extends Application {
 
@@ -22,6 +27,20 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		String typeDb = "InMemory";
 		String typeLoadSave = "Text";
+		Properties kassaProps = new Properties();
+
+		kassaProps.setProperty("SaveLoadType", "Text");
+
+		Path propertyFile = Paths.get("Kassa.Properties");
+
+		try{
+			Writer propWriter = Files.newBufferedWriter(propertyFile);
+			kassaProps.store(propWriter, "Kassa properties");
+			propWriter.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		// DB INITIATION
 		ArtikelDbContext artikelDbContext = new ArtikelDbContext(typeDb, typeLoadSave);

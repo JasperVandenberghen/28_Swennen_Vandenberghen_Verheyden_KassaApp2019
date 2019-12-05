@@ -1,7 +1,5 @@
 package model.domain;
 
-import model.domain.Artikel;
-
 public class ArtikelContainer {
     private int aantal;
     private Artikel artikel;
@@ -15,9 +13,9 @@ public class ArtikelContainer {
         this.aantal++;
     }
 
-//    public double getTotaalPrijs() {
-//        return aantal * artikel.getPrijs();
-//    }
+    public double getTotaalPrijs() {
+        return aantal * artikel.getPrijs();
+    }
 
 
     public int getAantal() {
