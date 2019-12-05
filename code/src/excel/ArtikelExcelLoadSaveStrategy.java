@@ -25,7 +25,7 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
         ArrayList<ArrayList<String>> data = null;
         try {
             data = excelPlugin.read(new File(getFile()));
-        } catch (IOException e) {
+        } catch (IOException | BiffException e) {
             e.printStackTrace();
         }
         return ConversionToObjectList.convertToArtikelList(data);
@@ -34,7 +34,7 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
 
 
     @Override
-    public void save(String file, List list) throws WriteException, IOException, BiffException {
+    public void save(String file, List list) {
         ArrayList<ArrayList<String>> uitvoer = new ArrayList<>();
 
         List<Artikel> artikelen = list;
@@ -50,7 +50,15 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
 
             uitvoer.add(artikelenStrings);
         }
-        excelPlugin.write(new File(file), uitvoer);
+        try {
+            excelPlugin.write(new File(file), uitvoer);
+        } catch (BiffException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WriteException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -30,7 +30,7 @@ public class ConversionToObjectList {
         Iterator it = artikelMap.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry thisEntry = (Map.Entry) it.next();
-            ArtikelContainer value = (ArtikelContainer) thisEntry.getValue();
+            ArtikelContainer value = new ArtikelContainer((Artikel)thisEntry.getValue());
             observableList.add(value);
         }
         return observableList;

@@ -17,10 +17,11 @@ abstract class TekstLoadSaveTemplate implements LoadSaveStrategy{
             Scanner scannerFile = initializeLoad();
             ArrayList<ArrayList<String>> info = new ArrayList<ArrayList<String>>();
             while (scannerFile.hasNextLine()) {
-                Scanner scannerEenLijn = new Scanner(scannerFile.nextLine());
+                Scanner scannerEenLijn = new Scanner(scannerFile.nextLine()).useDelimiter(",");
                 ArrayList<String> rij = new ArrayList<String>();
                 while(scannerEenLijn.hasNext()){
-                    rij.add(scannerFile.next());
+                    String woord = scannerEenLijn.next();
+                    rij.add(woord);
                 }
                 info.add(rij);
             }

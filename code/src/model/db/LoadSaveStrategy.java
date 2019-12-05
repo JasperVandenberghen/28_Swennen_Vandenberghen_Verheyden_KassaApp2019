@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface LoadSaveStrategy {
 
-    List<?> load() throws IOException, BiffException;
-    void save(String file, List list) throws WriteException, IOException, BiffException;
+    List<?> load();
+    void save(String file, List list);
     String getFile();
 
 }

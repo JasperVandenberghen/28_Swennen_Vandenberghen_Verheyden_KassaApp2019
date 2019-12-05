@@ -12,7 +12,6 @@ public class ArtikelDbContext {
     public ArtikelDbContext(String typeArtikelDbStrategy, String typeLoadSaveStrategy) {
         ArtikelDbStrategyFactory artikelDbStrategyFactory = ArtikelDbStrategyFactory.getInstance();
         this.artikelDbStrategy = artikelDbStrategyFactory.getArtikelDbStrategy(typeArtikelDbStrategy, typeLoadSaveStrategy);
-
         artikelMap = new HashMap<String, Artikel>();
         this.addMultiple(this.artikelDbStrategy.getAll());
 

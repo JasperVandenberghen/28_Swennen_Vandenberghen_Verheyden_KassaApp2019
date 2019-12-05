@@ -3,6 +3,7 @@ package model.db;
 import model.domain.Artikel;
 import model.domain.DomainException;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class ArtikelDbInMemory implements ArtikelDbStrategy{
@@ -11,7 +12,14 @@ public class ArtikelDbInMemory implements ArtikelDbStrategy{
     public ArtikelDbInMemory(String typeLoadSaveStrategy) {
         LoadSaveStrategyFactory loadSaveStrategyFactory = LoadSaveStrategyFactory.getInstance();
         this.loadSaveStrategy = loadSaveStrategyFactory.getLoadSave(typeLoadSaveStrategy);
-
+        int z = 3;
+        try{
+            List<?> l = loadSaveStrategy.load();
+            artikelList = (ArrayList<Artikel>) l;
+        } catch (Exception e){
+            throw new DbException("kapoet");
+        }
+//        this.addMultiple();
     }
 
     @Override
@@ -37,7 +45,7 @@ public class ArtikelDbInMemory implements ArtikelDbStrategy{
     }
 
     public void addMultiple(List<Artikel> list){
-        if(list == null || list.size() == 0){throw new DbException("Geen artikelen om toe te voegen.");}
+        if(list == null || list.size() == 0){throw new DbException("Geen artikelen voor InMemory om toe te voegen.");}
         for(Artikel a: list){
 //            artikelList.put(a.getArtikelId(), a);
         }

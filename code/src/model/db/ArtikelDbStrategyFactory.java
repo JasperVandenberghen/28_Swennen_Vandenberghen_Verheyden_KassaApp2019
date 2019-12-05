@@ -2,6 +2,8 @@ package model.db;
 
 import model.domain.ArtikelDbEnum;
 
+import java.lang.reflect.Constructor;
+
 public class ArtikelDbStrategyFactory {
     private volatile static ArtikelDbStrategyFactory uniqueInstance = new ArtikelDbStrategyFactory();
     private ArtikelDbStrategyFactory() {
@@ -13,7 +15,11 @@ public class ArtikelDbStrategyFactory {
         ArtikelDbStrategy artikelDbStrategy = null;
         try {
             Class dbClass = Class.forName(klasseNaam);
-            Object dbObject = dbClass.getConstructor(String.class).newInstance(typeLoadSave);
+            Constructor<?> c = dbClass.getConstructor(String.class);
+            artikelDbStrategy = new ArtikelDbInMemory(typeLoadSave);
+            Object dbObject = c.newInstance(typeLoadSave);
+            System.out.println('t');
+            System.out.println(dbObject);
             artikelDbStrategy = (ArtikelDbStrategy) dbObject;
         } catch (Exception e) {
             throw new DbException("The requested strategy could not be found");
