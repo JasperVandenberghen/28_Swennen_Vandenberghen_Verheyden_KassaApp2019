@@ -10,13 +10,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.domain.Artikel;
+import model.domain.ArtikelContainer;
 
 import java.util.List;
 
 
 public class KassaKlantPane extends GridPane {
-	private TableView<Artikel> table;
-	private List<Artikel> observableList;
+	private TableView<ArtikelContainer> table;
+	private List<ArtikelContainer> observableList;
 	private Label totaal;
 
 
@@ -33,23 +34,21 @@ public class KassaKlantPane extends GridPane {
 		this.add(totaal, 0,2);
 		cont.setView(this);
 
-		observableList = FXCollections.observableArrayList();
-		table.setItems((ObservableList<Artikel>)observableList);
-		TableColumn<Artikel, String> colAantal = new TableColumn<Artikel, String>("Aantal");
-		colAantal.setMinWidth(200);
-		colAantal.setCellValueFactory(new PropertyValueFactory<Artikel, String>("aantal"));
-		TableColumn<Artikel, String> colArtikelNaam = new TableColumn<Artikel, String>("Artikel Naam");
-		colArtikelNaam.setMinWidth(200);
-		colArtikelNaam.setCellValueFactory(new PropertyValueFactory<Artikel, String>("artikelNaam"));
-		TableColumn<Artikel, String> colPrijs = new TableColumn<Artikel, String>("Prijs");
-		colPrijs.setMinWidth(40);
-		colPrijs.setCellValueFactory(new PropertyValueFactory<Artikel, String>("prijs"));
-		table.getColumns().addAll(colAantal, colArtikelNaam, colPrijs);
-
 	}
 
-	public void setObservableList(List<Artikel> observableList) {
+	public void setObservableList(List<ArtikelContainer> observableList) {
 		this.observableList = observableList;
+		table.setItems((ObservableList<ArtikelContainer>)observableList);
+		TableColumn<ArtikelContainer, String> colAantal = new TableColumn<ArtikelContainer, String>("Aantal");
+		colAantal.setMinWidth(200);
+		colAantal.setCellValueFactory(new PropertyValueFactory<ArtikelContainer, String>("aantal"));
+		TableColumn<ArtikelContainer, String> colArtikelNaam = new TableColumn<ArtikelContainer, String>("Artikel Naam");
+		colArtikelNaam.setMinWidth(200);
+		colArtikelNaam.setCellValueFactory(new PropertyValueFactory<ArtikelContainer, String>("artikelNaam"));
+		TableColumn<ArtikelContainer, String> colPrijs = new TableColumn<ArtikelContainer, String>("Prijs");
+		colPrijs.setMinWidth(40);
+		colPrijs.setCellValueFactory(new PropertyValueFactory<ArtikelContainer, String>("prijs"));
+		table.getColumns().addAll(colAantal, colArtikelNaam, colPrijs);
 	}
 
 	public KassaKlantPane() {
