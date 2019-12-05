@@ -42,7 +42,7 @@ public class Main extends Application {
 
 
 		KlantView klantView = new KlantView(kassaKlantController);
-
+		System.out.println("hll");
 	}
 	
 	public static void main(String[] args) {
