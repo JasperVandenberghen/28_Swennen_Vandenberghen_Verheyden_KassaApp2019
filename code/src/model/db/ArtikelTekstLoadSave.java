@@ -28,8 +28,8 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate implements LoadS
     }
 
     @Override
-    public void save(String file, List list){
-        File artikelFile = new File(file);
+    public void save(List list){
+        File artikelFile = new File("artikel.txt");
         try{
 
             Artikel nutella = new Artikel("14", "Nutella", "beleg",3.5, 10);
