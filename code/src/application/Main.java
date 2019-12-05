@@ -1,34 +1,42 @@
 package application;
 
 import controller.ArtikelController;
-import excel.ArtikelExcelLoadSaveStrategy;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import jxl.read.biff.BiffException;
+import model.db.ArtikelDbContext;
+import model.db.ArtikelDbStrategyFactory;
+import model.domain.Artikel;
+import model.domain.ArtikelDbEnum;
+import model.domain.SaveEnum;
 import view.KassaView;
 import view.KlantView;
 
-import java.io.IOException;
+import java.util.Map;
 
 public class Main extends Application {
 
 	@Override
-	public void start(Stage primaryStage) throws IOException, BiffException {
-		String typeLoadSave = "Tekst";
+	public void start(Stage primaryStage) {
+		String typeDb = "InMemory";
+		String typeLoadSave = "Text";
+
 		KlantView klantView = new KlantView();
 
-		ArtikelController artikelController = new ArtikelController();
+		// DB INITIATION
+		ArtikelDbContext artikelDbContext = new ArtikelDbContext(typeDb, typeLoadSave);
+		Map<String, Artikel> artikelMap = artikelDbContext.getAll();
+
+
+		// TAB ARTIKELEN
+		ArtikelController artikelController = new ArtikelController(artikelMap);
 		KassaView kassaView = new KassaView(artikelController);
 		artikelController.setArtikelenInView();
-		ArtikelExcelLoadSaveStrategy excel = new ArtikelExcelLoadSaveStrategy();
-		excel.setFile("artikel.xls");
-		excel.load();
+
 
 
 	}
 	
-	public static void main(String[] args) throws IOException, BiffException {
-
+	public static void main(String[] args) {
 
 
 		launch(args);
