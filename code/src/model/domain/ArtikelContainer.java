@@ -12,6 +12,9 @@ public class ArtikelContainer {
     public void verhoogAantal(){
         this.aantal++;
     }
+    public void verlaagAantal(){
+        this.aantal--;
+    }
 
     public double getTotaalPrijs() {
         return aantal * artikel.getPrijs();
@@ -31,5 +34,9 @@ public class ArtikelContainer {
 
     public String getArtikelId(){
         return artikel.getArtikelId();
+    }
+
+    public boolean equals(Object o) {
+        return this.artikel.equals(o);
     }
 }

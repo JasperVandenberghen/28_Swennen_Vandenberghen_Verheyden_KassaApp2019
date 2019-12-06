@@ -3,7 +3,7 @@ package controller;
 import javafx.collections.FXCollections;
 import model.domain.Artikel;
 import model.domain.ArtikelContainer;
-import model.domain.ArtikelData;
+import model.domain.Verkoop;
 import model.domain.Observer;
 import view.panels.KassaKlantPane;
 
@@ -16,10 +16,10 @@ public class KassaKlantController implements Observer {
     private KassaKlantPane kassaKlantPane;
     private double totaal;
 
-    public KassaKlantController(Map<String, Artikel> artikelMap, ArtikelData artikelData) {
+    public KassaKlantController(Map<String, Artikel> artikelMap, Verkoop verkoop) {
         this.artikelMap = artikelMap;
         artikelenInKassa = FXCollections.observableArrayList();
-        artikelData.registerObserver(this);
+        verkoop.registerObserver(this);
     }
 
     public void setView(KassaKlantPane kassaKlantPane) {
@@ -29,25 +29,7 @@ public class KassaKlantController implements Observer {
 
     @Override
     public void update(String artikelId) {
-        ArtikelContainer artikelGevondenInKassa = null;
-        int index = 0;
-        for(ArtikelContainer artikelContainer:artikelenInKassa){
-            if(artikelContainer.getArtikelId().equalsIgnoreCase(artikelId)){
-                artikelGevondenInKassa = artikelContainer;
-                break;
-            }
-            index++;
-        }
-        if(artikelGevondenInKassa==null){
-            ArtikelContainer artikelContainer = new ArtikelContainer(artikelMap.get(artikelId));
-            artikelenInKassa.add(artikelContainer);
-            totaal += artikelContainer.getPrijs();
-        } else{
-            artikelGevondenInKassa.verhoogAantal();
-            artikelenInKassa.set(index, artikelGevondenInKassa);
-            totaal += artikelGevondenInKassa.getPrijs();
-        }
-        this.kassaKlantPane.setTotaal(totaal);
+
     }
 
     public void remove(String artikelId){

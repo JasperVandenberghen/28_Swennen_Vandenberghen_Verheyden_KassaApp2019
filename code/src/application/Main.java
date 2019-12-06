@@ -7,7 +7,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.db.ArtikelDbContext;
 import model.domain.Artikel;
-import model.domain.ArtikelData;
+import model.domain.Verkoop;
 import view.KassaView;
 import view.KlantView;
 import view.panels.KassaKassierPane;
@@ -47,12 +47,12 @@ public class Main extends Application {
 		Map<String, Artikel> artikelMap = artikelDbContext.getAll();
 
 		// TAB KASSA
-		ArtikelData artikelData = new ArtikelData();
+		Verkoop verkoop = new Verkoop();
 
-		KassaKassierController kassaKassierController = new KassaKassierController(artikelMap, artikelData);
+		KassaKassierController kassaKassierController = new KassaKassierController(artikelMap, verkoop);
 		KassaKassierPane kassaKassierPane = new KassaKassierPane(kassaKassierController);
 
-		KassaKlantController kassaKlantController = new KassaKlantController(artikelMap, artikelData);
+		KassaKlantController kassaKlantController = new KassaKlantController(artikelMap, verkoop);
 		KassaKlantPane kassaKlantPane = new KassaKlantPane(kassaKlantController);
 
 		// TAB ARTIKELEN

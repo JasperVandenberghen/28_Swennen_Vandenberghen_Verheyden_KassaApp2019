@@ -1,5 +1,7 @@
 package model.domain;
 
+import java.util.Objects;
+
 public class Artikel {
     private String artikelId;
     private String artikelNaam;
@@ -58,5 +60,18 @@ public class Artikel {
     @Override
     public String toString() {
         return artikelId + "," + artikelNaam + "," + categorie + "," + prijs + "," + voorraad;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Artikel artikel = (Artikel) o;
+        return Objects.equals(artikelId, artikel.artikelId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(artikelId);
     }
 }
