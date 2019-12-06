@@ -1,5 +1,8 @@
 package model.domain;
 
+import javafx.collections.FXCollections;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +12,12 @@ public class Verkoop implements Observable {
     private Map<String, Artikel> artikelMap;
     private List<ArtikelContainer> artikelenInKassaKassier;
     private List<ArtikelContainer> artikelenInKassaKlant;
-    private int totaal;
+    private double totaal;
 
     public Verkoop(Map<String, Artikel> artikelMap) {
         observers = new ArrayList<Observer>();
+        artikelenInKassaKassier = FXCollections.observableArrayList();
+        artikelenInKassaKlant = FXCollections.observableArrayList();
         this.artikelMap = artikelMap;
     }
 
@@ -25,19 +30,24 @@ public class Verkoop implements Observable {
     }
 
     public void addArtikel(String artikelId) {
-        updateObservers();
-        ArtikelContainer artikelContainer = new ArtikelContainer(artikelMap.get(artikelId));
+        Artikel artikel = artikelMap.get(artikelId).clone();
+        ArtikelContainer artikelContainer = new ArtikelContainer(artikel);
+        ArtikelContainer artikelContainerKassaKlant = new ArtikelContainer(artikel);
         totaal += artikelContainer.getPrijs();
+        addArtikelToKassaKassier(artikelContainer);
+        addArtikelToKassaKlant(artikelContainerKassaKlant);
+        updateObservers();
     }
 
     public void addArtikelToKassaKassier(ArtikelContainer artikelContainer){
-        artikelenInKassaKlant.add(artikelContainer);
+        artikelenInKassaKassier.add(artikelContainer);
     }
 
     public void addArtikelToKassaKlant(ArtikelContainer artikelContainer){
         ArtikelContainer artikelGevondenInKassa = null;
         int index = 0;
         for(ArtikelContainer artikelContainerInKassa:artikelenInKassaKlant){
+            System.out.println(artikelContainer);
             if(artikelContainerInKassa.equals(artikelContainer)){
                 artikelGevondenInKassa = artikelContainerInKassa;
                 break;
@@ -52,11 +62,11 @@ public class Verkoop implements Observable {
         }
     }
 
-    public void verwijderArtikelInKassaKlant(ArtikelContainer artikelContainer){
+    public void verwijderArtikelInKassaKlant(String artikelId){
         ArtikelContainer artikelGevondenInKassa = null;
         int index = 0;
         for(ArtikelContainer artikelContainerInKassa:artikelenInKassaKlant){
-            if(artikelContainerInKassa.equals(artikelContainer)){
+            if(artikelContainerInKassa.getArtikelId().equals(artikelId)){
                 artikelGevondenInKassa = artikelContainerInKassa;
                 break;
             }
@@ -68,6 +78,18 @@ public class Verkoop implements Observable {
             artikelGevondenInKassa.verlaagAantal();
             artikelenInKassaKlant.set(index, artikelGevondenInKassa);
         }
+    }
+
+    public void removeArtikelen(List<Integer> indeces){
+        for(Integer integer: indeces){
+            String artikelId = this.artikelenInKassaKassier.get(integer).getArtikelId();
+            double prijs = this.artikelenInKassaKassier.get(integer).getPrijs();
+//            this.artikelenInKassaKlant.removeIf(a -> a.getArtikelId().equals(artikelId) && a.getAantal()==1);
+            verwijderArtikelInKassaKlant(artikelId);
+            this.artikelenInKassaKassier.remove(integer.intValue());
+            totaal-=prijs;
+        }
+        updateObservers();
     }
 
     @Override
@@ -83,14 +105,14 @@ public class Verkoop implements Observable {
         }
     }
 
-    public void deleteObserver(Observer o){
-        for (int i = 0; i < observers.size(); i++) {
-            Observer observer = (Observer) observers.get(i);
-            observer.remove(artikelId);}
-    }
-
+//    public void deleteObserver(Observer o){
+//        for (int i = 0; i < observers.size(); i++) {
+//            Observer observer = (Observer) observers.get(i);
+//            observer.remove(artikelId);}
+//    }
+//
     public void removeArtikel(String artikelId) {
-        artikelenInKassa.removeIf(a -> a.getArtikelId().equals(artikelId));
+
     }
 
     @Override
@@ -102,7 +124,8 @@ public class Verkoop implements Observable {
     public void updateObservers() {
         for (int i = 0; i < observers.size(); i++) {
             Observer observer = (Observer) observers.get(i);
-            observer.update(artikelId);
+            DecimalFormat df = new DecimalFormat("#.00");
+            observer.update(df.format(totaal));
 
         }
     }

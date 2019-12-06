@@ -40,4 +40,8 @@ public class KassaViewTemplate extends GridPane {
         table.getColumns().addAll(colAantal, colArtikelNaam, colPrijs);
 
     }
+
+    public void setTotaal(String totaal) {
+        this.totaal.setText(totaal);
+    }
 }

@@ -1,5 +1,7 @@
 package model.domain;
 
+import java.util.Objects;
+
 public class ArtikelContainer {
     private int aantal;
     private Artikel artikel;
@@ -37,6 +39,9 @@ public class ArtikelContainer {
     }
 
     public boolean equals(Object o) {
-        return this.artikel.equals(o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArtikelContainer artikel = (ArtikelContainer) o;
+        return Objects.equals(this.artikel.getArtikelId(), artikel.getArtikelId());
     }
 }

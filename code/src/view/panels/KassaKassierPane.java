@@ -1,6 +1,7 @@
 package view.panels;
 
 import controller.KassaKassierController;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -9,23 +10,23 @@ import javafx.scene.layout.HBox;
 public class KassaKassierPane extends KassaViewTemplate {
 
 	private TextField inputArtikel;
-	private TextField inputDelete;
+	private Button removeKnop;
 
 
 	public KassaKassierPane(KassaKassierController cont) {
 		this.inputArtikel = new TextField();
-		this.inputDelete = new TextField();
+		removeKnop = new Button("Remove");
 		HBox scan = new HBox();
 		Label labelScan = new Label("Scan article:");
 		Label labelDelete = new Label("   Delete article:");
 		labelScan.setTranslateY(5);
 		labelDelete.setTranslateY(3);
 		inputArtikel.setTranslateX(5);
-		inputDelete.setTranslateX(3);
+		removeKnop.setTranslateX(3);
 		scan.getChildren().add(labelScan);
 		scan.getChildren().add(inputArtikel);
 		scan.getChildren().add(labelDelete);
-		scan.getChildren().add(inputDelete);
+		scan.getChildren().add(removeKnop);
 
 
 		this.add(scan, 0, 0);
@@ -39,13 +40,11 @@ public class KassaKassierPane extends KassaViewTemplate {
 			cont.setNieuwArtikel(inputArtikel.getText());
 		});
 
-		inputDelete.setOnAction(event -> {
-			cont.remove(inputDelete.getText());
+		removeKnop.setOnAction(event -> {
+			cont.removeArtikelen(this.table.getSelectionModel().getSelectedIndices());
 		});
 
 	}
 
-	public void setTotaal(double totaal) {
-		this.totaal.setText(Double.toString(totaal));
-	}
+
 }

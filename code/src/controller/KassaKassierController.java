@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.domain.Artikel;
 import model.domain.ArtikelContainer;
 import model.domain.Verkoop;
@@ -11,23 +12,25 @@ import java.util.List;
 import java.util.Map;
 
 public class KassaKassierController implements Observer {
-    private List<ArtikelContainer> artikelenInKassa;
     private KassaKassierPane kassaKassierPane;
     private Verkoop verkoop;
 
     public KassaKassierController(Verkoop verkoop) {
         this.verkoop = verkoop;
         verkoop.registerObserver(this);
-        artikelenInKassa = verkoop.getArtikelenInKassaKassier();
     }
 
     public void setView(KassaKassierPane kassaKassierPane){
         this.kassaKassierPane = kassaKassierPane;
-        this.kassaKassierPane.setObservableList(this.artikelenInKassa);
+        this.kassaKassierPane.setObservableList(verkoop.getArtikelenInKassaKassier());
     }
 
     public void setNieuwArtikel(String artikelId){
         verkoop.addArtikel(artikelId);
+    }
+
+    public void removeArtikelen(List<Integer> indeces){
+        verkoop.removeArtikelen(indeces);
     }
 
     public KassaKassierPane getKassaKassierPane() {
@@ -37,7 +40,7 @@ public class KassaKassierController implements Observer {
 
 
     @Override
-        public void update(double totaal) {
+        public void update(String totaal) {
             this.kassaKassierPane.setTotaal(totaal);
         }
 

@@ -41,7 +41,4 @@ public class KassaKlantPane extends KassaViewTemplate {
 		table.getColumns().addAll(colAantal, colArtikelNaam, colPrijs);
 	}
 
-	public void setTotaal(double totaal) {
-		this.totaal.setText(Double.toString(totaal));
-	}
 }

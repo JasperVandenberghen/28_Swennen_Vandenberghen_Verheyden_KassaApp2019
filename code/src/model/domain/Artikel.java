@@ -1,8 +1,10 @@
 package model.domain;
 
+import excel.ArtikelExcelLoadSaveStrategy;
+
 import java.util.Objects;
 
-public class Artikel {
+public class Artikel implements Cloneable{
     private String artikelId;
     private String artikelNaam;
     private String categorie;
@@ -67,6 +69,7 @@ public class Artikel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Artikel artikel = (Artikel) o;
+        System.out.println(artikelId + " " + artikel.artikelId);
         return Objects.equals(artikelId, artikel.artikelId);
     }
 
@@ -74,4 +77,15 @@ public class Artikel {
     public int hashCode() {
         return Objects.hash(artikelId);
     }
+
+    public Artikel clone() {
+        Artikel artikel = null;
+        try {
+            artikel = (Artikel) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new DomainException("Clone not supported");
+        }
+        return artikel;
+    }
+
 }

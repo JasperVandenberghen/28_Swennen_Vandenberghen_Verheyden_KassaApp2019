@@ -47,12 +47,12 @@ public class Main extends Application {
 		Map<String, Artikel> artikelMap = artikelDbContext.getAll();
 
 		// TAB KASSA
-		Verkoop verkoop = new Verkoop();
+		Verkoop verkoop = new Verkoop(artikelMap);
 
-		KassaKassierController kassaKassierController = new KassaKassierController(artikelMap, verkoop);
+		KassaKassierController kassaKassierController = new KassaKassierController(verkoop);
 		KassaKassierPane kassaKassierPane = new KassaKassierPane(kassaKassierController);
 
-		KassaKlantController kassaKlantController = new KassaKlantController(artikelMap, verkoop);
+		KassaKlantController kassaKlantController = new KassaKlantController(verkoop);
 		KassaKlantPane kassaKlantPane = new KassaKlantPane(kassaKlantController);
 
 		// TAB ARTIKELEN

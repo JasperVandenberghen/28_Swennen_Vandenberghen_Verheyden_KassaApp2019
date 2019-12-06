@@ -11,14 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 public class KassaKlantController implements Observer {
-    private Map<String, Artikel> artikelMap;
     private List<ArtikelContainer> artikelenInKassa;
     private KassaKlantPane kassaKlantPane;
     private double totaal;
 
-    public KassaKlantController(Map<String, Artikel> artikelMap, Verkoop verkoop) {
-        this.artikelMap = artikelMap;
-        artikelenInKassa = FXCollections.observableArrayList();
+    public KassaKlantController(Verkoop verkoop) {
+        artikelenInKassa = verkoop.getArtikelenInKassaKlant();
         verkoop.registerObserver(this);
     }
 
@@ -28,8 +26,8 @@ public class KassaKlantController implements Observer {
     }
 
     @Override
-    public void update(String artikelId) {
-
+    public void update(String totaal) {
+        this.kassaKlantPane.setTotaal(totaal);
     }
 
     public void remove(String artikelId){
