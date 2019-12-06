@@ -34,6 +34,12 @@ public class ArtikelContainer {
         return artikel.getArtikelNaam();
     }
 
+    public String getArtikelCategorie(){return artikel.getCategorie();}
+
+    public void setPrijs(double prijs){
+        artikel.setPrijs(prijs);
+    }
+
     public String getArtikelId(){
         return artikel.getArtikelId();
     }

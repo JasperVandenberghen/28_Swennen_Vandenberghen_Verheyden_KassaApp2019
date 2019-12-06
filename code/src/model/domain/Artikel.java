@@ -1,7 +1,5 @@
 package model.domain;
 
-import excel.ArtikelExcelLoadSaveStrategy;
-
 import java.util.Objects;
 
 public class Artikel implements Cloneable{
@@ -47,7 +45,7 @@ public class Artikel implements Cloneable{
         return prijs;
     }
 
-    private void setPrijs(double prijs) {
+    protected void setPrijs(double prijs) {
         this.prijs = prijs;
     }
 

@@ -14,6 +14,14 @@ public class Verkoop implements Observable {
     private List<ArtikelContainer> artikelenInKassaKlant;
     private double totaal;
 
+    public double getTotaal() {
+        return totaal;
+    }
+
+    public void setTotaal(double totaal) {
+        this.totaal = totaal;
+    }
+
     public Verkoop(Map<String, Artikel> artikelMap) {
         observers = new ArrayList<Observer>();
         artikelenInKassaKassier = FXCollections.observableArrayList();
