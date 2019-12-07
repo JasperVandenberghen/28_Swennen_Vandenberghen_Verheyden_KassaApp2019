@@ -31,20 +31,6 @@ public class Main extends Application {
 		Properties properties = propertiesHandler.read();
 		String typeDb = properties.getProperty("dbType");
 		String typeLoadSave = properties.getProperty("typeLoadSave");
-		Properties kassaProps = new Properties();
-
-		kassaProps.setProperty("SaveLoadType", "Text");
-
-		Path propertyFile = Paths.get("Kassa.Properties");
-
-		try{
-			Writer propWriter = Files.newBufferedWriter(propertyFile);
-			kassaProps.store(propWriter, "Kassa properties");
-			propWriter.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		// DB INITIATION
 		ArtikelDbContext artikelDbContext = new ArtikelDbContext(typeDb, typeLoadSave);
