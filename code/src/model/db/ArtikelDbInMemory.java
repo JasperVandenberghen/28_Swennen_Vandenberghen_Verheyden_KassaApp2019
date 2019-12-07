@@ -3,8 +3,8 @@ package model.db;
 import model.domain.Artikel;
 import model.domain.DomainException;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArtikelDbInMemory implements ArtikelDbStrategy{
     private List<Artikel> artikelList;

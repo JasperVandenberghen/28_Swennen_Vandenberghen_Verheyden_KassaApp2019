@@ -4,6 +4,7 @@ import controller.ArtikelController;
 import controller.KassaKassierController;
 import controller.KassaKlantController;
 import controller.SettingsController;
+import excel.ArtikelExcelLoadSaveStrategy;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.db.ArtikelDbContext;
@@ -16,10 +17,6 @@ import view.panels.KassaKassierPane;
 import view.panels.KassaKlantPane;
 import view.panels.KassaSettingsPane;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Properties;
 
@@ -31,6 +28,10 @@ public class Main extends Application {
 		Properties properties = propertiesHandler.read();
 		String typeDb = properties.getProperty("dbType");
 		String typeLoadSave = properties.getProperty("typeLoadSave");
+
+		ArtikelExcelLoadSaveStrategy bla = new ArtikelExcelLoadSaveStrategy();
+		bla.setFile("code/artikel.xls");
+		System.out.println(bla.load());
 
 		// DB INITIATION
 		ArtikelDbContext artikelDbContext = new ArtikelDbContext(typeDb, typeLoadSave);

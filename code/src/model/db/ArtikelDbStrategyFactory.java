@@ -20,7 +20,7 @@ public class ArtikelDbStrategyFactory {
             Object dbObject = c.newInstance(typeLoadSave);
             artikelDbStrategy = (ArtikelDbStrategy) dbObject;
         } catch (Exception e) {
-            throw new DbException("The requested strategy could not be found");
+            throw new DbException("The requested db strategy could not be found");
         }
         return artikelDbStrategy;
     }

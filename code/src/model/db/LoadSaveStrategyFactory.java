@@ -16,7 +16,7 @@ public class LoadSaveStrategyFactory {
         LoadSaveStrategy loadSaveStrategy = null;
        try {
            Class dbClass = Class.forName(klasseNaam);
-           Object dbObject = dbClass.getConstructor().newInstance();
+           Object dbObject = dbClass.newInstance();
            loadSaveStrategy = (LoadSaveStrategy) dbObject;
        } catch (Exception e) {
            throw new DbException("Geen strategie met deze naam gevonden.");

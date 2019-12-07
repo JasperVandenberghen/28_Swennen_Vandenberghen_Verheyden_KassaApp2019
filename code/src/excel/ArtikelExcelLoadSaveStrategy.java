@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
-    private ExcelPlugin excelPlugin;
+    private ExcelPlugin excelPlugin = new ExcelPlugin();
     private String file;
 
+
     public ArtikelExcelLoadSaveStrategy() {
-        excelPlugin = new ExcelPlugin();
+
     }
 
     @Override
@@ -27,7 +28,9 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
         } catch (IOException | BiffException e) {
             e.printStackTrace();
         }
+        System.out.println(data);
         return ConversionToObjectList.convertToArtikelList(data);
+
     }
 
 
@@ -62,7 +65,7 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
 
 
     public String getFile() {
-        return file;
+        return "code/artikel.xls";
     }
 
     public void setFile(String file) {
