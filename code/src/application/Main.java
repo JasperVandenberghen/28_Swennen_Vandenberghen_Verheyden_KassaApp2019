@@ -35,7 +35,7 @@ public class Main extends Application {
 
 		kassaProps.setProperty("SaveLoadType", "Text");
 
-		Path propertyFile = Paths.get("Kassa.Properties");
+		Path propertyFile = Paths.get("settings.properties");
 
 		try{
 			Writer propWriter = Files.newBufferedWriter(propertyFile);
