@@ -56,6 +56,11 @@ public class GroepsKorting extends Korting {
         }
     }
 
+    @Override
+    public void setKorting(String kortingsAantal) {
+        this.kortingsAantal = Integer.parseInt(kortingsAantal);
+    }
+
 
     public void setKortingsAantal(String kortingsAantal){
         this.kortingsAantal = Integer.parseInt(kortingsAantal);

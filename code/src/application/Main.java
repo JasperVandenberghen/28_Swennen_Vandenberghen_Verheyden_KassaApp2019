@@ -4,7 +4,6 @@ import controller.ArtikelController;
 import controller.KassaKassierController;
 import controller.KassaKlantController;
 import controller.SettingsController;
-import excel.ArtikelExcelLoadSaveStrategy;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.db.ArtikelDbContext;
@@ -29,10 +28,10 @@ public class Main extends Application {
 		String typeDb = properties.getProperty("dbType");
 		String typeLoadSave = properties.getProperty("typeLoadSave");
 
-		ArtikelExcelLoadSaveStrategy bla = new ArtikelExcelLoadSaveStrategy();
+		/*ArtikelExcelLoadSaveStrategy bla = new ArtikelExcelLoadSaveStrategy();
 		bla.setFile("code/artikel.xls");
 		System.out.println(bla.load());
-
+*/
 		// DB INITIATION
 		ArtikelDbContext artikelDbContext = new ArtikelDbContext(typeDb, typeLoadSave);
 		Map<String, Artikel> artikelMap = artikelDbContext.getAll();
@@ -44,7 +43,7 @@ public class Main extends Application {
 		KassaSettingsPane kassaSettingsPane = new KassaSettingsPane(settingsController);
 
 		KassaKassierController kassaKassierController = new KassaKassierController(verkoop);
-		KassaKassierPane kassaKassierPane = new KassaKassierPane(kassaKassierController);
+		KassaKassierPane kassaKassierPane = new KassaKassierPane(kassaKassierController, settingsController);
 
 		KassaKlantController kassaKlantController = new KassaKlantController(verkoop);
 		KassaKlantPane kassaKlantPane = new KassaKlantPane(kassaKlantController);

@@ -8,7 +8,6 @@ import model.domain.ArtikelDbEnum;
 import model.domain.KortingEnum;
 import model.domain.MessageHandler;
 import model.domain.SaveEnum;
-import sun.plugin2.message.Message;
 
 import java.util.List;
 
@@ -20,6 +19,7 @@ public class KassaSettingsPane extends VBox {
     private Label dbTypeLabel;
     private Label kortingTypeLabel;
     private Label kortingsAantalLabel;
+    private Button voegKortingToe;
     private TextField kortingsAantalField;
     private List<String> loadSaves = SaveEnum.getSaveStrategies();
     private List<String> dbTypeList = ArtikelDbEnum.getSaveStrategies();
@@ -34,7 +34,7 @@ public class KassaSettingsPane extends VBox {
         loadSaveLabel = new Label("Kies je data opslag type");
         dbTypeLabel = new Label("Kies je databestandtype");
         kortingTypeLabel = new Label("Kies je kortingtype");
-        kortingsAantalLabel = new Label("Geef je kortingshoeveelheid in");
+        kortingsAantalLabel = new Label("Geef je kortingshoeveelheid in (%)");
         kortingsAantalField = new TextField();
         kortingsAantalField.setTranslateX(5);
         kortingsAantalField.setMinWidth(1);
@@ -44,15 +44,38 @@ public class KassaSettingsPane extends VBox {
         loadSaveBox.getSelectionModel().selectFirst();
         dbTypeBox.getSelectionModel().selectFirst();
         kortingTypeBox.getSelectionModel().selectFirst();
+        voegKortingToe = new Button("Voeg korting toe");
         opslaan = new Button("Opslaan");
-        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, kortingsAantalLabel, kortingsAantalField, opslaan);
+        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, kortingsAantalLabel, kortingsAantalField, voegKortingToe, opslaan);
 
-        //setKortinsAantal moet nog gewijzigd worden op basis van de invoer van het textfield, maar dat moet ge is tonen hoe ge dat moet doen dan
-        //er moet ook nog een alert gegeven worden wanneer kortingshoeveelheid niet is ingevuld
+
+
+
+        voegKortingToe.setOnAction(event -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Korting toevoegen");
+            alert.setHeaderText(null);
+            if(!kortingsAantalField.getText().trim().isEmpty()){
+                if(Integer.parseInt(kortingsAantalField.getText()) > 0 && (Integer.parseInt(kortingsAantalField.getText()) < 100)){
+                    settingsController.addKorting(kortingTypeBox.getValue().toString(), kortingsAantalField.getText());
+                    alert.setContentText("Korting succesvol toegevoegd");}
+                else{
+                    alert.setContentText("Je getal moet tussen 0 en 100 liggen.");
+                }
+            }
+            else {
+                alert.setContentText("Je moet eerst een hoeveelheid korting ingeven.");
+            }
+
+            alert.showAndWait();
+        });
+
         opslaan.setOnAction(event -> {
-            settingsController.setProperties(dbTypeBox.getValue().toString(), loadSaveBox.getValue().toString(), kortingTypeBox.getValue().toString());
+            settingsController.setProperties(dbTypeBox.getValue().toString(), loadSaveBox.getValue().toString());
             MessageHandler.showAlert("Successfully saved");
         });
+
+
     }
 
 

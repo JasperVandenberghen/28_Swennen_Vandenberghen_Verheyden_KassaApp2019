@@ -5,4 +5,5 @@ public interface KortingsStrategy {
     void setTotaalMetKortingKassier();
     void setTotaalMetKortingKlant();
     double convertKorting(int kortingsAantal);
+    void setKorting(String hoeveelheid);
 }
