@@ -11,8 +11,8 @@ public class KortingsFactory {
         KortingsStrategy kortingsStrategy = null;
         try {
             Class domainClass = Class.forName(klasseNaam);
-            Constructor<?> c = domainClass.getConstructor(Korting.class);
-            Object domainObject = c.newInstance(typeKorting);
+            Constructor<?> c = domainClass.getConstructor();
+            Object domainObject = c.newInstance();
             kortingsStrategy = (KortingsStrategy) domainObject;
         } catch (Exception e) {
             throw new DomainException("Geen korting met deze naam gevonden.");
