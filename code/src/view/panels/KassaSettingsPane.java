@@ -6,7 +6,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import model.domain.ArtikelDbEnum;
 import model.domain.KortingEnum;
+import model.domain.MessageHandler;
 import model.domain.SaveEnum;
+import sun.plugin2.message.Message;
 
 import java.util.List;
 
@@ -49,12 +51,7 @@ public class KassaSettingsPane extends VBox {
         //er moet ook nog een alert gegeven worden wanneer kortingshoeveelheid niet is ingevuld
         opslaan.setOnAction(event -> {
             settingsController.setProperties(dbTypeBox.getValue().toString(), loadSaveBox.getValue().toString(), kortingTypeBox.getValue().toString());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Successfully saved");
-
-            alert.showAndWait();
+            MessageHandler.showAlert("Successfully saved");
         });
     }
 

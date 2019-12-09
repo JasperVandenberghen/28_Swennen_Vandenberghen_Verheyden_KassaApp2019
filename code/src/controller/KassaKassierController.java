@@ -1,15 +1,11 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import model.domain.Artikel;
-import model.domain.ArtikelContainer;
+import javafx.scene.control.Button;
 import model.domain.Verkoop;
 import model.domain.Observer;
 import view.panels.KassaKassierPane;
 
 import java.util.List;
-import java.util.Map;
 
 public class KassaKassierController implements Observer {
     private KassaKassierPane kassaKassierPane;
@@ -37,14 +33,15 @@ public class KassaKassierController implements Observer {
         return kassaKassierPane;
     }
 
-
-
     @Override
         public void update(String totaal) {
             this.kassaKassierPane.setTotaal(totaal);
         }
 
-
+    public void setVerkoopOnHold(){
+        String newTextOnButton = verkoop.onHoldFunction();
+        this.kassaKassierPane.setOnHoldKnopTekst(newTextOnButton);
+    }
 
 
 }

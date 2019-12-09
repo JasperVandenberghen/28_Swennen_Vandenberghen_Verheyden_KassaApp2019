@@ -2,7 +2,7 @@ package model.domain;
 
 import java.util.Objects;
 
-public class ArtikelContainer {
+public class ArtikelContainer implements Cloneable{
     private int aantal;
     private Artikel artikel;
 
@@ -49,5 +49,16 @@ public class ArtikelContainer {
         if (o == null || getClass() != o.getClass()) return false;
         ArtikelContainer artikel = (ArtikelContainer) o;
         return Objects.equals(this.artikel.getArtikelId(), artikel.getArtikelId());
+    }
+
+    public ArtikelContainer clone()
+    {
+        ArtikelContainer artikelContainer = new ArtikelContainer(artikel.clone());
+        artikelContainer.setAantal(aantal);
+        return artikelContainer;
+    }
+
+    public void setAantal(int aantal) {
+        this.aantal = aantal;
     }
 }

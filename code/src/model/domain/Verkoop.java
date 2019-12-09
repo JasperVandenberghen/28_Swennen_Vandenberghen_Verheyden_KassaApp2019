@@ -1,6 +1,7 @@
 package model.domain;
 
 import javafx.collections.FXCollections;
+import model.db.OnHoldHandler;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Verkoop implements Observable {
     private List<ArtikelContainer> artikelenInKassaKassier;
     private List<ArtikelContainer> artikelenInKassaKlant;
     private double totaal;
+    private OnHoldHandler onHoldHandler;
 
     public double getTotaal() {
         return totaal;
@@ -27,6 +29,7 @@ public class Verkoop implements Observable {
         artikelenInKassaKassier = FXCollections.observableArrayList();
         artikelenInKassaKlant = FXCollections.observableArrayList();
         this.artikelMap = artikelMap;
+        this.onHoldHandler = new OnHoldHandler();
     }
 
     public List<ArtikelContainer> getArtikelenInKassaKassier() {
@@ -44,7 +47,7 @@ public class Verkoop implements Observable {
         totaal += artikelContainer.getPrijs();
         addArtikelToKassaKassier(artikelContainer);
         addArtikelToKassaKlant(artikelContainerKassaKlant);
-        updateObservers();
+        notifyObservers();
     }
 
     public void addArtikelToKassaKassier(ArtikelContainer artikelContainer){
@@ -55,7 +58,6 @@ public class Verkoop implements Observable {
         ArtikelContainer artikelGevondenInKassa = null;
         int index = 0;
         for(ArtikelContainer artikelContainerInKassa:artikelenInKassaKlant){
-            System.out.println(artikelContainer);
             if(artikelContainerInKassa.equals(artikelContainer)){
                 artikelGevondenInKassa = artikelContainerInKassa;
                 break;
@@ -97,7 +99,7 @@ public class Verkoop implements Observable {
             this.artikelenInKassaKassier.remove(integer.intValue());
             totaal-=prijs;
         }
-        updateObservers();
+        notifyObservers();
     }
 
     @Override
@@ -113,28 +115,42 @@ public class Verkoop implements Observable {
         }
     }
 
-//    public void deleteObserver(Observer o){
-//        for (int i = 0; i < observers.size(); i++) {
-//            Observer observer = (Observer) observers.get(i);
-//            observer.remove(artikelId);}
-//    }
-//
-    public void removeArtikel(String artikelId) {
 
-    }
-
-    @Override
     public void notifyObservers() {
-
-    }
-
-
-    public void updateObservers() {
         for (int i = 0; i < observers.size(); i++) {
             Observer observer = (Observer) observers.get(i);
             DecimalFormat df = new DecimalFormat("#.00");
             observer.update(df.format(totaal));
 
         }
+    }
+
+    public String onHoldFunction() {
+        String newButtonTekst;
+        if(onHoldHandler.isOnHold()){
+            if(this.artikelenInKassaKassier.size()!=0){
+                MessageHandler.showAlert("U kan enkel artikelen uit on Hold halen wanneer je verkoop afgehandeld zijn.");
+                return "Haal uit on Hold";
+            }
+            this.artikelenInKassaKassier.addAll(this.onHoldHandler.getArtikelenInKassaKassier());
+            this.artikelenInKassaKlant.addAll(this.onHoldHandler.getArtikelenInKassaKlant());
+            this.totaal = this.onHoldHandler.getTotaal();
+            notifyObservers();
+            newButtonTekst = "Plaats on Hold";
+        } else{
+            this.onHoldHandler.setArtikelen(this.artikelenInKassaKlant, this.artikelenInKassaKassier, totaal);
+            newSale(true);
+            newButtonTekst = "Haal uit on Hold";
+        }
+        return newButtonTekst;
+    }
+    public void newSale(boolean resetAantalVerkopenSinds){
+        artikelenInKassaKassier.clear();
+        artikelenInKassaKlant.clear();
+        if(resetAantalVerkopenSinds == false){
+            onHoldHandler.increaseAantalVerkopenSindsOnHold();
+        }
+        this.totaal = 0;
+        notifyObservers();
     }
 }

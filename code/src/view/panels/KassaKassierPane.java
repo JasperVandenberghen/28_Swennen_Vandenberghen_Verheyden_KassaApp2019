@@ -11,6 +11,7 @@ public class KassaKassierPane extends KassaViewTemplate {
 
 	private TextField inputArtikel;
 	private Button removeKnop;
+	private Button onHoldKnop;
 
 
 	public KassaKassierPane(KassaKassierController cont) {
@@ -19,6 +20,7 @@ public class KassaKassierPane extends KassaViewTemplate {
 		HBox scan = new HBox();
 		Label labelScan = new Label("Scan article:");
 		Label labelDelete = new Label("   Delete article:");
+		onHoldKnop = new Button("Plaats on Hold");
 		labelScan.setTranslateY(5);
 		labelDelete.setTranslateY(3);
 		inputArtikel.setTranslateX(5);
@@ -33,6 +35,9 @@ public class KassaKassierPane extends KassaViewTemplate {
 		this.add(new Label("Products in register:"), 0, 1, 1, 1);
 		this.add(table, 0,2);
 		this.add(totaal, 0,3);
+
+		// column 1
+		this.add(onHoldKnop, 1, 0);
 		cont.setView(this);
 
 
@@ -44,7 +49,14 @@ public class KassaKassierPane extends KassaViewTemplate {
 			cont.removeArtikelen(this.table.getSelectionModel().getSelectedIndices());
 		});
 
+		onHoldKnop.setOnAction(event -> {
+			cont.setVerkoopOnHold();
+		});
+
 	}
 
+	public void setOnHoldKnopTekst(String tekst) {
+		this.onHoldKnop.setText(tekst);
+	}
 
 }
