@@ -56,7 +56,7 @@ public class KassaKassierPane extends KassaViewTemplate {
 		});
 
 		onHoldKnop.setOnAction(event -> {
-			cont.setVerkoopOnHold();
+			cont.setVerkoopOnHold(onHoldKnop);
 		});
 
 		afrekenen.setOnAction(event -> {

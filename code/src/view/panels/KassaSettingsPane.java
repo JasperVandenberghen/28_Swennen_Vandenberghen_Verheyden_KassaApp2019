@@ -75,7 +75,6 @@ public class KassaSettingsPane extends VBox {
             MessageHandler.showAlert("Successfully saved");
         });
 
-
     }
 
 

@@ -15,9 +15,7 @@ public class OnHoldHandler {
     }
 
     public List<ArtikelContainer> getArtikelenInKassaKassier() {
-        List<ArtikelContainer> temp = this.artikelenInKassaKassier;
-        this.artikelenInKassaKassier = null;
-        return temp;
+        return this.artikelenInKassaKassier;
     }
 
     public List<ArtikelContainer> getArtikelenInKassaKlant() {
@@ -39,15 +37,11 @@ public class OnHoldHandler {
         return clonedList;
     }
 
-    public boolean isOnHold(){
-        return this.artikelenInKassaKassier != null;
-    }
-
     public void increaseAantalVerkopenSindsOnHold(){
         this.aantalVerkopenSindsOnHold++;
-        if(aantalVerkopenSindsOnHold == 4) {
-            artikelenInKassaKassier = null;
-        }
+    }
+    public void clearAantalSindsVerkoop(){
+        this.aantalVerkopenSindsOnHold = 0;
     }
 
     public int getAantalVerkopenSindsOnHold() {

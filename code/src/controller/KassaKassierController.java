@@ -38,9 +38,8 @@ public class KassaKassierController implements Observer {
             this.kassaKassierPane.setTotaal(totaal);
         }
 
-    public void setVerkoopOnHold(){
-        String newTextOnButton = verkoop.onHoldFunction();
-        this.kassaKassierPane.setOnHoldKnopTekst(newTextOnButton);
+    public void setVerkoopOnHold(Button button){
+        verkoop.onHoldFunction(button);
     }
 
 

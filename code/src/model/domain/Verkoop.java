@@ -1,7 +1,9 @@
 package model.domain;
 
 import javafx.collections.FXCollections;
+import javafx.scene.control.Button;
 import model.db.OnHoldHandler;
+import model.domain.states.*;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -15,6 +17,17 @@ public class Verkoop implements Observable {
     private List<ArtikelContainer> artikelenInKassaKlant;
     private double totaal;
     private OnHoldHandler onHoldHandler;
+
+    // states
+    private VerkoopState legeMandState;
+    private VerkoopState scanState;
+    private VerkoopState afrekenState;
+    private VerkoopState legeMandMetOnHoldState;
+    private VerkoopState scanMetOnHoldState;
+    private VerkoopState afrekenMetOnHoldState;
+
+    private VerkoopState verkoopState = legeMandState;
+
 
     public double getTotaal() {
         return totaal;
@@ -30,6 +43,14 @@ public class Verkoop implements Observable {
         artikelenInKassaKlant = FXCollections.observableArrayList();
         this.artikelMap = artikelMap;
         this.onHoldHandler = new OnHoldHandler();
+
+        // states
+        legeMandState = new LegeMandState(this);
+        scanState = new ScanState(this);
+        afrekenState = new AfrekenenState(this);
+        legeMandMetOnHoldState = new LegeMandMetOnHoldState(this);
+        scanMetOnHoldState = new ScanMetOnHoldState(this);
+        afrekenMetOnHoldState = new AfrekenenMetOnHoldState(this);
     }
 
     public List<ArtikelContainer> getArtikelenInKassaKassier() {
@@ -41,13 +62,17 @@ public class Verkoop implements Observable {
     }
 
     public void addArtikel(String artikelId) {
-        Artikel artikel = artikelMap.get(artikelId).clone();
-        ArtikelContainer artikelContainer = new ArtikelContainer(artikel);
-        ArtikelContainer artikelContainerKassaKlant = new ArtikelContainer(artikel);
-        totaal += artikelContainer.getPrijs();
-        addArtikelToKassaKassier(artikelContainer);
-        addArtikelToKassaKlant(artikelContainerKassaKlant);
-        notifyObservers();
+        try{
+            Artikel artikel = artikelMap.get(artikelId).clone();
+            ArtikelContainer artikelContainer = new ArtikelContainer(artikel);
+            ArtikelContainer artikelContainerKassaKlant = new ArtikelContainer(artikel);
+            totaal += artikelContainer.getPrijs();
+            addArtikelToKassaKassier(artikelContainer);
+            addArtikelToKassaKlant(artikelContainerKassaKlant);
+            notifyObservers();
+        } catch (Exception e){
+            MessageHandler.showAlert("De opgegeven artikelcode is niet beschikbaar");
+        }
     }
 
     public void addArtikelToKassaKassier(ArtikelContainer artikelContainer){
@@ -125,32 +150,114 @@ public class Verkoop implements Observable {
         }
     }
 
-    public String onHoldFunction() {
-        String newButtonTekst;
-        if(onHoldHandler.isOnHold()){
-            if(this.artikelenInKassaKassier.size()!=0){
-                MessageHandler.showAlert("U kan enkel artikelen uit on Hold halen wanneer je verkoop afgehandeld zijn.");
-                return "Haal uit on Hold";
-            }
-            this.artikelenInKassaKassier.addAll(this.onHoldHandler.getArtikelenInKassaKassier());
-            this.artikelenInKassaKlant.addAll(this.onHoldHandler.getArtikelenInKassaKlant());
-            this.totaal = this.onHoldHandler.getTotaal();
-            notifyObservers();
-            newButtonTekst = "Plaats on Hold";
-        } else{
-            this.onHoldHandler.setArtikelen(this.artikelenInKassaKlant, this.artikelenInKassaKassier, totaal);
-            newSale(true);
-            newButtonTekst = "Haal uit on Hold";
-        }
-        return newButtonTekst;
+    public void plaatsOnHold(Button button){
+        this.onHoldHandler.setArtikelen(this.artikelenInKassaKlant, this.artikelenInKassaKassier, totaal);
+        newSale(true);
+        button.setText("Haal uit on Hold");
     }
-    public void newSale(boolean resetAantalVerkopenSinds){
+
+    public void haalVanOnHoldAf(Button button){
+        this.artikelenInKassaKassier.addAll(this.onHoldHandler.getArtikelenInKassaKassier());
+        this.artikelenInKassaKlant.addAll(this.onHoldHandler.getArtikelenInKassaKlant());
+        this.totaal = this.onHoldHandler.getTotaal();
+        notifyObservers();
+        button.setText("Plaats on Hold");
+    }
+
+    public void onHoldFunction(Button button) {
+        verkoopState.onHoldFunction(button);
+    }
+
+    public void afrekenenStateFunction(){
+        verkoopState.afrekenen();
+    }
+
+    public void afrekenen(){
+
+    }
+
+    public void betalen(){
+        clearArtikelen();
+    }
+
+    public void reguleerAantalVerkopenSindsOnHold(){
+        onHoldHandler.increaseAantalVerkopenSindsOnHold();
+    }
+
+    public void newSale(){
+        clearArtikelen();
+    }
+
+    public void clearArtikelen(){
         artikelenInKassaKassier.clear();
         artikelenInKassaKlant.clear();
-        if(resetAantalVerkopenSinds == false){
-            onHoldHandler.increaseAantalVerkopenSindsOnHold();
-        }
         this.totaal = 0;
         notifyObservers();
+    }
+
+    public void annuleerAfrekenen(){
+        // clear javafx shit
+        clearArtikelen();
+    }
+
+    public OnHoldHandler getOnHoldHandler() {
+        return onHoldHandler;
+    }
+
+    // STATE METHODS
+    public VerkoopState getLegeMandState() {
+        return legeMandState;
+    }
+
+    public void setLegeMandState(VerkoopState legeMandState) {
+        this.legeMandState = legeMandState;
+    }
+
+    public VerkoopState getScanState() {
+        return scanState;
+    }
+
+    public void setScanState(VerkoopState scanState) {
+        this.scanState = scanState;
+    }
+
+    public VerkoopState getAfrekenState() {
+        return afrekenState;
+    }
+
+    public void setAfrekenState(VerkoopState afrekenState) {
+        this.afrekenState = afrekenState;
+    }
+
+    public VerkoopState getLegeMandMetOnHoldState() {
+        return legeMandMetOnHoldState;
+    }
+
+    public void setLegeMandMetOnHoldState(VerkoopState legeMandMetOnHoldState) {
+        this.legeMandMetOnHoldState = legeMandMetOnHoldState;
+    }
+
+    public VerkoopState getScanMetOnHoldState() {
+        return scanMetOnHoldState;
+    }
+
+    public void setScanMetOnHoldState(VerkoopState scanMetOnHoldState) {
+        this.scanMetOnHoldState = scanMetOnHoldState;
+    }
+
+    public VerkoopState getAfrekenMetOnHoldState() {
+        return afrekenMetOnHoldState;
+    }
+
+    public void setAfrekenMetOnHoldState(VerkoopState afrekenMetOnHoldState) {
+        this.afrekenMetOnHoldState = afrekenMetOnHoldState;
+    }
+
+    public VerkoopState getVerkoopState() {
+        return verkoopState;
+    }
+
+    public void setVerkoopState(VerkoopState verkoopState) {
+        this.verkoopState = verkoopState;
     }
 }
