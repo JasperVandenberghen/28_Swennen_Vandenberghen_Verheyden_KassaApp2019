@@ -53,6 +53,23 @@ public class Verkoop implements Observable {
         afrekenMetOnHoldState = new AfrekenenMetOnHoldState(this);
     }
 
+    public Verkoop(){
+        observers = new ArrayList<Observer>();
+        artikelenInKassaKassier = FXCollections.observableArrayList();
+        artikelenInKassaKlant = FXCollections.observableArrayList();
+        this.artikelMap = artikelMap;
+        this.onHoldHandler = new OnHoldHandler();
+
+        // states
+        legeMandState = new LegeMandState(this);
+        scanState = new ScanState(this);
+        afrekenState = new AfrekenenState(this);
+        legeMandMetOnHoldState = new LegeMandMetOnHoldState(this);
+        scanMetOnHoldState = new ScanMetOnHoldState(this);
+        afrekenMetOnHoldState = new AfrekenenMetOnHoldState(this);
+    }
+
+
     public List<ArtikelContainer> getArtikelenInKassaKassier() {
         return artikelenInKassaKassier;
     }

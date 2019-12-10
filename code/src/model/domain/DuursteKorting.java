@@ -3,18 +3,25 @@ package model.domain;
 import java.util.List;
 
 public class DuursteKorting implements KortingsStrategy  {
-    private Korting korting;
+    private Verkoop verkoop;
     private int kortingsAantal;
     private static final String omschrijving = "Duurstekorting";
 
-    public DuursteKorting() {
 
+    public DuursteKorting() {
+        
+    }
+
+
+
+    public void setVerkoop(Verkoop verkoop) {
+        this.verkoop = verkoop;
     }
 
     @Override
     public void setTotaalMetKortingKassier() {
         //verkoop opvragen
-        Verkoop verkoop = korting.getVerkoop();
+        Verkoop verkoop = getVerkoop();
         //artikelen in kassa kkassier ophalen
         List<ArtikelContainer> artikelenInKassaKassier = verkoop.getArtikelenInKassaKassier();
         double duurst = 0;
@@ -66,6 +73,7 @@ public class DuursteKorting implements KortingsStrategy  {
     }
 
 
-
-
+    public Verkoop getVerkoop() {
+        return verkoop;
+    }
 }

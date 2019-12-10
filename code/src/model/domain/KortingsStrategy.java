@@ -8,4 +8,5 @@ public interface KortingsStrategy {
     String getOmschrijving();
     void setCategorie(String categorie);
     void setDrempel(String drempel);
+    void setVerkoop(Verkoop verkoop);
 }

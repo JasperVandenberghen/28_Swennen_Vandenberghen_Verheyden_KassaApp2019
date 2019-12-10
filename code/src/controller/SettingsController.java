@@ -3,6 +3,7 @@ package controller;
 import model.db.PropertiesHandler;
 import model.domain.KortingsFactory;
 import model.domain.KortingsStrategy;
+import model.domain.Verkoop;
 import view.panels.KassaSettingsPane;
 
 import java.util.HashSet;
@@ -31,10 +32,11 @@ public class SettingsController {
         this.propertiesHandler.write(properties);
     }
 
-    public void addKorting(String kortingStr, String hoeveelheid, String categorie, String drempel){
+    public void addKorting(String kortingStr, String hoeveelheid, String categorie, String drempel, Verkoop verkoop){
         if(kortingStr.trim().isEmpty() || hoeveelheid.trim().isEmpty()){throw new IllegalArgumentException("Voeg een korting of hoeveelheid toe.");}
         KortingsStrategy korting = new KortingsFactory().getKorting(kortingStr);
         korting.setKorting(hoeveelheid);
+        korting.setVerkoop(verkoop);
         kortingen.add(korting);
         for(KortingsStrategy ks: kortingen){
             if(ks.getOmschrijving().equals("Groepskorting")){

@@ -36,6 +36,9 @@ public class GroepsKorting implements KortingsStrategy {
 
     }
 
+    public void setVerkoop(Verkoop verkoop) {
+        this.verkoop = verkoop;
+    }
 
     @Override
     public double convertKorting(int kortingsAantal) {

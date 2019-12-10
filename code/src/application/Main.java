@@ -40,7 +40,7 @@ public class Main extends Application {
 		Verkoop verkoop = new Verkoop(artikelMap);
 
 		SettingsController settingsController = new SettingsController(propertiesHandler);
-		KassaSettingsPane kassaSettingsPane = new KassaSettingsPane(settingsController);
+		KassaSettingsPane kassaSettingsPane = new KassaSettingsPane(settingsController, verkoop);
 
 		KassaKassierController kassaKassierController = new KassaKassierController(verkoop);
 		KassaKassierPane kassaKassierPane = new KassaKassierPane(kassaKassierController, settingsController);

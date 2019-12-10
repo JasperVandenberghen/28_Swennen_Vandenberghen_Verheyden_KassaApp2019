@@ -3,6 +3,7 @@ package model.domain;
 
 import java.lang.reflect.Constructor;
 
+
 public class KortingsFactory {
 
     public KortingsStrategy getKorting(String typeKorting){

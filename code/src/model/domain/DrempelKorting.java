@@ -3,7 +3,7 @@ package model.domain;
 import java.util.List;
 
 public class DrempelKorting implements KortingsStrategy {
-    private Korting korting;
+    private Verkoop verkoop;
     private int kortingsAantal;
     private int drempel;
     private static final String omschrijving = "Drempelkorting";
@@ -12,11 +12,19 @@ public class DrempelKorting implements KortingsStrategy {
 
     }
 
+    public Verkoop getVerkoop() {
+        return verkoop;
+    }
+
+    public void setVerkoop(Verkoop verkoop) {
+        this.verkoop = verkoop;
+    }
+
     @Override
     public void setTotaalMetKortingKassier() {
         //verkoop opvragen
-        Verkoop verkoop = korting.getVerkoop();
-        //artikelen in kassa kklant ophalen
+        Verkoop verkoop = getVerkoop();
+        //artikelen in kassa klant ophalen
         List<ArtikelContainer> artikelenInKassaKassier = verkoop.getArtikelenInKassaKassier();
         double totaal = 0;
         //loopen door artikelen
@@ -59,9 +67,6 @@ public class DrempelKorting implements KortingsStrategy {
         this.drempel = Integer.parseInt(drempel);
     }
 
-    public Korting getKorting() {
-        return korting;
-    }
 
     public int getKortingsAantal() {
         return kortingsAantal;
