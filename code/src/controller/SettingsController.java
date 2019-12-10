@@ -31,11 +31,19 @@ public class SettingsController {
         this.propertiesHandler.write(properties);
     }
 
-    public void addKorting(String kortingStr, String hoeveelheid){
+    public void addKorting(String kortingStr, String hoeveelheid, String categorie, String drempel){
         if(kortingStr.trim().isEmpty() || hoeveelheid.trim().isEmpty()){throw new IllegalArgumentException("Voeg een korting of hoeveelheid toe.");}
         KortingsStrategy korting = new KortingsFactory().getKorting(kortingStr);
         korting.setKorting(hoeveelheid);
         kortingen.add(korting);
+        for(KortingsStrategy ks: kortingen){
+            if(ks.getOmschrijving().equals("Groepskorting")){
+                ks.setCategorie(categorie);
+            }
+            if(ks.getOmschrijving().equals("Drempelkorting")){
+                ks.setDrempel(drempel);
+            }
+        }
     }
 
     public Set<KortingsStrategy> getKortingen() {

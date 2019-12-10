@@ -19,8 +19,12 @@ public class KassaSettingsPane extends VBox {
     private Label dbTypeLabel;
     private Label kortingTypeLabel;
     private Label kortingsAantalLabel;
+    private Label drempelLabel;
+    private Label categorieLabel;
     private Button voegKortingToe;
     private TextField kortingsAantalField;
+    private TextField drempelAantal;
+    private TextField categorie;
     private List<String> loadSaves = SaveEnum.getSaveStrategies();
     private List<String> dbTypeList = ArtikelDbEnum.getSaveStrategies();
     private List<String> kortingTypeList = KortingEnum.getKortingen();
@@ -35,9 +39,15 @@ public class KassaSettingsPane extends VBox {
         dbTypeLabel = new Label("Kies je databestandtype");
         kortingTypeLabel = new Label("Kies je kortingtype");
         kortingsAantalLabel = new Label("Geef je kortingshoeveelheid in (%)");
+        drempelLabel = new Label("Voeg hier je drempel toe indien drempelkorting.");
+        categorieLabel = new Label("Voeg hier je categorie toe indien groepskorting.");
         kortingsAantalField = new TextField();
+        drempelAantal = new TextField();
+        categorie = new TextField();
         kortingsAantalField.setTranslateX(5);
         kortingsAantalField.setMinWidth(1);
+        drempelAantal.setTranslateX(5);
+        drempelAantal.setMinWidth(1);
         loadSaveBox = new ComboBox(FXCollections.observableArrayList(loadSaves));
         dbTypeBox = new ComboBox(FXCollections.observableArrayList(dbTypeList));
         kortingTypeBox = new ComboBox(FXCollections.observableArrayList(kortingTypeList));
@@ -46,10 +56,13 @@ public class KassaSettingsPane extends VBox {
         kortingTypeBox.getSelectionModel().selectFirst();
         voegKortingToe = new Button("Voeg korting toe");
         opslaan = new Button("Opslaan");
-        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, kortingsAantalLabel, kortingsAantalField, voegKortingToe, opslaan);
+        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, voegKortingToe, opslaan);
 
 
 
+
+
+        this.getChildren().addAll();
 
         voegKortingToe.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -57,7 +70,7 @@ public class KassaSettingsPane extends VBox {
             alert.setHeaderText(null);
             if(!kortingsAantalField.getText().trim().isEmpty()){
                 if(Integer.parseInt(kortingsAantalField.getText()) > 0 && (Integer.parseInt(kortingsAantalField.getText()) < 100)){
-                    settingsController.addKorting(kortingTypeBox.getValue().toString(), kortingsAantalField.getText());
+                    settingsController.addKorting(kortingTypeBox.getValue().toString(), kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText());
                     alert.setContentText("Korting succesvol toegevoegd");}
                 else{
                     alert.setContentText("Je getal moet tussen 0 en 100 liggen.");

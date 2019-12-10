@@ -2,12 +2,13 @@ package model.domain;
 
 import java.util.List;
 
-public class DuursteKorting extends Korting  {
+public class DuursteKorting implements KortingsStrategy  {
     private Korting korting;
     private int kortingsAantal;
+    private static final String omschrijving = "Duurstekorting";
 
-    public DuursteKorting(Korting korting) {
-        this.korting = korting;
+    public DuursteKorting() {
+
     }
 
     @Override
@@ -30,29 +31,34 @@ public class DuursteKorting extends Korting  {
         }
     }
 
+
     @Override
-    public void setTotaalMetKortingKlant() {
-        //verkoop opvragen
-        Verkoop verkoop = korting.getVerkoop();
-        //artikelen in kassa kklant ophalen
-        List<ArtikelContainer> artikelenInKassaKlant = verkoop.getArtikelenInKassaKlant();
-        double duurst = 0;
-        String artikelIdDuurst = "";
-        //loopen over artikelen
-        for(ArtikelContainer ac: artikelenInKassaKlant){
-            if(ac.getPrijs() > duurst){
-                duurst = ac.getPrijs();
-                artikelIdDuurst = ac.getArtikelId();
-            }
-            if(ac.getArtikelId().equals(artikelIdDuurst)){
-                ac.setPrijs(ac.getPrijs() * convertKorting(kortingsAantal));
-            }
+    public double convertKorting(int kortingsAantal) {
+        if(kortingsAantal != 0){
+            return (100 - kortingsAantal) / 100 ;}
+        else{
+            return 0;
         }
     }
 
     @Override
     public void setKorting(String kortingsAantal) {
         this.kortingsAantal = Integer.parseInt(kortingsAantal);
+    }
+
+    @Override
+    public String getOmschrijving() {
+        return omschrijving;
+    }
+
+    @Override
+    public void setCategorie(String categorie) {
+
+    }
+
+    @Override
+    public void setDrempel(String drempel) {
+
     }
 
     public void setKortingsAantal(String kortingsAantal){
