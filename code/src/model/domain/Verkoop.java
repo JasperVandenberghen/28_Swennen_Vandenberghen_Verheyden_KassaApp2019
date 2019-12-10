@@ -152,7 +152,7 @@ public class Verkoop implements Observable {
 
     public void plaatsOnHold(Button button){
         this.onHoldHandler.setArtikelen(this.artikelenInKassaKlant, this.artikelenInKassaKassier, totaal);
-        newSale(true);
+        newSale();
         button.setText("Haal uit on Hold");
     }
 

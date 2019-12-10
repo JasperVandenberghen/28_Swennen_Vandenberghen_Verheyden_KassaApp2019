@@ -28,7 +28,7 @@ public class AfrekenenMetOnHoldState implements VerkoopState{
     @Override
     public void annuleren() {
         verkoop.annuleerAfrekenen();
-        
+
     }
 
     @Override
