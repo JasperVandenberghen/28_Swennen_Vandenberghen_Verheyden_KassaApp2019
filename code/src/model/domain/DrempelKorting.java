@@ -2,9 +2,7 @@ package model.domain;
 
 import java.util.List;
 
-public class DrempelKorting implements KortingsStrategy {
-    private Verkoop verkoop;
-    private int kortingsAantal;
+public class DrempelKorting extends Korting {
     private int drempel;
     private static final String omschrijving = "Drempelkorting";
 

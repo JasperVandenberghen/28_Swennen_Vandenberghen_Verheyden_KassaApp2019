@@ -2,9 +2,7 @@ package model.domain;
 
 import java.util.List;
 
-public class GroepsKorting implements KortingsStrategy {
-    private Verkoop verkoop;
-    private int kortingsAantal;
+public class GroepsKorting extends Korting{
     private String categorie;
     private static final String omschrijving = "Groepskorting";
 
@@ -43,15 +41,7 @@ public class GroepsKorting implements KortingsStrategy {
         this.verkoop = verkoop;
     }
 
-    @Override
-    public double convertKorting(int kortingsAantal) {
-        if(kortingsAantal != 0){
-            // 1 has to be converted to double
-            return (100 - (double) kortingsAantal) / 100 ;}
-        else{
-            return 0;
-        }
-    }
+
 
     @Override
     public void setKorting(String kortingsAantal) {
