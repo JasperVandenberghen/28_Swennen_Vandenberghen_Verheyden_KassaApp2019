@@ -4,6 +4,8 @@ import javafx.scene.control.Button;
 import model.domain.ArtikelContainer;
 import model.domain.Verkoop;
 
+import java.util.List;
+
 public class AfrekenenState implements VerkoopState{
     private Verkoop verkoop;
 
@@ -17,8 +19,15 @@ public class AfrekenenState implements VerkoopState{
     }
 
     @Override
-    public void afrekenen() {
-        verkoop.afrekenen();
+    public void removeArtikel(List<Integer> indeces) {
+        verkoop.removeArtikelen(indeces);
+        verkoop.calculateKorting();
+    }
+
+    @Override
+    public void beeindigen(Button button) {
+        verkoop.betalen(button);
+        verkoop.setVerkoopState(verkoop.getLegeMandState());
     }
 
     @Override
@@ -29,10 +38,7 @@ public class AfrekenenState implements VerkoopState{
     @Override
     public void annuleren() {
         verkoop.annuleerAfrekenen();
+        verkoop.setVerkoopState(verkoop.getLegeMandState());
     }
 
-    @Override
-    public void betalen() {
-        verkoop.betalen();
-    }
 }

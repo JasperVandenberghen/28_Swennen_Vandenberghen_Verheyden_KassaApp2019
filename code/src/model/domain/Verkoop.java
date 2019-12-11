@@ -1,5 +1,6 @@
 package model.domain;
 
+import controller.KassaKassierController;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import model.db.OnHoldHandler;
@@ -17,6 +18,7 @@ public class Verkoop implements Observable {
     private List<ArtikelContainer> artikelenInKassaKlant;
     private double totaal;
     private OnHoldHandler onHoldHandler;
+    private KassaKassierController kassaKassierController;
 
     // states
     private VerkoopState legeMandState;
@@ -26,8 +28,7 @@ public class Verkoop implements Observable {
     private VerkoopState scanMetOnHoldState;
     private VerkoopState afrekenMetOnHoldState;
 
-    private VerkoopState verkoopState = legeMandState;
-
+    private VerkoopState verkoopState;
 
     public double getTotaal() {
         return totaal;
@@ -51,6 +52,7 @@ public class Verkoop implements Observable {
         legeMandMetOnHoldState = new LegeMandMetOnHoldState(this);
         scanMetOnHoldState = new ScanMetOnHoldState(this);
         afrekenMetOnHoldState = new AfrekenenMetOnHoldState(this);
+        verkoopState = legeMandState;
     }
 
     public Verkoop(){
@@ -69,6 +71,9 @@ public class Verkoop implements Observable {
         afrekenMetOnHoldState = new AfrekenenMetOnHoldState(this);
     }
 
+    public void setKassaKassierController(KassaKassierController kassaKassierController) {
+        this.kassaKassierController = kassaKassierController;
+    }
 
     public List<ArtikelContainer> getArtikelenInKassaKassier() {
         return artikelenInKassaKassier;
@@ -76,6 +81,10 @@ public class Verkoop implements Observable {
 
     public List<ArtikelContainer> getArtikelenInKassaKlant() {
         return artikelenInKassaKlant;
+    }
+
+    public void addArtikelStateFunction(String artikelId){
+        verkoopState.addArtikel(artikelId);
     }
 
     public void addArtikel(String artikelId) {
@@ -132,6 +141,14 @@ public class Verkoop implements Observable {
         }
     }
 
+    public void removeArtikelenStateFunction(List<Integer> indeces){
+        this.verkoopState.removeArtikel(indeces);
+    }
+
+    public void beeindigenStateFunction(Button button){
+        this.verkoopState.beeindigen(button);
+    }
+
     public void removeArtikelen(List<Integer> indeces){
         for(Integer integer: indeces){
             String artikelId = this.artikelenInKassaKassier.get(integer).getArtikelId();
@@ -142,6 +159,10 @@ public class Verkoop implements Observable {
             totaal-=prijs;
         }
         notifyObservers();
+    }
+
+    public void calculateKorting(){
+
     }
 
     @Override
@@ -161,9 +182,8 @@ public class Verkoop implements Observable {
     public void notifyObservers() {
         for (int i = 0; i < observers.size(); i++) {
             Observer observer = (Observer) observers.get(i);
-            DecimalFormat df = new DecimalFormat("#.00");
+            DecimalFormat df = new DecimalFormat("0.00");
             observer.update(df.format(totaal));
-
         }
     }
 
@@ -185,15 +205,21 @@ public class Verkoop implements Observable {
         verkoopState.onHoldFunction(button);
     }
 
-    public void afrekenenStateFunction(){
-        verkoopState.afrekenen();
+    public void afrekenenStateFunction(Button button){
+        verkoopState.beeindigen(button);
     }
 
-    public void afrekenen(){
+    public void afrekenen(Button button){
+        button.setText("Betalen");
+        int korting = 0;
+        double eindTotaal = totaal - korting;
 
+        kassaKassierController.setAfrekenInfo("Korting: " + korting, "Eindtotaal: " + eindTotaal);
     }
 
-    public void betalen(){
+    public void betalen(Button button){
+        button.setText("Afrekenen");
+        kassaKassierController.setAfrekenInfo("","");
         clearArtikelen();
     }
 

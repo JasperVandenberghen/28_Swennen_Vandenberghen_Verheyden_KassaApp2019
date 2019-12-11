@@ -11,18 +11,19 @@ import model.domain.ArtikelContainer;
 
 import java.util.List;
 
-public class KassaViewTemplate extends GridPane {
+public class KassaViewBase extends GridPane {
     protected TableView<ArtikelContainer> table;
     protected List<ArtikelContainer> observableList;
     protected Label totaal;
 
-    public KassaViewTemplate() {
+    public KassaViewBase() {
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
 
         this.table = new TableView<>();
-        this.totaal = new Label("0");
+        this.totaal = new Label("");
+        this.setTotaal("0");
     }
 
     public void setObservableList(List<ArtikelContainer> observableList) {
@@ -42,6 +43,6 @@ public class KassaViewTemplate extends GridPane {
     }
 
     public void setTotaal(String totaal) {
-        this.totaal.setText(totaal);
+        this.totaal.setText("Totaal: " + totaal);
     }
 }

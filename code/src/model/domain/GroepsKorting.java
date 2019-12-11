@@ -2,9 +2,7 @@ package model.domain;
 
 import java.util.List;
 
-public class GroepsKorting implements KortingsStrategy {
-    private Verkoop verkoop;
-    private int kortingsAantal;
+public class GroepsKorting extends Korting{
     private String categorie;
     private static final String omschrijving = "Groepskorting";
 
@@ -23,12 +21,15 @@ public class GroepsKorting implements KortingsStrategy {
         //artikelen in kassa kassier ophalen
         List<ArtikelContainer> artikelenInKassaKassier = verkoop.getArtikelenInKassaKassier();
         //loopen door artikelen
-        for(ArtikelContainer ac: artikelenInKassaKassier){
+        double multiplier = convertKorting(kortingsAantal);
+        for(int i = 0;i<artikelenInKassaKassier.size();i++){
+            ArtikelContainer ac = artikelenInKassaKassier.get(i);
             //als categorie gelijk pas de prijs aan
             if(ac.getArtikelCategorie().equals(getCategorie())){
                 double prijs = ac.getPrijs();
                 //opgehaalde prijs veranderen (bv bij 70% korting, prijs * 0.7)
-                ac.setPrijs(prijs * convertKorting(getKortingsAantal()));
+                ac.setPrijs(prijs * multiplier);
+                artikelenInKassaKassier.set(i, ac);
 
             }
 
@@ -40,14 +41,7 @@ public class GroepsKorting implements KortingsStrategy {
         this.verkoop = verkoop;
     }
 
-    @Override
-    public double convertKorting(int kortingsAantal) {
-        if(kortingsAantal != 0){
-            return (100 - kortingsAantal) / 100 ;}
-        else{
-            return 0;
-        }
-    }
+
 
     @Override
     public void setKorting(String kortingsAantal) {

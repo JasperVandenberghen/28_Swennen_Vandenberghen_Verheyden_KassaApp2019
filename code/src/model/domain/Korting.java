@@ -2,9 +2,9 @@ package model.domain;
 
 abstract class Korting implements KortingsStrategy {
 
-    private double totaal;
-    private int kortingsAantal;
-    private Verkoop verkoop;
+    protected double totaal;
+    protected int kortingsAantal;
+    protected Verkoop verkoop;
 
 
 
@@ -17,9 +17,6 @@ abstract class Korting implements KortingsStrategy {
         return kortingsAantal;
     }
 
-    public Korting(Korting korting){
-
-    }
 
     public void setVerkoop(Verkoop verkoop) {
         this.verkoop = verkoop;
@@ -44,12 +41,11 @@ abstract class Korting implements KortingsStrategy {
     public abstract void setTotaalMetKortingKassier();
 
 
-    public abstract void setTotaalMetKortingKlant();
-
     //zet korting bv 70(%) om naar 0.3
-    public double convertKorting(int kortingsAantal){
+    public double convertKorting(int kortingsAantal) {
         if(kortingsAantal != 0){
-            return (100 - kortingsAantal) / 100 ;}
+            // 1 has to be converted to double
+            return (100 - (double) kortingsAantal) / 100 ;}
         else{
             return 0;
         }

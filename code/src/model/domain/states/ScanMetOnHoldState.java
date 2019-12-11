@@ -1,7 +1,10 @@
 package model.domain.states;
 
 import javafx.scene.control.Button;
+import model.domain.MessageHandler;
 import model.domain.Verkoop;
+
+import java.util.List;
 
 public class ScanMetOnHoldState implements VerkoopState{
     private Verkoop verkoop;
@@ -16,13 +19,22 @@ public class ScanMetOnHoldState implements VerkoopState{
     }
 
     @Override
-    public void afrekenen() {
+    public void removeArtikel(List<Integer> indeces) {
+        verkoop.removeArtikelen(indeces);
+        if(verkoop.getArtikelenInKassaKassier().size()==0){
+            verkoop.setVerkoopState(verkoop.getLegeMandMetOnHoldState());
+        }
+    }
+
+    @Override
+    public void beeindigen(Button button) {
+        verkoop.afrekenen(button);
         verkoop.setVerkoopState(verkoop.getAfrekenMetOnHoldState());
     }
 
     @Override
     public void onHoldFunction(Button button) {
-        verkoop.haalVanOnHoldAf(button);
+        MessageHandler.showAlert("Uw mand moet leeg zijn voor u iets uit on Hold haalt");
     }
 
     @Override
@@ -31,8 +43,4 @@ public class ScanMetOnHoldState implements VerkoopState{
         verkoop.setVerkoopState(verkoop.getLegeMandMetOnHoldState());
     }
 
-    @Override
-    public void betalen() {
-
-    }
 }

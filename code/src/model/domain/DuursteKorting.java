@@ -2,9 +2,7 @@ package model.domain;
 
 import java.util.List;
 
-public class DuursteKorting implements KortingsStrategy  {
-    private Verkoop verkoop;
-    private int kortingsAantal;
+public class DuursteKorting extends Korting  {
     private static final String omschrijving = "Duurstekorting";
 
 
@@ -27,6 +25,7 @@ public class DuursteKorting implements KortingsStrategy  {
         double duurst = 0;
         String artikelIdDuurst = "";
         //loopen over artikelen
+        int index = 0;
         for(ArtikelContainer ac: artikelenInKassaKassier){
             if(ac.getPrijs() > duurst){
                 duurst = ac.getPrijs();
@@ -35,18 +34,10 @@ public class DuursteKorting implements KortingsStrategy  {
             if(ac.getArtikelId().equals(artikelIdDuurst)){
                 ac.setPrijs(ac.getPrijs() * convertKorting(kortingsAantal));
             }
+            index++;
         }
     }
 
-
-    @Override
-    public double convertKorting(int kortingsAantal) {
-        if(kortingsAantal != 0){
-            return (100 - kortingsAantal) / 100 ;}
-        else{
-            return 0;
-        }
-    }
 
     @Override
     public void setKorting(String kortingsAantal) {

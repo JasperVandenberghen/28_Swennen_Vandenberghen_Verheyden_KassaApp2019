@@ -3,10 +3,12 @@ package model.domain.states;
 import javafx.scene.control.Button;
 import model.domain.ArtikelContainer;
 
+import java.util.List;
+
 public interface VerkoopState {
     public void addArtikel(String artikelId);
-    public void afrekenen();
+    public void removeArtikel(List<Integer> indeces);
+    public void beeindigen(Button button);
     public void onHoldFunction(Button button);
     public void annuleren();
-    public void betalen();
 }
