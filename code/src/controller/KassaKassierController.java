@@ -22,11 +22,11 @@ public class KassaKassierController implements Observer {
     }
 
     public void setNieuwArtikel(String artikelId){
-        verkoop.addArtikel(artikelId);
+        verkoop.addArtikelStateFunction(artikelId);
     }
 
-    public void removeArtikelen(List<Integer> indeces){
-        verkoop.removeArtikelen(indeces);
+    public void removeArtikelenStateFunction(List<Integer> indeces){
+        verkoop.removeArtikelenStateFunction(indeces);
     }
 
     public KassaKassierPane getKassaKassierPane() {

@@ -26,7 +26,7 @@ public class Verkoop implements Observable {
     private VerkoopState scanMetOnHoldState;
     private VerkoopState afrekenMetOnHoldState;
 
-    private VerkoopState verkoopState = legeMandState;
+    private VerkoopState verkoopState;
 
 
     public double getTotaal() {
@@ -51,6 +51,7 @@ public class Verkoop implements Observable {
         legeMandMetOnHoldState = new LegeMandMetOnHoldState(this);
         scanMetOnHoldState = new ScanMetOnHoldState(this);
         afrekenMetOnHoldState = new AfrekenenMetOnHoldState(this);
+        verkoopState = legeMandState;
     }
 
     public Verkoop(){
@@ -76,6 +77,10 @@ public class Verkoop implements Observable {
 
     public List<ArtikelContainer> getArtikelenInKassaKlant() {
         return artikelenInKassaKlant;
+    }
+
+    public void addArtikelStateFunction(String artikelId){
+        verkoopState.addArtikel(artikelId);
     }
 
     public void addArtikel(String artikelId) {
@@ -132,6 +137,10 @@ public class Verkoop implements Observable {
         }
     }
 
+    public void removeArtikelenStateFunction(List<Integer> indeces){
+        this.verkoopState.removeArtikel(indeces);
+    }
+
     public void removeArtikelen(List<Integer> indeces){
         for(Integer integer: indeces){
             String artikelId = this.artikelenInKassaKassier.get(integer).getArtikelId();
@@ -142,6 +151,10 @@ public class Verkoop implements Observable {
             totaal-=prijs;
         }
         notifyObservers();
+    }
+
+    public void calculateKorting(){
+
     }
 
     @Override

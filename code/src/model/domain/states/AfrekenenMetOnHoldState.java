@@ -3,6 +3,8 @@ package model.domain.states;
 import javafx.scene.control.Button;
 import model.domain.Verkoop;
 
+import java.util.List;
+
 public class AfrekenenMetOnHoldState implements VerkoopState{
     private Verkoop verkoop;
 
@@ -16,8 +18,13 @@ public class AfrekenenMetOnHoldState implements VerkoopState{
     }
 
     @Override
+    public void removeArtikel(List<Integer> indeces) {
+        verkoop.removeArtikelen(indeces);
+    }
+
+    @Override
     public void afrekenen() {
-        verkoop.afrekenen();
+
     }
 
     @Override
@@ -28,7 +35,7 @@ public class AfrekenenMetOnHoldState implements VerkoopState{
     @Override
     public void annuleren() {
         verkoop.annuleerAfrekenen();
-
+        verkoop.setVerkoopState(verkoop.getLegeMandMetOnHoldState());
     }
 
     @Override

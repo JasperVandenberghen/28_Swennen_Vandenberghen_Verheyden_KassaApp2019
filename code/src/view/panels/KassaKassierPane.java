@@ -52,7 +52,7 @@ public class KassaKassierPane extends KassaViewTemplate {
 		});
 
 		removeKnop.setOnAction(event -> {
-			cont.removeArtikelen(this.table.getSelectionModel().getSelectedIndices());
+			cont.removeArtikelenStateFunction(this.table.getSelectionModel().getSelectedIndices());
 		});
 
 		onHoldKnop.setOnAction(event -> {
