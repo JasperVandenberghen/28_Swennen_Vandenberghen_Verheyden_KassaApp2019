@@ -14,6 +14,7 @@ public class KassaKassierController implements Observer {
     public KassaKassierController(Verkoop verkoop) {
         this.verkoop = verkoop;
         verkoop.registerObserver(this);
+        verkoop.setKassaKassierController(this);
     }
 
     public void setView(KassaKassierPane kassaKassierPane){
@@ -42,5 +43,13 @@ public class KassaKassierController implements Observer {
         verkoop.onHoldFunction(button);
     }
 
+    public void beeindigen(Button button){
+        verkoop.beeindigenStateFunction(button);
+    }
+
+    public void setAfrekenInfo(String korting, String eindTotaal){
+        kassaKassierPane.getKorting().setText(korting);
+        kassaKassierPane.getEindTotaal().setText(eindTotaal);
+    }
 
 }

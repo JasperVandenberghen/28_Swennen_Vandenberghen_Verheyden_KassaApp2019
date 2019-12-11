@@ -25,8 +25,9 @@ public class AfrekenenState implements VerkoopState{
     }
 
     @Override
-    public void afrekenen() {
-
+    public void beeindigen(Button button) {
+        verkoop.betalen(button);
+        verkoop.setVerkoopState(verkoop.getLegeMandState());
     }
 
     @Override
@@ -40,10 +41,4 @@ public class AfrekenenState implements VerkoopState{
         verkoop.setVerkoopState(verkoop.getLegeMandState());
     }
 
-    @Override
-    public void betalen() {
-        verkoop.betalen();
-        verkoop.setVerkoopState(verkoop.getLegeMandState());
-
-    }
 }

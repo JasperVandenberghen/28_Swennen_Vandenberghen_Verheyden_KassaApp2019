@@ -2,19 +2,22 @@ package view.panels;
 
 import controller.KassaKassierController;
 import controller.SettingsController;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 
-public class KassaKassierPane extends KassaViewTemplate {
+public class KassaKassierPane extends KassaViewBase {
 
 	private TextField inputArtikel;
 	private Button removeKnop;
 	private Button onHoldKnop;
-	private Button afrekenen;
-
+	private Button beeindigen;
+	private Label korting;
+	private Label eindTotaal;
 
 	public KassaKassierPane(KassaKassierController cont, SettingsController set) {
 		this.inputArtikel = new TextField();
@@ -23,27 +26,32 @@ public class KassaKassierPane extends KassaViewTemplate {
 		Label labelScan = new Label("Scan article:");
 		Label labelDelete = new Label("   Delete article:");
 		onHoldKnop = new Button("Plaats on Hold");
-		afrekenen = new Button("Afrekenen");
+		beeindigen = new Button("Afrekenen");
 		labelScan.setTranslateY(5);
 		labelDelete.setTranslateY(3);
 		inputArtikel.setTranslateX(5);
 		removeKnop.setTranslateX(3);
-		afrekenen.setTranslateX(3);
+		beeindigen.setTranslateX(3);
 		scan.getChildren().add(labelScan);
 		scan.getChildren().add(inputArtikel);
 		scan.getChildren().add(labelDelete);
 		scan.getChildren().add(removeKnop);
-		scan.getChildren().add(afrekenen);
 
+		VBox informatieVerkoopPane = new VBox();
+
+		korting = new Label("");
+		eindTotaal = new Label("");
+		informatieVerkoopPane.getChildren().addAll(totaal, korting, eindTotaal);
 
 		this.add(scan, 0, 0);
 		this.add(new Label("Products in register:"), 0, 1, 1, 1);
 		this.add(table, 0,2);
-		this.add(totaal, 0,3);
 
 		// column 1
 		this.add(onHoldKnop, 1, 0);
-		this.add(afrekenen, 1,2);
+		this.add(beeindigen, 1,1);
+		this.add(informatieVerkoopPane, 1, 2);
+		this.setValignment(informatieVerkoopPane, VPos.TOP); // To align vertically in the cell
 		cont.setView(this);
 
 
@@ -59,8 +67,8 @@ public class KassaKassierPane extends KassaViewTemplate {
 			cont.setVerkoopOnHold(onHoldKnop);
 		});
 
-		afrekenen.setOnAction(event -> {
-			set.pasKortingenToe();
+		beeindigen.setOnAction(event -> {
+			cont.beeindigen(beeindigen);
 		});
 
 	}
@@ -68,5 +76,15 @@ public class KassaKassierPane extends KassaViewTemplate {
 	public void setOnHoldKnopTekst(String tekst) {
 		this.onHoldKnop.setText(tekst);
 	}
+	public void setAfrekenKnop(String tekst) {
+		this.onHoldKnop.setText(tekst);
+	}
 
+	public Label getKorting() {
+		return korting;
+	}
+
+	public Label getEindTotaal() {
+		return eindTotaal;
+	}
 }

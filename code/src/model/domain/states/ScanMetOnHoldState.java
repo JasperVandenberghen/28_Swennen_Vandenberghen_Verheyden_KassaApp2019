@@ -27,8 +27,8 @@ public class ScanMetOnHoldState implements VerkoopState{
     }
 
     @Override
-    public void afrekenen() {
-        verkoop.afrekenen();
+    public void beeindigen(Button button) {
+        verkoop.afrekenen(button);
         verkoop.setVerkoopState(verkoop.getAfrekenMetOnHoldState());
     }
 
@@ -43,8 +43,4 @@ public class ScanMetOnHoldState implements VerkoopState{
         verkoop.setVerkoopState(verkoop.getLegeMandMetOnHoldState());
     }
 
-    @Override
-    public void betalen() {
-
-    }
 }

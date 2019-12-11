@@ -23,8 +23,15 @@ public class AfrekenenMetOnHoldState implements VerkoopState{
     }
 
     @Override
-    public void afrekenen() {
-
+    public void beeindigen(Button button) {
+        verkoop.betalen(button);
+        verkoop.getOnHoldHandler().increaseAantalVerkopenSindsOnHold();
+        if(verkoop.getOnHoldHandler().getAantalVerkopenSindsOnHold() == 4){
+            verkoop.getOnHoldHandler().clearAantalSindsVerkoop();
+            verkoop.setVerkoopState(verkoop.getLegeMandState());
+        } else{
+            verkoop.setVerkoopState(verkoop.getLegeMandMetOnHoldState());
+        }
     }
 
     @Override
@@ -38,15 +45,4 @@ public class AfrekenenMetOnHoldState implements VerkoopState{
         verkoop.setVerkoopState(verkoop.getLegeMandMetOnHoldState());
     }
 
-    @Override
-    public void betalen() {
-        verkoop.betalen();
-        verkoop.getOnHoldHandler().increaseAantalVerkopenSindsOnHold();
-        if(verkoop.getOnHoldHandler().getAantalVerkopenSindsOnHold() == 4){
-            verkoop.getOnHoldHandler().clearAantalSindsVerkoop();
-            verkoop.setVerkoopState(verkoop.getLegeMandState());
-        } else{
-            verkoop.setVerkoopState(verkoop.getLegeMandMetOnHoldState());
-        }
-    }
 }

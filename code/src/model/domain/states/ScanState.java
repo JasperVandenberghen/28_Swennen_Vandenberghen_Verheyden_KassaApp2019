@@ -27,8 +27,8 @@ public class ScanState implements VerkoopState{
     }
 
     @Override
-    public void afrekenen() {
-        verkoop.afrekenen();
+    public void beeindigen(Button button) {
+        verkoop.afrekenen(button);
         verkoop.setVerkoopState(verkoop.getAfrekenState());
     }
 
@@ -44,8 +44,4 @@ public class ScanState implements VerkoopState{
         verkoop.setVerkoopState(verkoop.getLegeMandState());
     }
 
-    @Override
-    public void betalen() {
-
-    }
 }

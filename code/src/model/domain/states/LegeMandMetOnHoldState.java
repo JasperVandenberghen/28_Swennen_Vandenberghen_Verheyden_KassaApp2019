@@ -24,7 +24,7 @@ public class LegeMandMetOnHoldState implements VerkoopState{
     }
 
     @Override
-    public void afrekenen() {
+    public void beeindigen(Button button) {
 
     }
 
@@ -39,8 +39,4 @@ public class LegeMandMetOnHoldState implements VerkoopState{
 
     }
 
-    @Override
-    public void betalen() {
-
-    }
 }
