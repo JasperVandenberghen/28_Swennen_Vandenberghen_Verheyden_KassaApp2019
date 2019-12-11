@@ -53,7 +53,6 @@ public class SettingsController {
     }
 
     public void pasKortingenToe(){
-        kortingen = getKortingen();
         if(kortingen == null){throw new IllegalArgumentException("Voeg kortingen toe.");}
         for(KortingsStrategy ks: kortingen){
             ks.setTotaalMetKortingKassier();

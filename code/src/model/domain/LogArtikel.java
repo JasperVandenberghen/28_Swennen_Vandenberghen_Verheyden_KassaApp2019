@@ -2,14 +2,14 @@ package model.domain;
 
 import jxl.write.DateTime;
 
-public class LogProduct {
+public class LogArtikel {
 
     DateTime datum;
     double totaal;
     double korting;
     double eindTotaal;
 
-    
+
 
 
 

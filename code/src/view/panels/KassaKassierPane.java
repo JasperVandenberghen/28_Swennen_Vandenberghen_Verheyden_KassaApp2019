@@ -69,6 +69,7 @@ public class KassaKassierPane extends KassaViewBase {
 
 		beeindigen.setOnAction(event -> {
 			cont.beeindigen(beeindigen);
+			set.pasKortingenToe();
 		});
 
 	}

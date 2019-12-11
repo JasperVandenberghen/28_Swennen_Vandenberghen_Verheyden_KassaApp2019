@@ -27,6 +27,7 @@ public class DuursteKorting implements KortingsStrategy  {
         double duurst = 0;
         String artikelIdDuurst = "";
         //loopen over artikelen
+        int index = 0;
         for(ArtikelContainer ac: artikelenInKassaKassier){
             if(ac.getPrijs() > duurst){
                 duurst = ac.getPrijs();
@@ -35,6 +36,7 @@ public class DuursteKorting implements KortingsStrategy  {
             if(ac.getArtikelId().equals(artikelIdDuurst)){
                 ac.setPrijs(ac.getPrijs() * convertKorting(kortingsAantal));
             }
+            index++;
         }
     }
 

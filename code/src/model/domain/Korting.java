@@ -17,9 +17,6 @@ abstract class Korting implements KortingsStrategy {
         return kortingsAantal;
     }
 
-    public Korting(Korting korting){
-
-    }
 
     public void setVerkoop(Verkoop verkoop) {
         this.verkoop = verkoop;
