@@ -25,16 +25,19 @@ public class DuursteKorting extends Korting  {
         double duurst = 0;
         String artikelIdDuurst = "";
         //loopen over artikelen
-        int index = 0;
-        for(ArtikelContainer ac: artikelenInKassaKassier){
+        for(int i= 0; i != artikelenInKassaKassier.size(); i++){
+            ArtikelContainer ac = artikelenInKassaKassier.get(i);
             if(ac.getPrijs() > duurst){
                 duurst = ac.getPrijs();
                 artikelIdDuurst = ac.getArtikelId();
             }
-            if(ac.getArtikelId().equals(artikelIdDuurst)){
-                ac.setPrijs(ac.getPrijs() * convertKorting(kortingsAantal));
+        }
+        for(int i= 0; i != artikelenInKassaKassier.size(); i++){
+            ArtikelContainer ac = artikelenInKassaKassier.get(i);
+        if(ac.getArtikelId().equals(artikelIdDuurst)){
+            ac.setPrijs(ac.getPrijs() * convertKorting(kortingsAantal));
+            artikelenInKassaKassier.set(i, ac);
             }
-            index++;
         }
     }
 

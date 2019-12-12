@@ -3,7 +3,7 @@ package model.domain;
 import java.util.List;
 
 public class DrempelKorting extends Korting {
-    private int drempel;
+    private double drempel;
     private static final String omschrijving = "Drempelkorting";
 
     public DrempelKorting() {
@@ -24,26 +24,16 @@ public class DrempelKorting extends Korting {
         Verkoop verkoop = getVerkoop();
         //artikelen in kassa klant ophalen
         List<ArtikelContainer> artikelenInKassaKassier = verkoop.getArtikelenInKassaKassier();
-        double totaal = 0;
-        //loopen door artikelen
-        for(ArtikelContainer ac: artikelenInKassaKassier){
-            totaal += ac.getPrijs();
-        }
 
-        if(totaal >= drempel){
+
+        if(verkoop.getTotaal() >= drempel){
             verkoop.setTotaal(verkoop.getTotaal() * convertKorting(kortingsAantal));
+
         }
     }
 
 
-    @Override
-    public double convertKorting(int kortingsAantal) {
-        if(kortingsAantal != 0){
-            return (100 - kortingsAantal) / 100 ;}
-        else{
-            return 0;
-        }
-    }
+
 
     @Override
     public void setKorting(String kortingsAantal) {
@@ -62,7 +52,8 @@ public class DrempelKorting extends Korting {
 
     @Override
     public void setDrempel(String drempel) {
-        this.drempel = Integer.parseInt(drempel);
+        if(drempel == null){throw new DomainException("Drempel is leeg.");}
+        this.drempel = Double.parseDouble(drempel);
     }
 
 
@@ -70,7 +61,7 @@ public class DrempelKorting extends Korting {
         return kortingsAantal;
     }
 
-    public int getDrempel() {
+    public double getDrempel() {
         return drempel;
     }
 }

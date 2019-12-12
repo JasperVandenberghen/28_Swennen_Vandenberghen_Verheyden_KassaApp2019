@@ -14,11 +14,10 @@ public class SettingsEventHandler implements EventHandler<ActionEvent>, ChangeLi
     private KortingsFactory kortingsFactory;
 
 
-    // ik zou bij changed nog de omschrijvingKorting moeten meegeven in constructor maar die kan maar één omschrijving meegeven?
     @Override
     public void changed(ObservableValue ov, String string, String omschrijving) {
         loadSaveStrategy.getLoadSave(omschrijving);
-        //kortingsFactory.getKorting(omschrijvingKorting);
+
 
     }
 
