@@ -19,7 +19,6 @@ public class KassaSettingsPane extends VBox {
     private Label drempelLabel;
     private Label categorieLabel;
     private Button voegKortingToe;
-    private Button verwijderKortingen;
     private TextField kortingsAantalField;
     private TextField drempelAantal;
     private TextField categorie;
@@ -54,18 +53,8 @@ public class KassaSettingsPane extends VBox {
         kortingTypeBox.getSelectionModel().selectFirst();
         voegKortingToe = new Button("Voeg korting toe");
         opslaan = new Button("Opslaan");
-        verwijderKortingen = new Button("Verwijder kortingen");
-        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, voegKortingToe, verwijderKortingen, opslaan);
+        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, voegKortingToe, opslaan);
 
-
-
-        verwijderKortingen.setOnAction(event -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Korting verwijderen");
-            alert.setHeaderText(null);
-            settingsController.removeKortingen();
-            alert.setContentText("Kortingen succesvol verwijderd");
-        });
 
 
         voegKortingToe.setOnAction(event -> {

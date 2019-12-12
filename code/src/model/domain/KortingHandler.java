@@ -1,13 +1,9 @@
 package model.domain;
 
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import view.panels.KassaKassierPane;
 
-import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +29,7 @@ public class KortingHandler {
             korting.setDrempel(drempel);
         }
     }
+
 
     public void setArtikelContainers(List<ArtikelContainer> artikelContainers) {
         List<ArtikelContainer> artikelContainers_new = FXCollections.observableArrayList();
