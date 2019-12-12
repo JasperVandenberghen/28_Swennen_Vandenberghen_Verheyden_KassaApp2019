@@ -28,6 +28,7 @@ public class Main extends Application {
 		Properties properties = propertiesHandler.read();
 		String typeDb = properties.getProperty("dbType");
 		String typeLoadSave = properties.getProperty("typeLoadSave");
+		String typeKorting = properties.getProperty("typeKorting");
 
 		KortingHandler kortingHandler = new KortingHandler();
 

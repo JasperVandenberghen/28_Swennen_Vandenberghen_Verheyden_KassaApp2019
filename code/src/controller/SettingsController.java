@@ -2,14 +2,9 @@ package controller;
 
 import model.db.PropertiesHandler;
 import model.domain.KortingHandler;
-import model.domain.KortingsFactory;
-import model.domain.KortingsStrategy;
-import model.domain.Verkoop;
 import view.panels.KassaSettingsPane;
 
-import java.util.HashSet;
 import java.util.Properties;
-import java.util.Set;
 
 public class SettingsController {
     private KassaSettingsPane kassaSettingsPane;
@@ -28,10 +23,11 @@ public class SettingsController {
         return kassaSettingsPane;
     }
 
-    public void setProperties(String dbType, String typeLoadSave){
+    public void setProperties(String dbType, String typeLoadSave, String typeKorting){
         Properties properties = new Properties();
         properties.setProperty("dbType", dbType);
         properties.setProperty("typeLoadSave", typeLoadSave);
+        properties.setProperty("typeKorting", typeKorting);
         this.propertiesHandler.write(properties);
     }
     public void addKorting(String kortingStr, String hoeveelheid, String categorie, String drempel){
