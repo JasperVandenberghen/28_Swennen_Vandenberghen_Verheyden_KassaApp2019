@@ -17,6 +17,7 @@ public class Verkoop implements Observable {
     private List<ArtikelContainer> artikelenInKassaKassier;
     private List<ArtikelContainer> artikelenInKassaKlant;
     private double totaal;
+    private double totaalVoorKorting;
     private OnHoldHandler onHoldHandler;
     private KassaKassierController kassaKassierController;
 
@@ -93,6 +94,7 @@ public class Verkoop implements Observable {
             ArtikelContainer artikelContainer = new ArtikelContainer(artikel);
             ArtikelContainer artikelContainerKassaKlant = new ArtikelContainer(artikel);
             totaal += artikelContainer.getPrijs();
+            totaalVoorKorting += artikelContainer.getPrijs();
             addArtikelToKassaKassier(artikelContainer);
             addArtikelToKassaKlant(artikelContainerKassaKlant);
             notifyObservers();
@@ -211,10 +213,20 @@ public class Verkoop implements Observable {
 
     public void afrekenen(Button button){
         button.setText("Betalen");
-        int korting = 0;
-        double eindTotaal = totaal - korting;
+        List<ArtikelContainer> acd = getArtikelenInKassaKassier();
+        double totaalNakorting = 0;
+        for(int i = 0; i != acd.size(); i++){
+            ArtikelContainer ac = artikelenInKassaKassier.get(i);
+            totaalNakorting += ac.getPrijs();
+        }
+        double korting = (totaalVoorKorting - totaalNakorting);
+        double eindTotaal = totaalNakorting;
 
-        kassaKassierController.setAfrekenInfo("Korting: " + korting, "Eindtotaal: " + eindTotaal);
+        kassaKassierController.setAfrekenInfo("Korting: €" + korting, "Eindtotaal: €" + eindTotaal);
+    }
+
+    public double getTotaalVoorKorting() {
+        return totaalVoorKorting;
     }
 
     public void betalen(Button button){

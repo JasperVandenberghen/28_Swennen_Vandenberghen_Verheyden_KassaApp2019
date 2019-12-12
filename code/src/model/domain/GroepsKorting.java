@@ -25,9 +25,9 @@ public class GroepsKorting extends Korting{
         for(int i = 0;i<artikelenInKassaKassier.size();i++){
             ArtikelContainer ac = artikelenInKassaKassier.get(i);
             //als categorie gelijk pas de prijs aan
-            if(ac.getArtikelCategorie().equals(getCategorie())){
+            if(ac.getArtikelCategorie().equalsIgnoreCase(getCategorie())){
                 double prijs = ac.getPrijs();
-                //opgehaalde prijs veranderen (bv bij 70% korting, prijs * 0.7)
+                //opgehaalde prijs veranderen (bv bij 70% korting, prijs * 0.3)
                 ac.setPrijs(prijs * multiplier);
                 artikelenInKassaKassier.set(i, ac);
 
