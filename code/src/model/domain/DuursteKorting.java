@@ -10,42 +10,28 @@ public class DuursteKorting extends Korting  {
         
     }
 
-
-
-    public void setVerkoop(Verkoop verkoop) {
-        this.verkoop = verkoop;
-    }
-
     @Override
     public void setTotaalMetKortingKassier() {
-        //verkoop opvragen
-        Verkoop verkoop = getVerkoop();
         //artikelen in kassa kkassier ophalen
-        List<ArtikelContainer> artikelenInKassaKassier = verkoop.getArtikelenInKassaKassier();
         double duurst = 0;
         String artikelIdDuurst = "";
         //loopen over artikelen
-        for(int i= 0; i != artikelenInKassaKassier.size(); i++){
-            ArtikelContainer ac = artikelenInKassaKassier.get(i);
+        for(int i= 0; i != artikelContainers.size(); i++){
+            ArtikelContainer ac = artikelContainers.get(i);
             if(ac.getPrijs() > duurst){
                 duurst = ac.getPrijs();
                 artikelIdDuurst = ac.getArtikelId();
             }
         }
-        for(int i= 0; i != artikelenInKassaKassier.size(); i++){
-            ArtikelContainer ac = artikelenInKassaKassier.get(i);
-        if(ac.getArtikelId().equals(artikelIdDuurst)){
-            ac.setPrijs(ac.getPrijs() * convertKorting(kortingsAantal));
-            artikelenInKassaKassier.set(i, ac);
+        for(int i= 0; i != artikelContainers.size(); i++){
+            ArtikelContainer ac = artikelContainers.get(i);
+            if(ac.getArtikelId().equals(artikelIdDuurst)){
+                ac.setPrijs(ac.getPrijs() * convertKorting(kortingsAantal));
+                artikelContainers.set(i, ac);
             }
         }
     }
 
-
-    @Override
-    public void setKorting(String kortingsAantal) {
-        this.kortingsAantal = Integer.parseInt(kortingsAantal);
-    }
 
     @Override
     public String getOmschrijving() {
@@ -66,8 +52,4 @@ public class DuursteKorting extends Korting  {
         this.kortingsAantal = Integer.parseInt(kortingsAantal);
     }
 
-
-    public Verkoop getVerkoop() {
-        return verkoop;
-    }
 }

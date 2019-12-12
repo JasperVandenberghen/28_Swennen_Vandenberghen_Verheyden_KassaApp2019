@@ -28,7 +28,6 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
         } catch (IOException | BiffException e) {
             e.printStackTrace();
         }
-        System.out.println(data);
         return ConversionToObjectList.convertToArtikelList(data);
 
     }

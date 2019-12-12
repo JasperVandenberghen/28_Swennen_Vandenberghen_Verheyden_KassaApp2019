@@ -1,30 +1,26 @@
 package model.domain;
 
+import java.util.List;
+
 abstract class Korting implements KortingsStrategy {
 
     protected double totaal;
-    protected int kortingsAantal;
-    protected Verkoop verkoop;
-
-
+    protected double kortingsAantal;
+    protected List<ArtikelContainer> artikelContainers;
 
 
     public Korting(){
 
     }
 
-    public int getKortingsAantal() {
+    public void setArtikelContainers(List<ArtikelContainer> artikelContainers) {
+        this.artikelContainers = artikelContainers;
+    }
+
+    public double getKortingsAantal() {
         return kortingsAantal;
     }
 
-
-    public void setVerkoop(Verkoop verkoop) {
-        this.verkoop = verkoop;
-    }
-
-    public Verkoop getVerkoop() {
-        return verkoop;
-    }
 
     public void setKortingsAantal(String kortingsAantal){
         this.kortingsAantal = Integer.parseInt(kortingsAantal);
@@ -42,13 +38,18 @@ abstract class Korting implements KortingsStrategy {
 
 
     //zet korting bv 70(%) om naar 0.3
-    public double convertKorting(int kortingsAantal) {
+    public double convertKorting(double kortingsAantal) {
         if(kortingsAantal != 0){
             // 1 has to be converted to double
-            return (100 - (double) kortingsAantal) / 100 ;}
+            return (100 -  kortingsAantal) / 100 ;}
         else{
             return 0;
         }
+    }
+
+    @Override
+    public void setKorting(String kortingsAantal) {
+        this.kortingsAantal = Double.parseDouble(kortingsAantal);
     }
 
 }

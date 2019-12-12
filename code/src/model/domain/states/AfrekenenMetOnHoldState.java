@@ -26,8 +26,9 @@ public class AfrekenenMetOnHoldState implements VerkoopState{
     public void beeindigen(Button button) {
         verkoop.betalen(button);
         verkoop.getOnHoldHandler().increaseAantalVerkopenSindsOnHold();
-        if(verkoop.getOnHoldHandler().getAantalVerkopenSindsOnHold() == 4){
+        if(verkoop.getOnHoldHandler().getAantalVerkopenSindsOnHold() == 3){
             verkoop.getOnHoldHandler().clearAantalSindsVerkoop();
+            verkoop.getKassaKassierController().getKassaKassierPane().setOnHoldKnopTekst("Plaats on Hold");
             verkoop.setVerkoopState(verkoop.getLegeMandState());
         } else{
             verkoop.setVerkoopState(verkoop.getLegeMandMetOnHoldState());

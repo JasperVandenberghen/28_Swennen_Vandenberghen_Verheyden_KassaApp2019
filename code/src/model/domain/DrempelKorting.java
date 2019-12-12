@@ -10,34 +10,18 @@ public class DrempelKorting extends Korting {
 
     }
 
-    public Verkoop getVerkoop() {
-        return verkoop;
-    }
-
-    public void setVerkoop(Verkoop verkoop) {
-        this.verkoop = verkoop;
-    }
 
     @Override
     public void setTotaalMetKortingKassier() {
-        //verkoop opvragen
-        Verkoop verkoop = getVerkoop();
         //artikelen in kassa klant ophalen
-        List<ArtikelContainer> artikelenInKassaKassier = verkoop.getArtikelenInKassaKassier();
 
-
-        if(verkoop.getTotaal() >= drempel){
-            verkoop.setTotaal(verkoop.getTotaal() * convertKorting(kortingsAantal));
-
+        if(KortingHandler.calculateTotaal(artikelContainers) >= drempel){
+            for(int i= 0; i != artikelContainers.size(); i++){
+                ArtikelContainer ac = artikelContainers.get(i);
+                ac.setPrijs(ac.getPrijs() * convertKorting(kortingsAantal));
+                artikelContainers.set(i, ac);
+            }
         }
-    }
-
-
-
-
-    @Override
-    public void setKorting(String kortingsAantal) {
-        this.kortingsAantal = Integer.parseInt(kortingsAantal);
     }
 
     @Override
@@ -56,10 +40,6 @@ public class DrempelKorting extends Korting {
         this.drempel = Double.parseDouble(drempel);
     }
 
-
-    public int getKortingsAantal() {
-        return kortingsAantal;
-    }
 
     public double getDrempel() {
         return drempel;

@@ -1,6 +1,7 @@
 package controller;
 
 import model.db.PropertiesHandler;
+import model.domain.KortingHandler;
 import model.domain.KortingsFactory;
 import model.domain.KortingsStrategy;
 import model.domain.Verkoop;
@@ -13,10 +14,12 @@ import java.util.Set;
 public class SettingsController {
     private KassaSettingsPane kassaSettingsPane;
     private PropertiesHandler propertiesHandler;
-    private Set<KortingsStrategy> kortingen = new HashSet<>();
+    private KortingHandler kortingHandler;
 
-    public SettingsController(PropertiesHandler propertiesHandler) {
+
+    public SettingsController(PropertiesHandler propertiesHandler, KortingHandler kortingHandler) {
         this.propertiesHandler = propertiesHandler;
+        this.kortingHandler = kortingHandler;
     }
 
     public void setView(KassaSettingsPane kassaSettingsPane){this.kassaSettingsPane = kassaSettingsPane;}
@@ -31,31 +34,8 @@ public class SettingsController {
         properties.setProperty("typeLoadSave", typeLoadSave);
         this.propertiesHandler.write(properties);
     }
-
-    public void addKorting(String kortingStr, String hoeveelheid, String categorie, String drempel, Verkoop verkoop){
-        if(kortingStr.trim().isEmpty() || hoeveelheid.trim().isEmpty()){throw new IllegalArgumentException("Voeg een korting of hoeveelheid toe.");}
-        KortingsStrategy korting = new KortingsFactory().getKorting(kortingStr);
-        korting.setKorting(hoeveelheid);
-        korting.setVerkoop(verkoop);
-        kortingen.add(korting);
-        for(KortingsStrategy ks: kortingen){
-            if(ks.getOmschrijving().equals("Groepskorting")){
-                ks.setCategorie(categorie);
-            }
-            if(ks.getOmschrijving().equals("Drempelkorting")){
-                ks.setDrempel(drempel);
-            }
-        }
+    public void addKorting(String kortingStr, String hoeveelheid, String categorie, String drempel){
+        kortingHandler.addKorting(kortingStr, hoeveelheid, categorie, drempel);
     }
 
-    public Set<KortingsStrategy> getKortingen() {
-        return kortingen;
-    }
-
-    public void pasKortingenToe(){
-        if(kortingen == null){throw new IllegalArgumentException("Voeg kortingen toe.");}
-        for(KortingsStrategy ks: kortingen){
-            ks.setTotaalMetKortingKassier();
-        }
-    }
 }

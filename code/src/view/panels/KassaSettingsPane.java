@@ -27,7 +27,7 @@ public class KassaSettingsPane extends VBox {
     private List<String> kortingTypeList = KortingEnum.getKortingen();
     private Button opslaan;
 
-    public KassaSettingsPane(SettingsController settingsController, Verkoop verkoop) {
+    public KassaSettingsPane(SettingsController settingsController) {
 //        this.setPadding(new Insets(5,5,5, 5));
 //        this.setVgap(5);
 //        this.setHgap(5);
@@ -65,8 +65,8 @@ public class KassaSettingsPane extends VBox {
             alert.setTitle("Korting toevoegen");
             alert.setHeaderText(null);
             if(!kortingsAantalField.getText().trim().isEmpty()){
-                if(Integer.parseInt(kortingsAantalField.getText()) > 0 && (Integer.parseInt(kortingsAantalField.getText()) < 100)){
-                    settingsController.addKorting(kortingTypeBox.getValue().toString(), kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText(), verkoop);
+                if(Double.parseDouble(kortingsAantalField.getText()) > 0 && (Double.parseDouble(kortingsAantalField.getText()) < 100)){
+                    settingsController.addKorting(kortingTypeBox.getValue().toString(), kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText());
                     alert.setContentText("Korting succesvol toegevoegd");}
                 else{
                     alert.setContentText("Je getal moet tussen 0 en 100 liggen.");

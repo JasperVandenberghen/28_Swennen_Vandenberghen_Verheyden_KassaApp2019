@@ -67,7 +67,6 @@ public class Artikel implements Cloneable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Artikel artikel = (Artikel) o;
-        System.out.println(artikelId + " " + artikel.artikelId);
         return Objects.equals(artikelId, artikel.artikelId);
     }
 

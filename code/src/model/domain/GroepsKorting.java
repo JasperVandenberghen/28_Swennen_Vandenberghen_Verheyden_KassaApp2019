@@ -8,45 +8,26 @@ public class GroepsKorting extends Korting{
 
     public GroepsKorting() {
 
-
-    }
-
-    public Verkoop getVerkoop() {
-        return verkoop;
     }
 
     public void setTotaalMetKortingKassier() {
-        //verkoop opvragen
-        Verkoop verkoop = getVerkoop();
-        //artikelen in kassa kassier ophalen
-        List<ArtikelContainer> artikelenInKassaKassier = verkoop.getArtikelenInKassaKassier();
         //loopen door artikelen
         double multiplier = convertKorting(kortingsAantal);
-        for(int i = 0;i<artikelenInKassaKassier.size();i++){
-            ArtikelContainer ac = artikelenInKassaKassier.get(i);
+        for(int i = 0;i<artikelContainers.size();i++){
+            ArtikelContainer ac = artikelContainers.get(i);
             //als categorie gelijk pas de prijs aan
             if(ac.getArtikelCategorie().equalsIgnoreCase(getCategorie())){
                 double prijs = ac.getPrijs();
                 //opgehaalde prijs veranderen (bv bij 70% korting, prijs * 0.3)
                 ac.setPrijs(prijs * multiplier);
-                artikelenInKassaKassier.set(i, ac);
-
+                artikelContainers.set(i, ac);
             }
 
         }
 
     }
 
-    public void setVerkoop(Verkoop verkoop) {
-        this.verkoop = verkoop;
-    }
 
-
-
-    @Override
-    public void setKorting(String kortingsAantal) {
-        this.kortingsAantal = Integer.parseInt(kortingsAantal);
-    }
 
     @Override
     public String getOmschrijving() {
@@ -67,10 +48,6 @@ public class GroepsKorting extends Korting{
 
     public String getCategorie() {
         return categorie;
-    }
-
-    public int getKortingsAantal() {
-        return kortingsAantal;
     }
 
     //setter voor instellen op welke categorie er korting is

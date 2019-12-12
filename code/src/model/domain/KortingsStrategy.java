@@ -1,12 +1,14 @@
 package model.domain;
 
+import java.util.List;
+
 public interface KortingsStrategy {
 
     void setTotaalMetKortingKassier();
-    double convertKorting(int kortingsAantal);
+    double convertKorting(double kortingsAantal);
     void setKorting(String hoeveelheid);
     String getOmschrijving();
     void setCategorie(String categorie);
     void setDrempel(String drempel);
-    void setVerkoop(Verkoop verkoop);
+    void setArtikelContainers(List<ArtikelContainer> artikelContainers);
 }

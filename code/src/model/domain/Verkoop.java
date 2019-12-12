@@ -17,9 +17,9 @@ public class Verkoop implements Observable {
     private List<ArtikelContainer> artikelenInKassaKassier;
     private List<ArtikelContainer> artikelenInKassaKlant;
     private double totaal;
-    private double totaalVoorKorting;
     private OnHoldHandler onHoldHandler;
     private KassaKassierController kassaKassierController;
+    private KortingHandler kortingHandler;
 
     // states
     private VerkoopState legeMandState;
@@ -39,12 +39,13 @@ public class Verkoop implements Observable {
         this.totaal = totaal;
     }
 
-    public Verkoop(Map<String, Artikel> artikelMap) {
+    public Verkoop(Map<String, Artikel> artikelMap, KortingHandler kortingHandler) {
         observers = new ArrayList<Observer>();
         artikelenInKassaKassier = FXCollections.observableArrayList();
         artikelenInKassaKlant = FXCollections.observableArrayList();
         this.artikelMap = artikelMap;
         this.onHoldHandler = new OnHoldHandler();
+        this.kortingHandler = kortingHandler;
 
         // states
         legeMandState = new LegeMandState(this);
@@ -54,22 +55,6 @@ public class Verkoop implements Observable {
         scanMetOnHoldState = new ScanMetOnHoldState(this);
         afrekenMetOnHoldState = new AfrekenenMetOnHoldState(this);
         verkoopState = legeMandState;
-    }
-
-    public Verkoop(){
-        observers = new ArrayList<Observer>();
-        artikelenInKassaKassier = FXCollections.observableArrayList();
-        artikelenInKassaKlant = FXCollections.observableArrayList();
-        this.artikelMap = artikelMap;
-        this.onHoldHandler = new OnHoldHandler();
-
-        // states
-        legeMandState = new LegeMandState(this);
-        scanState = new ScanState(this);
-        afrekenState = new AfrekenenState(this);
-        legeMandMetOnHoldState = new LegeMandMetOnHoldState(this);
-        scanMetOnHoldState = new ScanMetOnHoldState(this);
-        afrekenMetOnHoldState = new AfrekenenMetOnHoldState(this);
     }
 
     public void setKassaKassierController(KassaKassierController kassaKassierController) {
@@ -94,7 +79,6 @@ public class Verkoop implements Observable {
             ArtikelContainer artikelContainer = new ArtikelContainer(artikel);
             ArtikelContainer artikelContainerKassaKlant = new ArtikelContainer(artikel);
             totaal += artikelContainer.getPrijs();
-            totaalVoorKorting += artikelContainer.getPrijs();
             addArtikelToKassaKassier(artikelContainer);
             addArtikelToKassaKlant(artikelContainerKassaKlant);
             notifyObservers();
@@ -213,25 +197,18 @@ public class Verkoop implements Observable {
 
     public void afrekenen(Button button){
         button.setText("Betalen");
-        List<ArtikelContainer> acd = getArtikelenInKassaKassier();
-        double totaalNakorting = 0;
-        for(int i = 0; i != acd.size(); i++){
-            ArtikelContainer ac = artikelenInKassaKassier.get(i);
-            totaalNakorting += ac.getPrijs();
-        }
-        double korting = (totaalVoorKorting - totaalNakorting);
+        kortingHandler.setArtikelContainers(artikelenInKassaKassier);
+        double totaalNakorting = kortingHandler.getNewTotaalNaKorting();
+        double korting = (totaal - totaalNakorting);
         double eindTotaal = totaalNakorting;
 
-        kassaKassierController.setAfrekenInfo("Korting: €" + korting, "Eindtotaal: €" + eindTotaal);
-    }
-
-    public double getTotaalVoorKorting() {
-        return totaalVoorKorting;
+        kassaKassierController.setAfrekenInfo("Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting), "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal));
     }
 
     public void betalen(Button button){
         button.setText("Afrekenen");
         kassaKassierController.setAfrekenInfo("","");
+
         clearArtikelen();
     }
 
@@ -257,6 +234,10 @@ public class Verkoop implements Observable {
 
     public OnHoldHandler getOnHoldHandler() {
         return onHoldHandler;
+    }
+
+    public KassaKassierController getKassaKassierController() {
+        return kassaKassierController;
     }
 
     // STATE METHODS

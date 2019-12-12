@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import model.db.ArtikelDbContext;
 import model.db.PropertiesHandler;
 import model.domain.Artikel;
+import model.domain.KortingHandler;
 import model.domain.Verkoop;
 import view.KassaView;
 import view.KlantView;
@@ -28,25 +29,23 @@ public class Main extends Application {
 		String typeDb = properties.getProperty("dbType");
 		String typeLoadSave = properties.getProperty("typeLoadSave");
 
-		/*ArtikelExcelLoadSaveStrategy bla = new ArtikelExcelLoadSaveStrategy();
-		bla.setFile("code/artikel.xls");
-		System.out.println(bla.load());
-*/
+		KortingHandler kortingHandler = new KortingHandler();
+
 		// DB INITIATION
 		ArtikelDbContext artikelDbContext = new ArtikelDbContext(typeDb, typeLoadSave);
 		Map<String, Artikel> artikelMap = artikelDbContext.getAll();
 
 		// TAB KASSA
-		Verkoop verkoop = new Verkoop(artikelMap);
+		Verkoop verkoop = new Verkoop(artikelMap, kortingHandler);
 
-		SettingsController settingsController = new SettingsController(propertiesHandler);
-		KassaSettingsPane kassaSettingsPane = new KassaSettingsPane(settingsController, verkoop);
+		SettingsController settingsController = new SettingsController(propertiesHandler, kortingHandler);
+		new KassaSettingsPane(settingsController);
 
 		KassaKassierController kassaKassierController = new KassaKassierController(verkoop);
-		KassaKassierPane kassaKassierPane = new KassaKassierPane(kassaKassierController, settingsController);
+		new KassaKassierPane(kassaKassierController, settingsController);
 
 		KassaKlantController kassaKlantController = new KassaKlantController(verkoop);
-		KassaKlantPane kassaKlantPane = new KassaKlantPane(kassaKlantController);
+		new KassaKlantPane(kassaKlantController);
 
 		// Tab SETTINGS
 
