@@ -53,11 +53,11 @@ public class KassaSettingsPane extends VBox {
         kortingTypeBox.getSelectionModel().selectFirst();
         voegKortingToe = new Button("Voeg korting toe");
         opslaan = new Button("Opslaan");
-        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, voegKortingToe, opslaan);
+        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, opslaan);
 
 
 
-        voegKortingToe.setOnAction(event -> {
+        /*voegKortingToe.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Korting toevoegen");
             alert.setHeaderText(null);
@@ -74,9 +74,25 @@ public class KassaSettingsPane extends VBox {
             }
 
             alert.showAndWait();
-        });
+        });*/
 
         opslaan.setOnAction(event -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Korting toevoegen");
+            alert.setHeaderText(null);
+            if(!kortingsAantalField.getText().trim().isEmpty()){
+                if(Double.parseDouble(kortingsAantalField.getText()) > 0 && (Double.parseDouble(kortingsAantalField.getText()) < 100)){
+                    settingsController.addKorting(kortingTypeBox.getValue().toString(), kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText());
+                    alert.setContentText("Korting succesvol toegevoegd");}
+                else{
+                    alert.setContentText("Je getal moet tussen 0 en 100 liggen.");
+                }
+            }
+            else {
+                alert.setContentText("Je moet eerst een hoeveelheid korting ingeven.");
+            }
+
+            alert.showAndWait();
             settingsController.setProperties(dbTypeBox.getValue().toString(), loadSaveBox.getValue().toString(), kortingTypeBox.getValue().toString(),kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText());
             MessageHandler.showAlert("Successfully saved");
         });
