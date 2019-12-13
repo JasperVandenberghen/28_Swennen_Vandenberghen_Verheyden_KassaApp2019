@@ -8,9 +8,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.db.ArtikelDbContext;
 import model.db.PropertiesHandler;
-import model.domain.Artikel;
-import model.domain.KortingHandler;
-import model.domain.Verkoop;
+import model.domain.*;
 import view.KassaView;
 import view.KlantView;
 import view.panels.KassaKassierPane;
@@ -29,6 +27,10 @@ public class Main extends Application {
 		String typeDb = properties.getProperty("dbType");
 		String typeLoadSave = properties.getProperty("typeLoadSave");
 		String typeKorting = properties.getProperty("typeKorting");
+		String kortingsAantal = properties.getProperty("aantalKorting");
+		String categorieKorting = properties.getProperty("categorieKorting");
+		String drempelKorting = properties.getProperty("drempelKorting");
+
 
 		KortingHandler kortingHandler = new KortingHandler();
 
@@ -40,6 +42,12 @@ public class Main extends Application {
 		Verkoop verkoop = new Verkoop(artikelMap, kortingHandler);
 
 		SettingsController settingsController = new SettingsController(propertiesHandler, kortingHandler);
+		try{
+			settingsController.getKortingHandler().addKorting(typeKorting,kortingsAantal, categorieKorting, drempelKorting);
+		} catch (NullPointerException e) {
+
+		}
+
 		new KassaSettingsPane(settingsController);
 
 		KassaKassierController kassaKassierController = new KassaKassierController(verkoop);

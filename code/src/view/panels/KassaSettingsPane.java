@@ -77,7 +77,7 @@ public class KassaSettingsPane extends VBox {
         });
 
         opslaan.setOnAction(event -> {
-            settingsController.setProperties(dbTypeBox.getValue().toString(), loadSaveBox.getValue().toString(), kortingTypeBox.getValue().toString());
+            settingsController.setProperties(dbTypeBox.getValue().toString(), loadSaveBox.getValue().toString(), kortingTypeBox.getValue().toString(),kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText());
             MessageHandler.showAlert("Successfully saved");
         });
 
