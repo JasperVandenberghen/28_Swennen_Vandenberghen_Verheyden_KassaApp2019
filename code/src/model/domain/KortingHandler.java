@@ -4,13 +4,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import view.panels.KassaKassierPane;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class KortingHandler {
     private KassaKassierPane kassaKassierPane;
-    private Set<KortingsStrategy> kortingen = new HashSet<>();
+    private List<KortingsStrategy> kortingen = new ArrayList<KortingsStrategy>();
     private List<ArtikelContainer> artikelContainers;
 
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -21,7 +20,15 @@ public class KortingHandler {
         if(kortingStr.trim().isEmpty() || hoeveelheid.trim().isEmpty()){throw new IllegalArgumentException("Voeg een korting of hoeveelheid toe.");}
         KortingsStrategy korting = new KortingsFactory().getKorting(kortingStr);
         korting.setKorting(hoeveelheid);
+
+        for(int i = 0; i != kortingen.size(); i++){
+            KortingsStrategy ks = kortingen.get(i);
+            if(ks.getOmschrijving().equals(korting.getOmschrijving())){
+                throw new DomainException("Korting is al opgenomen.");
+            }
+        }
         kortingen.add(korting);
+
         if(korting.getOmschrijving().equals("Groepskorting")){
             korting.setCategorie(categorie);
         }
@@ -29,6 +36,7 @@ public class KortingHandler {
             korting.setDrempel(drempel);
         }
     }
+
 
 
     public void setArtikelContainers(List<ArtikelContainer> artikelContainers) {
@@ -39,7 +47,7 @@ public class KortingHandler {
         this.artikelContainers = artikelContainers_new;
     }
 
-    public Set<KortingsStrategy> getKortingen() {
+    public List<KortingsStrategy> getKortingen() {
         return kortingen;
     }
 

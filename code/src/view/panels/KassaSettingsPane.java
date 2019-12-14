@@ -81,7 +81,7 @@ public class KassaSettingsPane extends VBox {
             alert.setTitle("Korting toevoegen");
             alert.setHeaderText(null);
             if(!kortingsAantalField.getText().trim().isEmpty()){
-                if(Double.parseDouble(kortingsAantalField.getText()) > 0 && (Double.parseDouble(kortingsAantalField.getText()) < 100)){
+                if(Double.parseDouble(kortingsAantalField.getText()) > 0 && (Double.parseDouble(kortingsAantalField.getText()) <= 100)){
                     settingsController.addKorting(kortingTypeBox.getValue().toString(), kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText());
                     alert.setContentText("Korting succesvol toegevoegd");}
                 else{

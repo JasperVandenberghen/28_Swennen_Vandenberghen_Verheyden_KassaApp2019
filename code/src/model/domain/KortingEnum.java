@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum KortingEnum {
 
-    BASIS ("Geen korting", "model.domain.Korting"),
+    BASIS ("Geen korting", "model.domain.GeenKorting"),
     GROEP ("Groepskorting", "model.domain.GroepsKorting"),
     DREMPEL ("Drempelkorting", "model.domain.DrempelKorting"),
     DUURSTE ("Duurstekorting", "model.domain.DuursteKorting");
