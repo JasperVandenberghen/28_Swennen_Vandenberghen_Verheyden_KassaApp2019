@@ -29,10 +29,13 @@ public class KassaKlantController implements Observer {
         this.kassaKlantPane.setTotaal(totaal);
     }
 
-    public void setAfrekenInfo(String korting, String eindTotaal){
+    @Override
+    public void setAfrekenInfo(String korting, String eindTotaal) {
         kassaKlantPane.getKorting().setText(korting);
         kassaKlantPane.getEindTotaal().setText(eindTotaal);
     }
+
+
 
     public void remove(String artikelId){
         if(artikelenInKassa.contains(artikelId)){

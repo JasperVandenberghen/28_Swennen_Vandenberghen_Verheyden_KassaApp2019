@@ -22,6 +22,8 @@ public class Verkoop implements Observable {
     private KassaKassierController kassaKassierController;
     private KassaKlantController kassaKlantController;
     private KortingHandler kortingHandler;
+    private double korting;
+    private double eindTotaal;
 
     // states
     private VerkoopState legeMandState;
@@ -176,6 +178,7 @@ public class Verkoop implements Observable {
             Observer observer = (Observer) observers.get(i);
             DecimalFormat df = new DecimalFormat("0.00");
             observer.update(df.format(totaal));
+            observer.setAfrekenInfo(df.format(korting), df.format(eindTotaal));
         }
     }
 
@@ -205,11 +208,11 @@ public class Verkoop implements Observable {
         button.setText("Betalen");
         kortingHandler.setArtikelContainers(artikelenInKassaKassier);
         double totaalNakorting = kortingHandler.getNewTotaalNaKorting();
-        double korting = (totaal - totaalNakorting);
-        double eindTotaal = totaalNakorting;
+        korting = (totaal - totaalNakorting);
+        eindTotaal = totaalNakorting;
 
         kassaKassierController.setAfrekenInfo("Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting), "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal));
-        kassaKlantController.setAfrekenInfo("Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting), "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal));
+        notifyObservers();
     }
 
     public void betalen(Button button){
