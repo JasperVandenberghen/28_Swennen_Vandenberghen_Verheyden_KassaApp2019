@@ -11,12 +11,19 @@ import java.util.List;
 
 
 public class KassaKlantPane extends KassaViewBase {
+		private Label korting;
+		private Label eindTotaal;
 
 	public KassaKlantPane(KassaKlantController cont) {
 		super();
 		this.add(new Label("Products:"), 0, 0, 1, 1);
 		this.add(table, 0,1);
 		this.add(totaal, 0,2);
+		korting = new Label("Korting: ");
+		eindTotaal = new Label("Eindtotaal: ");
+		this.add(korting, 0, 3);
+		this.add(eindTotaal, 0, 4);
+
 		cont.setView(this);
 
 	}
@@ -34,6 +41,14 @@ public class KassaKlantPane extends KassaViewBase {
 		colPrijs.setMinWidth(40);
 		colPrijs.setCellValueFactory(new PropertyValueFactory<ArtikelContainer, String>("prijs"));
 		table.getColumns().addAll(colAantal, colArtikelNaam, colPrijs);
+	}
+
+	public Label getKorting() {
+		return korting;
+	}
+
+	public Label getEindTotaal() {
+		return eindTotaal;
 	}
 
 }

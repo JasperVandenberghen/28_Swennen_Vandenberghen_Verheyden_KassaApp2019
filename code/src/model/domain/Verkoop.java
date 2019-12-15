@@ -1,6 +1,7 @@
 package model.domain;
 
 import controller.KassaKassierController;
+import controller.KassaKlantController;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import model.db.OnHoldHandler;
@@ -19,6 +20,7 @@ public class Verkoop implements Observable {
     private double totaal;
     private OnHoldHandler onHoldHandler;
     private KassaKassierController kassaKassierController;
+    private KassaKlantController kassaKlantController;
     private KortingHandler kortingHandler;
 
     // states
@@ -59,6 +61,10 @@ public class Verkoop implements Observable {
 
     public void setKassaKassierController(KassaKassierController kassaKassierController) {
         this.kassaKassierController = kassaKassierController;
+    }
+
+    public void setKassaKlantController(KassaKlantController kassaKlantController) {
+        this.kassaKlantController = kassaKlantController;
     }
 
     public List<ArtikelContainer> getArtikelenInKassaKassier() {
@@ -203,11 +209,13 @@ public class Verkoop implements Observable {
         double eindTotaal = totaalNakorting;
 
         kassaKassierController.setAfrekenInfo("Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting), "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal));
+        kassaKlantController.setAfrekenInfo("Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting), "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal));
     }
 
     public void betalen(Button button){
         button.setText("Afrekenen");
         kassaKassierController.setAfrekenInfo("","");
+        kassaKlantController.setAfrekenInfo("","");
 
         clearArtikelen();
     }
@@ -238,6 +246,10 @@ public class Verkoop implements Observable {
 
     public KassaKassierController getKassaKassierController() {
         return kassaKassierController;
+    }
+
+    public KassaKlantController getKassaKlantController() {
+        return kassaKlantController;
     }
 
     // STATE METHODS

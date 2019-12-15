@@ -45,4 +45,6 @@ public class KassaViewBase extends GridPane {
     public void setTotaal(String totaal) {
         this.totaal.setText("Totaal: " + totaal);
     }
+
+
 }

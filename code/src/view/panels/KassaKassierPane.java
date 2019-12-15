@@ -1,7 +1,6 @@
 package view.panels;
 
 import controller.KassaKassierController;
-import controller.SettingsController;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +18,7 @@ public class KassaKassierPane extends KassaViewBase {
 	private Label korting;
 	private Label eindTotaal;
 
-	public KassaKassierPane(KassaKassierController cont, SettingsController set) {
+	public KassaKassierPane(KassaKassierController cont) {
 		this.inputArtikel = new TextField();
 		removeKnop = new Button("Remove");
 		HBox scan = new HBox();
