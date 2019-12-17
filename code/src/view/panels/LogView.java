@@ -28,6 +28,7 @@ public class LogView extends GridPane {
 
     public void setObservableList(List<VerkoopLog> observableList) {
         this.observableList = observableList;
+        observableList.size();
         table.setItems((ObservableList<VerkoopLog>)observableList);
         TableColumn<VerkoopLog, String> datum = new TableColumn<VerkoopLog, String>("Datum");
         datum.setMinWidth(200);
@@ -40,7 +41,7 @@ public class LogView extends GridPane {
         korting.setCellValueFactory(new PropertyValueFactory<VerkoopLog, String>("korting"));
         TableColumn<VerkoopLog, String> eindTotaal = new TableColumn<VerkoopLog, String>("Eindtotaal");
         eindTotaal.setMinWidth(40);
-        eindTotaal.setCellValueFactory(new PropertyValueFactory<VerkoopLog, String>("eindtotaal"));
+        eindTotaal.setCellValueFactory(new PropertyValueFactory<VerkoopLog, String>("eindTotaal"));
         table.getColumns().addAll(datum, totaal, korting, eindTotaal);
         this.add(table, 0,0);
     }

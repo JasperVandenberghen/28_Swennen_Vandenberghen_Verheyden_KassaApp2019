@@ -15,7 +15,6 @@ public class LogHandler {
 
     public void addLog(double totaal, double korting, double eindTotaal){
         logBook.add(new VerkoopLog(totaal, korting, eindTotaal));
-
     }
 
     public List<VerkoopLog> getLogBook() {
