@@ -15,6 +15,8 @@ public class KassaViewBase extends GridPane {
     protected TableView<ArtikelContainer> table;
     protected List<ArtikelContainer> observableList;
     protected Label totaal;
+    protected Label korting;
+    protected Label eindTotaal;
 
     public KassaViewBase() {
         this.setPadding(new Insets(5, 5, 5, 5));
@@ -23,6 +25,8 @@ public class KassaViewBase extends GridPane {
 
         this.table = new TableView<>();
         this.totaal = new Label("");
+        this.korting = new Label("");
+        this.eindTotaal = new Label("");
         this.setTotaal("0");
     }
 
@@ -43,8 +47,13 @@ public class KassaViewBase extends GridPane {
     }
 
     public void setTotaal(String totaal) {
-        this.totaal.setText("Totaal: " + totaal);
+        this.totaal.setText(totaal);
     }
 
-
+    public void setKorting(String korting) {
+        this.korting.setText(korting);
+    }
+    public void setEindtotaal(String eindTotaal) {
+        this.eindTotaal.setText(eindTotaal);
+    }
 }

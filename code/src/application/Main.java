@@ -1,9 +1,6 @@
 package application;
 
-import controller.ArtikelController;
-import controller.KassaKassierController;
-import controller.KassaKlantController;
-import controller.SettingsController;
+import controller.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.db.ArtikelDbContext;
@@ -14,6 +11,7 @@ import view.KlantView;
 import view.panels.KassaKassierPane;
 import view.panels.KassaKlantPane;
 import view.panels.KassaSettingsPane;
+import view.panels.LogView;
 
 import java.util.Map;
 import java.util.Properties;
@@ -39,7 +37,8 @@ public class Main extends Application {
 		Map<String, Artikel> artikelMap = artikelDbContext.getAll();
 
 		// TAB KASSA
-		Verkoop verkoop = new Verkoop(artikelMap, kortingHandler);
+		LogHandler logHandler = new LogHandler();
+		Verkoop verkoop = new Verkoop(artikelMap, kortingHandler, logHandler);
 
 		SettingsController settingsController = new SettingsController(propertiesHandler, kortingHandler);
 		try{
@@ -56,12 +55,13 @@ public class Main extends Application {
 		KassaKlantController kassaKlantController = new KassaKlantController(verkoop);
 		new KassaKlantPane(kassaKlantController);
 
-		// Tab SETTINGS
-
+		// Tab LOG
+		LogController logController = new LogController(logHandler);
+		new LogView(logController);
 
 		// TAB ARTIKELEN
 		ArtikelController artikelController = new ArtikelController(artikelMap);
-		KassaView kassaView = new KassaView(artikelController, kassaKassierController, settingsController);
+		KassaView kassaView = new KassaView(artikelController, kassaKassierController, settingsController, logController);
 		artikelController.setArtikelenInView();
 
 

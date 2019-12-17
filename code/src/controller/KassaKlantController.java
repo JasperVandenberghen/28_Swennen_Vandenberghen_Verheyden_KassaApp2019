@@ -25,16 +25,11 @@ public class KassaKlantController implements Observer {
     }
 
     @Override
-    public void update(String totaal) {
+    public void update(String totaal, String korting, String eindTotaal) {
         this.kassaKlantPane.setTotaal(totaal);
+        kassaKlantPane.setKorting(korting);
+        kassaKlantPane.setEindtotaal(eindTotaal);
     }
-
-    @Override
-    public void setAfrekenInfo(String korting, String eindTotaal) {
-        kassaKlantPane.getKorting().setText(korting);
-        kassaKlantPane.getEindTotaal().setText(eindTotaal);
-    }
-
 
 
     public void remove(String artikelId){

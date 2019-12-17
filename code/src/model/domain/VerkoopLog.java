@@ -1,17 +1,18 @@
 package model.domain;
 
 
-import jxl.write.DateTime;
+
+import java.time.LocalDateTime;
 
 public class VerkoopLog {
 
-    DateTime datum;
+    LocalDateTime datum;
     double totaal;
     double korting;
     double eindTotaal;
 
-    public VerkoopLog(DateTime datum, double totaal, double korting, double eindTotaal) {
-        this.datum = datum;
+    public VerkoopLog(double totaal, double korting, double eindTotaal) {
+        this.datum = LocalDateTime.now();
         this.totaal = totaal;
         this.korting = korting;
         this.eindTotaal = eindTotaal;

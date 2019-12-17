@@ -2,6 +2,7 @@ package model.domain;
 
 import controller.KassaKassierController;
 import controller.KassaKlantController;
+import controller.LogController;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import model.db.OnHoldHandler;
@@ -22,8 +23,13 @@ public class Verkoop implements Observable {
     private KassaKassierController kassaKassierController;
     private KassaKlantController kassaKlantController;
     private KortingHandler kortingHandler;
+    private LogHandler logHandler;
     private double korting;
     private double eindTotaal;
+
+    private String totaalText;
+    private String eindTotaalText;
+    private String kortingText;
 
     // states
     private VerkoopState legeMandState;
@@ -43,13 +49,14 @@ public class Verkoop implements Observable {
         this.totaal = totaal;
     }
 
-    public Verkoop(Map<String, Artikel> artikelMap, KortingHandler kortingHandler) {
+    public Verkoop(Map<String, Artikel> artikelMap, KortingHandler kortingHandler, LogHandler logHandler) {
         observers = new ArrayList<Observer>();
         artikelenInKassaKassier = FXCollections.observableArrayList();
         artikelenInKassaKlant = FXCollections.observableArrayList();
         this.artikelMap = artikelMap;
         this.onHoldHandler = new OnHoldHandler();
         this.kortingHandler = kortingHandler;
+        this.logHandler = logHandler;
 
         // states
         legeMandState = new LegeMandState(this);
@@ -89,6 +96,7 @@ public class Verkoop implements Observable {
             totaal += artikelContainer.getPrijs();
             addArtikelToKassaKassier(artikelContainer);
             addArtikelToKassaKlant(artikelContainerKassaKlant);
+            this.totaalText = "Totaal: € " + FormatNumberClass.parseToStringTwoDecimals(totaal);
             notifyObservers();
         } catch (Exception e){
             MessageHandler.showAlert("De opgegeven artikelcode is niet beschikbaar");
@@ -176,9 +184,7 @@ public class Verkoop implements Observable {
     public void notifyObservers() {
         for (int i = 0; i < observers.size(); i++) {
             Observer observer = (Observer) observers.get(i);
-            DecimalFormat df = new DecimalFormat("0.00");
-            observer.update(df.format(totaal));
-            observer.setAfrekenInfo(df.format(korting), df.format(eindTotaal));
+            observer.update(totaalText, kortingText, eindTotaalText);
         }
     }
 
@@ -210,21 +216,23 @@ public class Verkoop implements Observable {
         double totaalNakorting = kortingHandler.getNewTotaalNaKorting();
         korting = (totaal - totaalNakorting);
         eindTotaal = totaalNakorting;
-
-        kassaKassierController.setAfrekenInfo("Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting), "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal));
+        setText("Totaal: € " + FormatNumberClass.parseToStringTwoDecimals(totaal), "Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting), "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal));
         notifyObservers();
     }
 
-    public void betalen(Button button){
-        button.setText("Afrekenen");
-        kassaKassierController.setAfrekenInfo("","");
-        kassaKlantController.setAfrekenInfo("","");
+    public void setText(String totaal, String korting, String eindTotaal){
+        this.totaalText = totaal;
+        this.kortingText = korting;
+        this.eindTotaalText = eindTotaal;
 
-        clearArtikelen();
     }
 
-    public void reguleerAantalVerkopenSindsOnHold(){
-        onHoldHandler.increaseAantalVerkopenSindsOnHold();
+    public void betalen(Button button){
+        logHandler.addLog(totaal, korting, eindTotaal);
+        button.setText("Afrekenen");
+        setText("Totaal: € 0","","");
+        notifyObservers();
+        clearArtikelen();
     }
 
     public void newSale(){

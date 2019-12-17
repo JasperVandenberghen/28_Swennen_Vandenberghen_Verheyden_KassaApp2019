@@ -36,9 +36,11 @@ public class KassaKassierController implements Observer {
     }
 
     @Override
-        public void update(String totaal) {
-            this.kassaKassierPane.setTotaal(totaal);
-        }
+    public void update(String totaal, String korting, String eindTotaal) {
+        this.kassaKassierPane.setTotaal(totaal);
+        kassaKassierPane.setKorting(korting);
+        kassaKassierPane.setEindtotaal(eindTotaal);
+    }
 
     public void setVerkoopOnHold(Button button){
         verkoop.onHoldFunction(button);
@@ -46,10 +48,6 @@ public class KassaKassierController implements Observer {
 
     public void beeindigen(Button button){
         verkoop.beeindigenStateFunction(button);
-    }
-    public void setAfrekenInfo(String korting, String eindTotaal){
-        kassaKassierPane.getKorting().setText(korting);
-        kassaKassierPane.getEindTotaal().setText(eindTotaal);
     }
 
 

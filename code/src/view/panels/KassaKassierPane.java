@@ -15,8 +15,7 @@ public class KassaKassierPane extends KassaViewBase {
 	private Button removeKnop;
 	private Button onHoldKnop;
 	private Button beeindigen;
-	private Label korting;
-	private Label eindTotaal;
+
 
 	public KassaKassierPane(KassaKassierController cont) {
 		this.inputArtikel = new TextField();
@@ -37,9 +36,6 @@ public class KassaKassierPane extends KassaViewBase {
 		scan.getChildren().add(removeKnop);
 
 		VBox informatieVerkoopPane = new VBox();
-
-		korting = new Label("");
-		eindTotaal = new Label("");
 		informatieVerkoopPane.getChildren().addAll(totaal, korting, eindTotaal);
 
 		this.add(scan, 0, 0);
@@ -79,11 +75,4 @@ public class KassaKassierPane extends KassaViewBase {
 		this.onHoldKnop.setText(tekst);
 	}
 
-	public Label getKorting() {
-		return korting;
-	}
-
-	public Label getEindTotaal() {
-		return eindTotaal;
-	}
 }
