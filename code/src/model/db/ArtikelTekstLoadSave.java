@@ -28,20 +28,9 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate implements LoadS
     }
 
     @Override
-    public void save(String file, List list){
-        File artikelFile = new File(file);
+    public void save(List list){
+        File artikelFile = new File(getFile());
         try{
-
-            Artikel nutella = new Artikel("14", "Nutella", "beleg",3.5, 10);
-            Artikel lays = new Artikel("15", "Lays Naturel", "chips",2.7,13);
-            Artikel dash = new Artikel("16", "Dash","wasproduct", 5.5, 15);
-            Artikel frosties = new Artikel("17", "Frosties","cornfalkes", 3.8, 17);
-            list.add(nutella);
-            list.add(lays);
-            list.add(dash);
-            list.add(frosties);
-
-
             PrintWriter writer = new PrintWriter(artikelFile);
 
             for(Object a: list){

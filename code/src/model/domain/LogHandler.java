@@ -1,7 +1,6 @@
 package model.domain;
 
 
-import controller.LogController;
 import javafx.collections.FXCollections;
 
 import java.util.List;

@@ -19,4 +19,5 @@ public interface ArtikelDbStrategy {
 
     int getAantalArtikelen();
 
+    void saveArtikelen(List<Artikel> artikels);
 }

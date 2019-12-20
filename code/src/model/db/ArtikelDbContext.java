@@ -1,12 +1,14 @@
 package model.db;
 
 import model.domain.Artikel;
+import model.domain.ObserverArtikelenInShop;
+import model.domain.Verkoop;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ArtikelDbContext {
+public class ArtikelDbContext implements ObserverArtikelenInShop {
     private Map<String, Artikel> artikelMap;
     private ArtikelDbStrategy artikelDbStrategy;
     public ArtikelDbContext(String typeArtikelDbStrategy, String typeLoadSaveStrategy) {
@@ -42,6 +44,7 @@ public class ArtikelDbContext {
 
     }
 
+
     public void delete(String id) {
         if(id == null){throw new DbException("Geen id meegegeven");}
         artikelMap.remove(id);
@@ -49,5 +52,14 @@ public class ArtikelDbContext {
 
     public int getAantalArtikelen() {
         return artikelMap.size();
+    }
+
+    @Override
+    public void update(List<Artikel> artikels) {
+        saveArtikelen(artikels);
+    }
+
+    public void saveArtikelen(List<Artikel> artikels){
+        artikelDbStrategy.saveArtikelen(artikels);
     }
 }

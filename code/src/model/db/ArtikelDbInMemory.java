@@ -66,4 +66,9 @@ public class ArtikelDbInMemory implements ArtikelDbStrategy{
     public int getAantalArtikelen() {
         return artikelList.size();
     }
+
+    @Override
+    public void saveArtikelen(List<Artikel> artikels) {
+        loadSaveStrategy.save(artikels);
+    }
 }

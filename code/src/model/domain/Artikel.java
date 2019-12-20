@@ -57,6 +57,10 @@ public class Artikel implements Cloneable{
         this.voorraad = voorraad;
     }
 
+    public void decreaseVoorraad(int aantal){
+        voorraad-=aantal;
+    }
+
     @Override
     public String toString() {
         return artikelId + "," + artikelNaam + "," + categorie + "," + prijs + "," + voorraad;

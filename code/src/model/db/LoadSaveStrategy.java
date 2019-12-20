@@ -1,12 +1,13 @@
 package model.db;
 
 
+import model.domain.Artikel;
+
 import java.util.List;
 
 public interface LoadSaveStrategy {
 
     List<?> load();
-    void save(String file, List list);
+    void save(List list);
     String getFile();
-
 }

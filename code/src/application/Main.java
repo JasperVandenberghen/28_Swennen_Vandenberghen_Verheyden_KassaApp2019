@@ -38,7 +38,8 @@ public class Main extends Application {
 
 		// TAB KASSA
 		LogHandler logHandler = new LogHandler();
-		Verkoop verkoop = new Verkoop(artikelMap, kortingHandler, logHandler);
+		Verkoop verkoop = new Verkoop(artikelMap, kortingHandler, logHandler, artikelDbContext);
+		verkoop.registerObserver(artikelDbContext);
 
 		SettingsController settingsController = new SettingsController(propertiesHandler, kortingHandler);
 		try{
@@ -61,10 +62,9 @@ public class Main extends Application {
 		new LogView(logController);
 
 		// TAB ARTIKELEN
-		ArtikelController artikelController = new ArtikelController(artikelMap);
+		ArtikelController artikelController = new ArtikelController(verkoop);
 		KassaView kassaView = new KassaView(artikelController, kassaKassierController, settingsController, logController);
-		artikelController.setArtikelenInView();
-
+		verkoop.artikelenMapToListAndNotifyObservers();
 
 		KlantView klantView = new KlantView(kassaKlantController);
 	}

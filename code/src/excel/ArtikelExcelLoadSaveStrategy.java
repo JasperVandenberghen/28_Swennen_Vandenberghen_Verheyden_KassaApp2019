@@ -35,7 +35,7 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
 
 
     @Override
-    public void save(String file, List list) {
+    public void save(List list) {
         ArrayList<ArrayList<String>> uitvoer = new ArrayList<>();
 
         List<Artikel> artikelen = list;
@@ -52,7 +52,7 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
             uitvoer.add(artikelenStrings);
         }
         try {
-            excelPlugin.write(new File(file), uitvoer);
+            excelPlugin.write(new File(getFile()), uitvoer);
         } catch (BiffException e) {
             e.printStackTrace();
         } catch (IOException e) {

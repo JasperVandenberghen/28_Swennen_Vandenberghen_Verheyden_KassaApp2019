@@ -4,6 +4,7 @@ import controller.KassaKassierController;
 import controller.KassaKlantController;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
+import model.db.ArtikelDbContext;
 import model.db.OnHoldHandler;
 import model.domain.states.*;
 
@@ -11,9 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Verkoop implements Observable {
+public class Verkoop implements Observable, ObservableArtikelenInShop {
     private List<Observer> observers;
+    private List<ObserverArtikelenInShop> observersArtikelenInShop;
     private Map<String, Artikel> artikelMap;
+    private List<Artikel> artikelenInShop;
     private List<ArtikelContainer> artikelenInKassaKassier;
     private List<ArtikelContainer> artikelenInKassaKlant;
     private double totaal;
@@ -47,8 +50,9 @@ public class Verkoop implements Observable {
         this.totaal = totaal;
     }
 
-    public Verkoop(Map<String, Artikel> artikelMap, KortingHandler kortingHandler, LogHandler logHandler) {
+    public Verkoop(Map artikelMap, KortingHandler kortingHandler, LogHandler logHandler, ArtikelDbContext artikelDbContext) {
         observers = new ArrayList<Observer>();
+        observersArtikelenInShop = new ArrayList<>();
         artikelenInKassaKassier = FXCollections.observableArrayList();
         artikelenInKassaKlant = FXCollections.observableArrayList();
         this.artikelMap = artikelMap;
@@ -95,7 +99,7 @@ public class Verkoop implements Observable {
             addArtikelToKassaKassier(artikelContainer);
             addArtikelToKassaKlant(artikelContainerKassaKlant);
             this.totaalText = "Totaal: € " + FormatNumberClass.parseToStringTwoDecimals(totaal);
-            notifyObservers();
+            this.notifyObservers();
         } catch (Exception e){
             MessageHandler.showAlert("De opgegeven artikelcode is niet beschikbaar");
         }
@@ -162,7 +166,7 @@ public class Verkoop implements Observable {
             this.artikelenInKassaKassier.remove(integer.intValue());
             totaal-=prijs;
         }
-        notifyObservers();
+        this.notifyObservers();
     }
 
     public void calculateKorting(){
@@ -200,7 +204,7 @@ public class Verkoop implements Observable {
         this.artikelenInKassaKassier.addAll(this.onHoldHandler.getArtikelenInKassaKassier());
         this.artikelenInKassaKlant.addAll(this.onHoldHandler.getArtikelenInKassaKlant());
         this.totaal = this.onHoldHandler.getTotaal();
-        notifyObservers();
+        this.notifyObservers();
         button.setText("Plaats on Hold");
     }
 
@@ -219,7 +223,7 @@ public class Verkoop implements Observable {
         korting = (totaal - totaalNakorting);
         eindTotaal = totaalNakorting;
         setText("Totaal: € " + FormatNumberClass.parseToStringTwoDecimals(totaal), "Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting), "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal));
-        notifyObservers();
+        this.notifyObservers();
     }
 
     public void setText(String totaal, String korting, String eindTotaal){
@@ -233,8 +237,26 @@ public class Verkoop implements Observable {
         logHandler.addLog(totaal, korting, eindTotaal);
         button.setText("Afrekenen");
         setText("Totaal: € 0","","");
-        notifyObservers();
+        editVoorraadVanProducten();
+        artikelenMapToListAndNotifyObservers();
         clearArtikelen();
+    }
+
+    private void editVoorraadVanProducten(){
+        for(ArtikelContainer artikelContainer:artikelenInKassaKlant){
+            Artikel artikel = artikelMap.get(artikelContainer.getArtikelId());
+            artikel.decreaseVoorraad(artikelContainer.getAantal());
+            artikelMap.put(artikelContainer.getArtikelId(), artikel);
+        }
+    }
+
+    public void artikelenMapToListAndNotifyObservers(){
+        List<Artikel> list = FXCollections.observableArrayList();
+        for (Artikel e : artikelMap.values()) {
+            list.add(e);
+        }
+        artikelenInShop = list;
+        notifyObserversArtikelenInShop();
     }
 
     public double getEindTotaal() {
@@ -249,7 +271,7 @@ public class Verkoop implements Observable {
         artikelenInKassaKassier.clear();
         artikelenInKassaKlant.clear();
         this.totaal = 0;
-        notifyObservers();
+        this.notifyObservers();
     }
 
     public void annuleerAfrekenen(){
@@ -324,5 +346,23 @@ public class Verkoop implements Observable {
 
     public void setVerkoopState(VerkoopState verkoopState) {
         this.verkoopState = verkoopState;
+    }
+
+    @Override
+    public void registerObserver(ObserverArtikelenInShop o) {
+        observersArtikelenInShop.add(o);
+    }
+
+    @Override
+    public void removeObserver(ObserverArtikelenInShop o) {
+        observersArtikelenInShop.remove(o);
+    }
+
+    @Override
+    public void notifyObserversArtikelenInShop() {
+        for (int i = 0; i < observersArtikelenInShop.size(); i++) {
+            ObserverArtikelenInShop observer = (ObserverArtikelenInShop) observersArtikelenInShop.get(i);
+            observer.update(artikelenInShop);
+        }
     }
 }

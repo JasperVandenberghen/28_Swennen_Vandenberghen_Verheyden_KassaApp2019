@@ -1,4 +1,4 @@
 14,Nutella,beleg,3.5,10
-15,Lays Naturel,chips,2.7,13
+15,Lays Naturel,chips,2.7,11
 16,Dash,wasproduct,5.5,15
 17,Frosties,cornflakes,3.8,17
