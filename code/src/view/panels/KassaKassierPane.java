@@ -14,7 +14,7 @@ public class KassaKassierPane extends KassaViewBase {
 	private TextField inputArtikel;
 	private Button removeKnop;
 	private Button onHoldKnop;
-	private Button beeindigen;
+	private Button afrekenKnop;
 
 
 	public KassaKassierPane(KassaKassierController cont) {
@@ -24,12 +24,12 @@ public class KassaKassierPane extends KassaViewBase {
 		Label labelScan = new Label("Scan article:");
 		Label labelDelete = new Label("   Delete article:");
 		onHoldKnop = new Button("Plaats on Hold");
-		beeindigen = new Button("Afrekenen");
+		afrekenKnop = new Button("Afrekenen");
 		labelScan.setTranslateY(5);
 		labelDelete.setTranslateY(3);
 		inputArtikel.setTranslateX(5);
 		removeKnop.setTranslateX(3);
-		beeindigen.setTranslateX(3);
+		afrekenKnop.setTranslateX(3);
 		scan.getChildren().add(labelScan);
 		scan.getChildren().add(inputArtikel);
 		scan.getChildren().add(labelDelete);
@@ -44,7 +44,7 @@ public class KassaKassierPane extends KassaViewBase {
 
 		// column 1
 		this.add(onHoldKnop, 1, 0);
-		this.add(beeindigen, 1,1);
+		this.add(afrekenKnop, 1,1);
 		this.add(informatieVerkoopPane, 1, 2);
 		this.setValignment(informatieVerkoopPane, VPos.TOP); // To align vertically in the cell
 		cont.setView(this);
@@ -59,11 +59,11 @@ public class KassaKassierPane extends KassaViewBase {
 		});
 
 		onHoldKnop.setOnAction(event -> {
-			cont.setVerkoopOnHold(onHoldKnop);
+			cont.setVerkoopOnHold();
 		});
 
-		beeindigen.setOnAction(event -> {
-			cont.beeindigen(beeindigen);
+		afrekenKnop.setOnAction(event -> {
+			cont.beeindigen();
 			cont.printKassaBon();
 		});
 
@@ -73,7 +73,7 @@ public class KassaKassierPane extends KassaViewBase {
 		this.onHoldKnop.setText(tekst);
 	}
 	public void setAfrekenKnop(String tekst) {
-		this.onHoldKnop.setText(tekst);
+		this.afrekenKnop.setText(tekst);
 	}
 
 }

@@ -27,13 +27,13 @@ public class ScanMetOnHoldState implements VerkoopState{
     }
 
     @Override
-    public void beeindigen(Button button) {
-        verkoop.afrekenen(button);
+    public void beeindigen() {
+        verkoop.afrekenen();
         verkoop.setVerkoopState(verkoop.getAfrekenMetOnHoldState());
     }
 
     @Override
-    public void onHoldFunction(Button button) {
+    public void onHoldFunction() {
         MessageHandler.showAlert("Uw mand moet leeg zijn voor u iets uit on Hold haalt");
     }
 

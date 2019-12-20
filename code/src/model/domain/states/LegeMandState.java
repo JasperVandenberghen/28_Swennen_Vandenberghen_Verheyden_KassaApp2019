@@ -25,12 +25,12 @@ public class LegeMandState implements VerkoopState{
     }
 
     @Override
-    public void beeindigen(Button button) {
+    public void beeindigen() {
 
     }
 
     @Override
-    public void onHoldFunction(Button button) {
+    public void onHoldFunction() {
         MessageHandler.showAlert("Uw mand is leeg en er is niets om on hold te zetten");
     }
 

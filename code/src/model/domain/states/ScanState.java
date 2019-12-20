@@ -27,14 +27,14 @@ public class ScanState implements VerkoopState{
     }
 
     @Override
-    public void beeindigen(Button button) {
-        verkoop.afrekenen(button);
+    public void beeindigen() {
+        verkoop.afrekenen();
         verkoop.setVerkoopState(verkoop.getAfrekenState());
     }
 
     @Override
-    public void onHoldFunction(Button button) {
-        verkoop.plaatsOnHold(button);
+    public void onHoldFunction() {
+        verkoop.plaatsOnHold();
         verkoop.setVerkoopState(verkoop.getLegeMandMetOnHoldState());
     }
 

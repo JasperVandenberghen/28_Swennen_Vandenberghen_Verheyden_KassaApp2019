@@ -24,13 +24,13 @@ public class LegeMandMetOnHoldState implements VerkoopState{
     }
 
     @Override
-    public void beeindigen(Button button) {
+    public void beeindigen() {
 
     }
 
     @Override
-    public void onHoldFunction(Button button) {
-        verkoop.haalVanOnHoldAf(button);
+    public void onHoldFunction() {
+        verkoop.haalVanOnHoldAf();
         verkoop.setVerkoopState(verkoop.getScanState());
     }
 

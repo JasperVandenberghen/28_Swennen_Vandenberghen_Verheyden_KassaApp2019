@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Verkoop implements Observable, ObservableArtikelenInShop {
+public class Verkoop implements Observable, ObservableArtikelenInShop, ObservableButtonText {
     private List<Observer> observers;
     private List<ObserverArtikelenInShop> observersArtikelenInShop;
+    private List<ObserverButtonText> observerButtonTextList;
     private Map<String, Artikel> artikelMap;
     private List<Artikel> artikelenInShop;
     private List<ArtikelContainer> artikelenInKassaKassier;
@@ -31,6 +32,8 @@ public class Verkoop implements Observable, ObservableArtikelenInShop {
     private String totaalText;
     private String eindTotaalText;
     private String kortingText;
+    private String onHoldText;
+    private String afrekenenText;
 
     // states
     private VerkoopState legeMandState;
@@ -51,8 +54,9 @@ public class Verkoop implements Observable, ObservableArtikelenInShop {
     }
 
     public Verkoop(Map artikelMap, KortingHandler kortingHandler, LogHandler logHandler, ArtikelDbContext artikelDbContext) {
-        observers = new ArrayList<Observer>();
+        observers = new ArrayList<>();
         observersArtikelenInShop = new ArrayList<>();
+        observerButtonTextList = new ArrayList<>();
         artikelenInKassaKassier = FXCollections.observableArrayList();
         artikelenInKassaKlant = FXCollections.observableArrayList();
         this.artikelMap = artikelMap;
@@ -68,6 +72,9 @@ public class Verkoop implements Observable, ObservableArtikelenInShop {
         scanMetOnHoldState = new ScanMetOnHoldState(this);
         afrekenMetOnHoldState = new AfrekenenMetOnHoldState(this);
         verkoopState = legeMandState;
+        onHoldText = "Plaats on Hold";
+        afrekenenText = "Afrekenen";
+        notifyObserversButtonText();
     }
 
     public void setKassaKassierController(KassaKassierController kassaKassierController) {
@@ -153,8 +160,8 @@ public class Verkoop implements Observable, ObservableArtikelenInShop {
         this.verkoopState.removeArtikel(indeces);
     }
 
-    public void beeindigenStateFunction(Button button){
-        this.verkoopState.beeindigen(button);
+    public void beeindigenStateFunction(){
+        this.verkoopState.beeindigen();
     }
 
     public void removeArtikelen(List<Integer> indeces){
@@ -194,30 +201,33 @@ public class Verkoop implements Observable, ObservableArtikelenInShop {
         }
     }
 
-    public void plaatsOnHold(Button button){
+    public void plaatsOnHold(){
         this.onHoldHandler.setArtikelen(this.artikelenInKassaKlant, this.artikelenInKassaKassier, totaal);
         newSale();
-        button.setText("Haal uit on Hold");
+        onHoldText = "Haal uit on Hold";
+        this.notifyObserversButtonText();
     }
 
-    public void haalVanOnHoldAf(Button button){
+    public void haalVanOnHoldAf(){
         this.artikelenInKassaKassier.addAll(this.onHoldHandler.getArtikelenInKassaKassier());
         this.artikelenInKassaKlant.addAll(this.onHoldHandler.getArtikelenInKassaKlant());
         this.totaal = this.onHoldHandler.getTotaal();
         this.notifyObservers();
-        button.setText("Plaats on Hold");
+        onHoldText = "Plaats on Hold";
+        this.notifyObserversButtonText();
     }
 
-    public void onHoldFunction(Button button) {
-        verkoopState.onHoldFunction(button);
+    public void onHoldFunction() {
+        verkoopState.onHoldFunction();
     }
 
-    public void afrekenenStateFunction(Button button){
-        verkoopState.beeindigen(button);
+    public void afrekenenStateFunction(){
+        verkoopState.beeindigen();
     }
 
-    public void afrekenen(Button button){
-        button.setText("Betalen");
+    public void afrekenen(){
+        afrekenenText = "Betalen";
+        this.notifyObserversButtonText();
         kortingHandler.setArtikelContainers(artikelenInKassaKassier);
         double totaalNakorting = kortingHandler.getNewTotaalNaKorting();
         korting = (totaal - totaalNakorting);
@@ -233,9 +243,10 @@ public class Verkoop implements Observable, ObservableArtikelenInShop {
 
     }
 
-    public void betalen(Button button){
+    public void betalen(){
         logHandler.addLog(totaal, korting, eindTotaal);
-        button.setText("Afrekenen");
+        afrekenenText = "Afrekenen";
+        this.notifyObserversButtonText();
         setText("Totaal: € 0","","");
         editVoorraadVanProducten();
         artikelenMapToListAndNotifyObservers();
@@ -361,8 +372,26 @@ public class Verkoop implements Observable, ObservableArtikelenInShop {
     @Override
     public void notifyObserversArtikelenInShop() {
         for (int i = 0; i < observersArtikelenInShop.size(); i++) {
-            ObserverArtikelenInShop observer = (ObserverArtikelenInShop) observersArtikelenInShop.get(i);
+            ObserverArtikelenInShop observer = observersArtikelenInShop.get(i);
             observer.update(artikelenInShop);
+        }
+    }
+
+    @Override
+    public void registerObserverButtonText(ObserverButtonText o) {
+        observerButtonTextList.add(o);
+    }
+
+    @Override
+    public void removeObserverButtonText(ObserverButtonText o) {
+        observerButtonTextList.remove(o);
+    }
+
+    @Override
+    public void notifyObserversButtonText() {
+        for (int i = 0; i < observerButtonTextList.size(); i++) {
+            ObserverButtonText observer = observerButtonTextList.get(i);
+            observer.update(onHoldText, afrekenenText);
         }
     }
 }

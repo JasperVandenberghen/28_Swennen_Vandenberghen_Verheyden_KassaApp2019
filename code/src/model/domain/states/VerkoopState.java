@@ -8,7 +8,7 @@ import java.util.List;
 public interface VerkoopState {
     public void addArtikel(String artikelId);
     public void removeArtikel(List<Integer> indeces);
-    public void beeindigen(Button button);
-    public void onHoldFunction(Button button);
+    public void beeindigen();
+    public void onHoldFunction();
     public void annuleren();
 }

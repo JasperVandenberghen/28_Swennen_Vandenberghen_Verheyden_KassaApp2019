@@ -7,6 +7,7 @@ import model.domain.KassaBon.KassaBonBasis;
 import model.domain.KassaBon.KassaBonFooter;
 import model.domain.KassaBon.KassaBonHeader;
 import model.domain.Observer;
+import model.domain.ObserverButtonText;
 import model.domain.Verkoop;
 import view.panels.KassaKassierPane;
 
@@ -15,13 +16,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-public class KassaKassierController implements Observer {
+public class KassaKassierController implements Observer, ObserverButtonText
+{
     private KassaKassierPane kassaKassierPane;
     private Verkoop verkoop;
 
     public KassaKassierController(Verkoop verkoop) {
         this.verkoop = verkoop;
         verkoop.registerObserver(this);
+        verkoop.registerObserverButtonText(this);
         verkoop.setKassaKassierController(this);
 
     }
@@ -50,12 +53,12 @@ public class KassaKassierController implements Observer {
         kassaKassierPane.setEindtotaal(eindTotaal);
     }
 
-    public void setVerkoopOnHold(Button button){
-        verkoop.onHoldFunction(button);
+    public void setVerkoopOnHold(){
+        verkoop.onHoldFunction();
     }
 
-    public void beeindigen(Button button){
-        verkoop.beeindigenStateFunction(button);
+    public void beeindigen(){
+        verkoop.beeindigenStateFunction();
     }
 
 
@@ -118,5 +121,11 @@ public class KassaKassierController implements Observer {
         }
 
         System.out.println(kassaBon.getDescription());
+    }
+
+    @Override
+    public void update(String onHoldText, String afrekenenText) {
+        kassaKassierPane.setOnHoldKnopTekst(onHoldText);
+        kassaKassierPane.setAfrekenKnop(afrekenenText);
     }
 }

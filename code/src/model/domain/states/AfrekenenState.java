@@ -25,13 +25,13 @@ public class AfrekenenState implements VerkoopState{
     }
 
     @Override
-    public void beeindigen(Button button) {
-        verkoop.betalen(button);
+    public void beeindigen() {
+        verkoop.betalen();
         verkoop.setVerkoopState(verkoop.getLegeMandState());
     }
 
     @Override
-    public void onHoldFunction(Button button) {
+    public void onHoldFunction() {
 
     }
 

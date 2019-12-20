@@ -23,8 +23,8 @@ public class AfrekenenMetOnHoldState implements VerkoopState{
     }
 
     @Override
-    public void beeindigen(Button button) {
-        verkoop.betalen(button);
+    public void beeindigen() {
+        verkoop.betalen();
         verkoop.getOnHoldHandler().increaseAantalVerkopenSindsOnHold();
         if(verkoop.getOnHoldHandler().getAantalVerkopenSindsOnHold() == 3){
             verkoop.getOnHoldHandler().clearAantalSindsVerkoop();
@@ -36,7 +36,7 @@ public class AfrekenenMetOnHoldState implements VerkoopState{
     }
 
     @Override
-    public void onHoldFunction(Button button) {
+    public void onHoldFunction() {
 
     }
 
