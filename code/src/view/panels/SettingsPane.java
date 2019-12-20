@@ -25,6 +25,7 @@ public class SettingsPane extends GridPane {
     private Label kortingsAantalLabel;
     private Label drempelLabel;
     private Label categorieLabel;
+    private Label titleKassaBonSettings;
     private CheckBox algemeneBoodschapHeaderBox;
     private Label boodschaplabelHeaderLabel;
     private Label boodschaplabelFooterLabel;
@@ -69,6 +70,9 @@ public class SettingsPane extends GridPane {
         totalePrijsKortingFooterBox = new CheckBox("Voeg totale prijs + korting toe aan footer");
         prijsBtwFooterBox = new CheckBox("Voeg prijs met btw toe aan footer");
         algemeneFooterBox = new CheckBox("Voeg een algemene boodschap toe aan footer");
+        titleKassaBonSettings = new Label("Kassabon");
+        String style = "-fx-font-weight: bold; -fx-font-size:18;";
+        titleKassaBonSettings.setStyle(style);
         drempelAantal = new TextField("0");
         categorie = new TextField();
         kortingsAantalField.setTranslateX(5);
@@ -83,7 +87,7 @@ public class SettingsPane extends GridPane {
         kortingTypeBox.getSelectionModel().selectFirst();
         opslaan = new Button("Alle settings opslaan");
         Node[] firstColumnNodes = {dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, opslaan};
-        Node[] secondColumnNodes = {algemeneBoodschapHeaderBox, boodschaplabelHeaderLabel, algemeneBoodschapHeaderField, datumTijdHeaderBox, totalePrijsKortingFooterBox, prijsBtwFooterBox, algemeneFooterBox, boodschaplabelFooterLabel, algemeneBoodschapFooterField};
+        Node[] secondColumnNodes = {titleKassaBonSettings, algemeneBoodschapHeaderBox, boodschaplabelHeaderLabel, algemeneBoodschapHeaderField, datumTijdHeaderBox, totalePrijsKortingFooterBox, prijsBtwFooterBox, algemeneFooterBox, boodschaplabelFooterLabel, algemeneBoodschapFooterField};
         PaneMethods.addToGridPaneAscendingRow(firstColumnNodes, this, 0);
         PaneMethods.addToGridPaneAscendingRow(secondColumnNodes, this, 1);
 
