@@ -5,4 +5,6 @@ public abstract class KassaBon {
 
 
     public abstract String getDescription();
+
+    public abstract void setDescription(String string);
 }

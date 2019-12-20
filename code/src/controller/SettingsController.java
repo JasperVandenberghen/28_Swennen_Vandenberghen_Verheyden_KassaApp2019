@@ -23,7 +23,7 @@ public class SettingsController {
         return kassaSettingsPane;
     }
 
-    public void setProperties(String dbType, String typeLoadSave, String typeKorting, String aantalKorting, String categorie, String drempel, String algemeneHeader, String datumTijdHeader, String prijsKortingFooter, String prijsBtwFooter, String algemeneFooter ){
+    public void setProperties(String dbType, String typeLoadSave, String typeKorting, String aantalKorting, String categorie, String drempel, String algemeneHeader, String algemeneBoodschapHeaderField, String datumTijdHeader, String prijsKortingFooter, String prijsBtwFooter, String algemeneFooter, String algemeneBoodschapFooterField){
         Properties properties = new Properties();
         properties.setProperty("dbType", dbType);
         properties.setProperty("typeLoadSave", typeLoadSave);
@@ -32,10 +32,12 @@ public class SettingsController {
         properties.setProperty("drempelKorting", drempel);
         properties.setProperty("categorieKorting", categorie);
         properties.setProperty("algemeneHeader", algemeneHeader);
+        properties.setProperty("algemeneHeaderField", algemeneBoodschapHeaderField);
         properties.setProperty("datumTijdHeader", datumTijdHeader);
         properties.setProperty("prijsKortingFooter", prijsKortingFooter);
         properties.setProperty("prijsBtwFooter", prijsBtwFooter);
         properties.setProperty("algemeneFooter", algemeneFooter);
+        properties.setProperty("algemeneBoodschapFooterField", algemeneBoodschapFooterField);
         this.propertiesHandler.write(properties);
     }
     public void addKorting(String kortingStr, String hoeveelheid, String categorie, String drempel){

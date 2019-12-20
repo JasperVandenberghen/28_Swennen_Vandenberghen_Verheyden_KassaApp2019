@@ -21,11 +21,15 @@ public class KassaSettingsPane extends VBox {
     private Label kortingsAantalLabel;
     private Label drempelLabel;
     private Label categorieLabel;
-    private CheckBox algemeneBoodschapHeader;
-    private CheckBox datumTijdHeader;
-    private CheckBox totalePrijsKortingFooter;
-    private CheckBox prijsBtwFooter;
-    private CheckBox algemeneFooter;
+    private CheckBox algemeneBoodschapHeaderBox;
+    private Label boodschaplabelHeaderLabel;
+    private Label boodschaplabelFooterLabel;
+    private TextField algemeneBoodschapHeaderField;
+    private TextField algemeneBoodschapFooterField;
+    private CheckBox datumTijdHeaderBox;
+    private CheckBox totalePrijsKortingFooterBox;
+    private CheckBox prijsBtwFooterBox;
+    private CheckBox algemeneFooterBox;
     private TextField kortingsAantalField;
     private TextField drempelAantal;
     private TextField categorie;
@@ -51,13 +55,17 @@ public class KassaSettingsPane extends VBox {
         kortingsAantalLabel = new Label("Geef je kortingshoeveelheid in (%)");
         drempelLabel = new Label("Voeg hier je drempel toe indien drempelkorting.");
         categorieLabel = new Label("Voeg hier je categorie toe indien groepskorting.");
-        kortingsAantalField = new TextField();
-        algemeneBoodschapHeader = new CheckBox("Algemene boodschap toevoegen aan header");
-        datumTijdHeader = new CheckBox("Datum & tijd toevoegen aan header");
-        totalePrijsKortingFooter = new CheckBox("Voeg totale prijs + korting toe aan footer");
-        prijsBtwFooter = new CheckBox("Voeg prijs met btw toe aan footer");
-        algemeneFooter = new CheckBox("Voeg een algemene boodschap toe aan footer");
-        drempelAantal = new TextField();
+        kortingsAantalField = new TextField("0");
+        algemeneBoodschapHeaderBox = new CheckBox("Algemene boodschap toevoegen aan header");
+        boodschaplabelHeaderLabel = new Label("Voeg hier je booschap voor de header in");
+        boodschaplabelFooterLabel = new Label("Voeg hier je booschap voor de footer in");
+        algemeneBoodschapHeaderField = new TextField();
+        algemeneBoodschapFooterField = new TextField();
+        datumTijdHeaderBox = new CheckBox("Datum & tijd toevoegen aan header");
+        totalePrijsKortingFooterBox = new CheckBox("Voeg totale prijs + korting toe aan footer");
+        prijsBtwFooterBox = new CheckBox("Voeg prijs met btw toe aan footer");
+        algemeneFooterBox = new CheckBox("Voeg een algemene boodschap toe aan footer");
+        drempelAantal = new TextField("0");
         categorie = new TextField();
         kortingsAantalField.setTranslateX(5);
         kortingsAantalField.setMinWidth(1);
@@ -70,7 +78,7 @@ public class KassaSettingsPane extends VBox {
         dbTypeBox.getSelectionModel().selectFirst();
         kortingTypeBox.getSelectionModel().selectFirst();
         opslaan = new Button("Opslaan");
-        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, algemeneBoodschapHeader, datumTijdHeader, totalePrijsKortingFooter, prijsBtwFooter, algemeneFooter, opslaan);
+        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, algemeneBoodschapHeaderBox, boodschaplabelHeaderLabel, algemeneBoodschapHeaderField, datumTijdHeaderBox, totalePrijsKortingFooterBox, prijsBtwFooterBox, algemeneFooterBox, boodschaplabelFooterLabel, algemeneBoodschapFooterField, opslaan);
 
 
 
@@ -96,11 +104,12 @@ public class KassaSettingsPane extends VBox {
 
 
         opslaan.setOnAction(event -> {
-            if(algemeneBoodschapHeader.isSelected()){algemeneHeader = "true";} else {algemeneHeader = "false";}
-            if(datumTijdHeader.isSelected()){datumtijdHeader = "true";} else {datumtijdHeader = "false";}
-            if(totalePrijsKortingFooter.isSelected()){prijsKortingFooter = "true";} else {prijsKortingFooter = "false";}
-            if(prijsBtwFooter.isSelected()){prijsbtwFooter = "true";} else {prijsbtwFooter = "false";}
-            if(algemeneFooter.isSelected()){algemeneboodschapFooter = "true";} else {algemeneboodschapFooter = "false";}
+            if(algemeneBoodschapHeaderBox.isSelected()){algemeneHeader = "true";} else {algemeneHeader = "false";}
+            if(datumTijdHeaderBox.isSelected()){datumtijdHeader = "true";} else {datumtijdHeader = "false";}
+            if(totalePrijsKortingFooterBox.isSelected()){prijsKortingFooter = "true";} else {prijsKortingFooter = "false";}
+            if(prijsBtwFooterBox.isSelected()){prijsbtwFooter = "true";} else {prijsbtwFooter = "false";}
+            if(algemeneFooterBox.isSelected()){algemeneboodschapFooter = "true";} else {algemeneboodschapFooter = "false";}
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Korting toevoegen");
             alert.setHeaderText(null);
@@ -117,7 +126,7 @@ public class KassaSettingsPane extends VBox {
             }
 
             alert.showAndWait();
-            settingsController.setProperties(dbTypeBox.getValue().toString(), loadSaveBox.getValue().toString(), kortingTypeBox.getValue().toString(),kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText(), algemeneHeader, datumtijdHeader, prijsKortingFooter, prijsbtwFooter, algemeneboodschapFooter);
+            settingsController.setProperties(dbTypeBox.getValue().toString(), loadSaveBox.getValue().toString(), kortingTypeBox.getValue().toString(),kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText(), algemeneHeader, algemeneBoodschapHeaderField.getText(), datumtijdHeader, prijsKortingFooter, prijsbtwFooter, algemeneboodschapFooter, algemeneBoodschapFooterField.getText());
 
             MessageHandler.showAlert("Successfully saved");
         });

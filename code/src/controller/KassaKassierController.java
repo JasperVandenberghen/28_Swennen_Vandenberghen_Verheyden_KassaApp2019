@@ -1,8 +1,12 @@
 package controller;
 
 import javafx.scene.control.Button;
-import model.domain.Verkoop;
+import model.domain.KassaBon.KassaBon;
+import model.domain.KassaBon.KassaBonBasis;
+import model.domain.KassaBon.KassaBonFooter;
+import model.domain.KassaBon.KassaBonHeader;
 import model.domain.Observer;
+import model.domain.Verkoop;
 import view.panels.KassaKassierPane;
 
 import java.util.List;
@@ -51,4 +55,12 @@ public class KassaKassierController implements Observer {
     }
 
 
+    public void printKassaBon() {
+        KassaBon kassaBon = new KassaBonBasis();
+        kassaBon = new KassaBonHeader(kassaBon);
+        kassaBon.setDescription("dit is de header \n");
+        kassaBon = new KassaBonFooter(kassaBon);
+        kassaBon.setDescription("dit is de footer \n");
+        System.out.println(kassaBon.getDescription());
+    }
 }
