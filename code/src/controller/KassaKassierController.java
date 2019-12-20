@@ -62,7 +62,7 @@ public class KassaKassierController implements Observer, ObserverButtonText
     }
 
 
-    public String convertDateToString(Date indate)
+    public static String convertDateToString(Date indate)
     {
         String dateString = null;
         SimpleDateFormat sdfr = new SimpleDateFormat("dd-MMM-yyyy " + indate.getHours() + ":"+ indate.getMinutes() +":" + indate.getSeconds() + "\n");
@@ -127,5 +127,9 @@ public class KassaKassierController implements Observer, ObserverButtonText
     public void update(String onHoldText, String afrekenenText) {
         kassaKassierPane.setOnHoldKnopTekst(onHoldText);
         kassaKassierPane.setAfrekenKnop(afrekenenText);
+    }
+
+    public void annuleerVerkoop() {
+        verkoop.annuleerAfrekenenStateFunction();
     }
 }

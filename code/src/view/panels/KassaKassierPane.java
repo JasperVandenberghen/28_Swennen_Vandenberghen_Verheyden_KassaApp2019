@@ -14,6 +14,7 @@ public class KassaKassierPane extends KassaViewBase {
 	private TextField inputArtikel;
 	private Button removeKnop;
 	private Button onHoldKnop;
+	private Button annuleerKnop;
 	private Button afrekenKnop;
 
 
@@ -25,6 +26,7 @@ public class KassaKassierPane extends KassaViewBase {
 		Label labelDelete = new Label("   Delete article:");
 		onHoldKnop = new Button("Plaats on Hold");
 		afrekenKnop = new Button("Afrekenen");
+		annuleerKnop = new Button("Annuleer verkoop");
 		labelScan.setTranslateY(5);
 		labelDelete.setTranslateY(3);
 		inputArtikel.setTranslateX(5);
@@ -44,8 +46,9 @@ public class KassaKassierPane extends KassaViewBase {
 
 		// column 1
 		this.add(onHoldKnop, 1, 0);
-		this.add(afrekenKnop, 1,1);
-		this.add(informatieVerkoopPane, 1, 2);
+		this.add(annuleerKnop, 1, 1);
+		this.add(afrekenKnop, 1,2);
+		this.add(informatieVerkoopPane, 1, 3);
 		this.setValignment(informatieVerkoopPane, VPos.TOP); // To align vertically in the cell
 		cont.setView(this);
 
@@ -60,6 +63,10 @@ public class KassaKassierPane extends KassaViewBase {
 
 		onHoldKnop.setOnAction(event -> {
 			cont.setVerkoopOnHold();
+		});
+
+		annuleerKnop.setOnAction(event -> {
+			cont.annuleerVerkoop();
 		});
 
 		afrekenKnop.setOnAction(event -> {

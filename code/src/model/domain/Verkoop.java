@@ -74,7 +74,6 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
         verkoopState = legeMandState;
         onHoldText = "Plaats on Hold";
         afrekenenText = "Afrekenen";
-        notifyObserversButtonText();
     }
 
     public void setKassaKassierController(KassaKassierController kassaKassierController) {
@@ -221,10 +220,6 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
         verkoopState.onHoldFunction();
     }
 
-    public void afrekenenStateFunction(){
-        verkoopState.beeindigen();
-    }
-
     public void afrekenen(){
         afrekenenText = "Betalen";
         this.notifyObserversButtonText();
@@ -233,24 +228,27 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
         korting = (totaal - totaalNakorting);
         eindTotaal = totaalNakorting;
         setText("Totaal: € " + FormatNumberClass.parseToStringTwoDecimals(totaal), "Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting), "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal));
-        this.notifyObservers();
     }
 
     public void setText(String totaal, String korting, String eindTotaal){
         this.totaalText = totaal;
         this.kortingText = korting;
         this.eindTotaalText = eindTotaal;
-
+        this.notifyObservers();
     }
 
     public void betalen(){
         logHandler.addLog(totaal, korting, eindTotaal);
-        afrekenenText = "Afrekenen";
-        this.notifyObserversButtonText();
-        setText("Totaal: € 0","","");
+        resetVerkoopText();
         editVoorraadVanProducten();
         artikelenMapToListAndNotifyObservers();
         clearArtikelen();
+    }
+
+    private void resetVerkoopText(){
+        afrekenenText = "Afrekenen";
+        this.notifyObserversButtonText();
+        setText("Totaal: € 0","","");
     }
 
     private void editVoorraadVanProducten(){
@@ -282,12 +280,17 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
         artikelenInKassaKassier.clear();
         artikelenInKassaKlant.clear();
         this.totaal = 0;
+        resetVerkoopText();
         this.notifyObservers();
     }
 
     public void annuleerAfrekenen(){
         // clear javafx shit
         clearArtikelen();
+    }
+
+    public void annuleerAfrekenenStateFunction(){
+        this.verkoopState.annuleren();
     }
 
     public OnHoldHandler getOnHoldHandler() {
