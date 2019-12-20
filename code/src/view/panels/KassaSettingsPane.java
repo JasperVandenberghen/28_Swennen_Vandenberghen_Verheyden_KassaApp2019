@@ -57,8 +57,8 @@ public class KassaSettingsPane extends VBox {
         categorieLabel = new Label("Voeg hier je categorie toe indien groepskorting.");
         kortingsAantalField = new TextField("0");
         algemeneBoodschapHeaderBox = new CheckBox("Algemene boodschap toevoegen aan header");
-        boodschaplabelHeaderLabel = new Label("Voeg hier je booschap voor de header in");
-        boodschaplabelFooterLabel = new Label("Voeg hier je booschap voor de footer in");
+        boodschaplabelHeaderLabel = new Label("Voeg hier je boodschap voor de header in");
+        boodschaplabelFooterLabel = new Label("Voeg hier je boodschap voor de footer in");
         algemeneBoodschapHeaderField = new TextField();
         algemeneBoodschapFooterField = new TextField();
         datumTijdHeaderBox = new CheckBox("Datum & tijd toevoegen aan header");

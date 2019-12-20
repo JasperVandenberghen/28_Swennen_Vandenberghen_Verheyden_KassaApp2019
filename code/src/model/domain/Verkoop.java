@@ -2,13 +2,11 @@ package model.domain;
 
 import controller.KassaKassierController;
 import controller.KassaKlantController;
-import controller.LogController;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import model.db.OnHoldHandler;
 import model.domain.states.*;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +99,10 @@ public class Verkoop implements Observable {
         } catch (Exception e){
             MessageHandler.showAlert("De opgegeven artikelcode is niet beschikbaar");
         }
+    }
+
+    public String printTotaalMetKortingString(){
+        return "Totaal: €" + getTotaal() + "\nKorting: €" + korting;
     }
 
     public void addArtikelToKassaKassier(ArtikelContainer artikelContainer){
@@ -233,6 +235,10 @@ public class Verkoop implements Observable {
         setText("Totaal: € 0","","");
         notifyObservers();
         clearArtikelen();
+    }
+
+    public double getEindTotaal() {
+        return eindTotaal;
     }
 
     public void newSale(){

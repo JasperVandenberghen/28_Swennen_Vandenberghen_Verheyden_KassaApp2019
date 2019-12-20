@@ -52,6 +52,7 @@ public class Main extends Application {
 		KassaKassierController kassaKassierController = new KassaKassierController(verkoop);
 		new KassaKassierPane(kassaKassierController);
 
+
 		KassaKlantController kassaKlantController = new KassaKlantController(verkoop);
 		new KassaKlantPane(kassaKlantController);
 

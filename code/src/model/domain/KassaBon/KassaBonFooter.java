@@ -1,5 +1,7 @@
 package model.domain.KassaBon;
 
+import model.domain.Verkoop;
+
 public class KassaBonFooter extends KassaBon{
 
     private KassaBon kassaBon;
@@ -16,6 +18,11 @@ public class KassaBonFooter extends KassaBon{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public void setVerkoop(Verkoop verkoop) {
+
     }
 
 
