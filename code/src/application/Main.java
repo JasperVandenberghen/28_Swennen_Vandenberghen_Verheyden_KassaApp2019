@@ -10,7 +10,7 @@ import view.KassaView;
 import view.KlantView;
 import view.panels.KassaKassierPane;
 import view.panels.KassaKlantPane;
-import view.panels.KassaSettingsPane;
+import view.panels.SettingsPane;
 import view.panels.LogView;
 
 import java.util.Map;
@@ -48,7 +48,7 @@ public class Main extends Application {
 
 		}
 
-		new KassaSettingsPane(settingsController);
+		new SettingsPane(settingsController);
 
 		KassaKassierController kassaKassierController = new KassaKassierController(verkoop);
 		new KassaKassierPane(kassaKassierController);

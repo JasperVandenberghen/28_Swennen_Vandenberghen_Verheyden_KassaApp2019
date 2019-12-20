@@ -6,10 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import model.db.LoadSaveStrategyFactory;
 import model.domain.KortingsFactory;
-import view.panels.KassaSettingsPane;
+import view.panels.SettingsPane;
 
 public class SettingsEventHandler implements EventHandler<ActionEvent>, ChangeListener<String> {
-    private KassaSettingsPane kassaSettingsPane;
+    private SettingsPane settingsPane;
     private LoadSaveStrategyFactory loadSaveStrategy;
     private KortingsFactory kortingsFactory;
 

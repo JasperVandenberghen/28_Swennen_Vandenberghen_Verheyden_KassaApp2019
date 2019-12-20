@@ -1,7 +1,6 @@
 package view;
 
 
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import controller.ArtikelController;
 import controller.KassaKassierController;
 import controller.LogController;
@@ -17,7 +16,7 @@ public class KassaMainPane extends BorderPane {
 	    TabPane tabPane = new TabPane(); 	    
       Tab kassaTab = new Tab("Kassa", kassaKassierController.getKassaKassierPane());
         Tab artikelTab = new Tab("Artikelen",artikelController.getProductOverviewPane());
-        Tab instellingTab = new Tab("Instellingen", settingsController.getKassaSettingsPane());
+        Tab instellingTab = new Tab("Instellingen", settingsController.getSettingsPane());
         Tab logTab = new Tab("Log", logController.getView());
         tabPane.getTabs().add(kassaTab);
         tabPane.getTabs().add(artikelTab);

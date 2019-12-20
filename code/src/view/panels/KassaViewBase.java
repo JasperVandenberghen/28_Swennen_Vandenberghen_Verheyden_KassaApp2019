@@ -27,7 +27,7 @@ public class KassaViewBase extends GridPane {
         this.totaal = new Label("");
         this.korting = new Label("");
         this.eindTotaal = new Label("");
-        this.setTotaal("0");
+        this.setTotaal("");
     }
 
     public void setObservableList(List<ArtikelContainer> observableList) {

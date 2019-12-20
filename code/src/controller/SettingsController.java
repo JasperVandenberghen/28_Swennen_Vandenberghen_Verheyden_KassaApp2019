@@ -2,12 +2,12 @@ package controller;
 
 import model.db.PropertiesHandler;
 import model.domain.KortingHandler;
-import view.panels.KassaSettingsPane;
+import view.panels.SettingsPane;
 
 import java.util.Properties;
 
 public class SettingsController {
-    private KassaSettingsPane kassaSettingsPane;
+    private SettingsPane settingsPane;
     private PropertiesHandler propertiesHandler;
     private KortingHandler kortingHandler;
 
@@ -17,10 +17,10 @@ public class SettingsController {
         this.kortingHandler = kortingHandler;
     }
 
-    public void setView(KassaSettingsPane kassaSettingsPane){this.kassaSettingsPane = kassaSettingsPane;}
+    public void setView(SettingsPane settingsPane){this.settingsPane = settingsPane;}
 
-    public KassaSettingsPane getKassaSettingsPane() {
-        return kassaSettingsPane;
+    public SettingsPane getSettingsPane() {
+        return settingsPane;
     }
 
     public void setProperties(String dbType, String typeLoadSave, String typeKorting, String aantalKorting, String categorie, String drempel, String algemeneHeader, String algemeneBoodschapHeaderField, String datumTijdHeader, String prijsKortingFooter, String prijsBtwFooter, String algemeneFooter, String algemeneBoodschapFooterField){

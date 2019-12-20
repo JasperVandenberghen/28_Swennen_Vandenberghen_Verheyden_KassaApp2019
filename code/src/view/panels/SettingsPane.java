@@ -2,16 +2,20 @@ package view.panels;
 
 import controller.SettingsController;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.domain.ArtikelDbEnum;
 import model.domain.KortingEnum;
 import model.domain.MessageHandler;
 import model.domain.SaveEnum;
+import view.PaneMethods;
 
 import java.util.List;
 
-public class KassaSettingsPane extends VBox {
+public class SettingsPane extends GridPane {
     private ComboBox loadSaveBox;
     private ComboBox dbTypeBox;
     private ComboBox kortingTypeBox;
@@ -44,10 +48,10 @@ public class KassaSettingsPane extends VBox {
     private String algemeneboodschapFooter;
 
 
-    public KassaSettingsPane(SettingsController settingsController) {
-//        this.setPadding(new Insets(5,5,5, 5));
-//        this.setVgap(5);
-//        this.setHgap(5);
+    public SettingsPane(SettingsController settingsController) {
+        this.setPadding(new Insets(8,15,5, 5));
+        this.setVgap(5);
+        this.setHgap(15);
         settingsController.setView(this);
         loadSaveLabel = new Label("Kies je data opslag type");
         dbTypeLabel = new Label("Kies je databestandtype");
@@ -77,8 +81,11 @@ public class KassaSettingsPane extends VBox {
         loadSaveBox.getSelectionModel().selectFirst();
         dbTypeBox.getSelectionModel().selectFirst();
         kortingTypeBox.getSelectionModel().selectFirst();
-        opslaan = new Button("Opslaan");
-        this.getChildren().addAll( dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, algemeneBoodschapHeaderBox, boodschaplabelHeaderLabel, algemeneBoodschapHeaderField, datumTijdHeaderBox, totalePrijsKortingFooterBox, prijsBtwFooterBox, algemeneFooterBox, boodschaplabelFooterLabel, algemeneBoodschapFooterField, opslaan);
+        opslaan = new Button("Alle settings opslaan");
+        Node[] firstColumnNodes = {dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, opslaan};
+        Node[] secondColumnNodes = {algemeneBoodschapHeaderBox, boodschaplabelHeaderLabel, algemeneBoodschapHeaderField, datumTijdHeaderBox, totalePrijsKortingFooterBox, prijsBtwFooterBox, algemeneFooterBox, boodschaplabelFooterLabel, algemeneBoodschapFooterField};
+        PaneMethods.addToGridPaneAscendingRow(firstColumnNodes, this, 0);
+        PaneMethods.addToGridPaneAscendingRow(secondColumnNodes, this, 1);
 
 
 
