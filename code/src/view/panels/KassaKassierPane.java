@@ -71,7 +71,6 @@ public class KassaKassierPane extends KassaViewBase {
 
 		afrekenKnop.setOnAction(event -> {
 			cont.beeindigen();
-			cont.printKassaBon();
 		});
 
 	}

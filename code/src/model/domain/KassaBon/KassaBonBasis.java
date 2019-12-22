@@ -1,26 +1,28 @@
 package model.domain.KassaBon;
 
 import model.domain.ArtikelContainer;
+import model.domain.KassaBonHandler;
 import model.domain.Verkoop;
 
 public class KassaBonBasis extends KassaBon{
     private String description;
-    private Verkoop verkoop;
+    private KassaBonHandler kassaBonHandler;
 
     public KassaBonBasis(String description) {
         this.description = description;
     }
 
-    public KassaBonBasis() {
+    public KassaBonBasis(Verkoop verkoop) {
+        verkoop = kassaBonHandler.getVerkoop();
     }
 
     public void setVerkoop(Verkoop verkoop) {
-        this.verkoop = verkoop;
+        kassaBonHandler.setVerkoop(verkoop);
     }
 
     public String printArtikelen(){
         String artikelen = "";
-        for(ArtikelContainer ac: verkoop.getArtikelenInKassaKlant()){
+        for(ArtikelContainer ac: kassaBonHandler.getVerkoop().getArtikelenInKassaKassier()){
             artikelen += "\n" +  ac.getArtikelNaam() + "\t\t\t\t" + ac.getAantal() + "\t\t" + ac.getPrijs() + "\n";
         }
         return artikelen;
@@ -30,9 +32,9 @@ public class KassaBonBasis extends KassaBon{
     @Override
     public String getDescription() {
         String headerbasis = "Omschrijving\t\tAantal\t  Prijs\n" +
-                "**********************************\n";
+                "********************************** \n";
         String footerbasis = "\n**********************************\n" +
-                "Betaald (inclusief korting) : €"+ verkoop.getEindTotaal() + "\n";
+                "Betaald (inclusief korting) : €"+ kassaBonHandler.getVerkoop().getEindTotaal() + "\n";
 
         return headerbasis + printArtikelen() + footerbasis;
 

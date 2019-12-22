@@ -3,7 +3,6 @@ package model.domain;
 import controller.KassaKassierController;
 import controller.KassaKlantController;
 import javafx.collections.FXCollections;
-import javafx.scene.control.Button;
 import model.db.ArtikelDbContext;
 import model.db.OnHoldHandler;
 import model.domain.states.*;
@@ -25,6 +24,7 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
     private KassaKassierController kassaKassierController;
     private KassaKlantController kassaKlantController;
     private KortingHandler kortingHandler;
+    private KassaBonHandler kassaBonHandler;
     private LogHandler logHandler;
     private double korting;
     private double eindTotaal;
@@ -237,11 +237,17 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
         this.notifyObservers();
     }
 
+    public void setKassaBonHandler(KassaBonHandler kassaBonHandler) {
+        this.kassaBonHandler = kassaBonHandler;
+    }
+
     public void betalen(){
+        kassaBonHandler.printKassaBon();
         logHandler.addLog(totaal, korting, eindTotaal);
         resetVerkoopText();
         editVoorraadVanProducten();
         artikelenMapToListAndNotifyObservers();
+
         clearArtikelen();
     }
 
@@ -397,4 +403,7 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
             observer.update(onHoldText, afrekenenText);
         }
     }
+
+
+
 }

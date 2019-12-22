@@ -10,8 +10,8 @@ import view.KassaView;
 import view.KlantView;
 import view.panels.KassaKassierPane;
 import view.panels.KassaKlantPane;
-import view.panels.SettingsPane;
 import view.panels.LogView;
+import view.panels.SettingsPane;
 
 import java.util.Map;
 import java.util.Properties;
@@ -31,6 +31,8 @@ public class Main extends Application {
 
 
 		KortingHandler kortingHandler = new KortingHandler();
+		KassaBonHandler kassaBonHandler = new KassaBonHandler();
+
 
 		// DB INITIATION
 		ArtikelDbContext artikelDbContext = new ArtikelDbContext(typeDb, typeLoadSave);
@@ -40,6 +42,10 @@ public class Main extends Application {
 		LogHandler logHandler = new LogHandler();
 		Verkoop verkoop = new Verkoop(artikelMap, kortingHandler, logHandler, artikelDbContext);
 		verkoop.registerObserver(artikelDbContext);
+		verkoop.setKassaBonHandler(kassaBonHandler);
+		kassaBonHandler.setVerkoop(verkoop);
+
+
 
 		SettingsController settingsController = new SettingsController(propertiesHandler, kortingHandler);
 		try{
@@ -57,6 +63,7 @@ public class Main extends Application {
 		KassaKlantController kassaKlantController = new KassaKlantController(verkoop);
 		new KassaKlantPane(kassaKlantController);
 
+
 		// Tab LOG
 		LogController logController = new LogController(logHandler);
 		new LogView(logController);
@@ -67,6 +74,7 @@ public class Main extends Application {
 		verkoop.artikelenMapToListAndNotifyObservers();
 
 		KlantView klantView = new KlantView(kassaKlantController);
+
 	}
 	
 	public static void main(String[] args) {
