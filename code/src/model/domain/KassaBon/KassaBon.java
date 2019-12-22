@@ -3,12 +3,11 @@ package model.domain.KassaBon;
 import model.domain.Verkoop;
 
 public abstract class KassaBon {
-    private String description;
-
+    protected String description;
 
     public abstract String getDescription();
 
-    public abstract void setDescription(String string);
-
-    public abstract void setVerkoop(Verkoop verkoop);
+    public void setDescription(String string) {
+        this.description = string;
+    }
 }

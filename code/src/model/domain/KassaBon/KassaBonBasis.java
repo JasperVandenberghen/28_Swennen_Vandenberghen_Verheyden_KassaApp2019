@@ -8,21 +8,13 @@ public class KassaBonBasis extends KassaBon{
     private String description;
     private KassaBonHandler kassaBonHandler;
 
-    public KassaBonBasis(String description) {
-        this.description = description;
-    }
-
-    public KassaBonBasis(Verkoop verkoop) {
-        verkoop = kassaBonHandler.getVerkoop();
-    }
-
-    public void setVerkoop(Verkoop verkoop) {
-        kassaBonHandler.setVerkoop(verkoop);
+    public KassaBonBasis(KassaBonHandler kassaBonHandler) {
+        this.kassaBonHandler = kassaBonHandler;
     }
 
     public String printArtikelen(){
         String artikelen = "";
-        for(ArtikelContainer ac: kassaBonHandler.getVerkoop().getArtikelenInKassaKassier()){
+        for(ArtikelContainer ac: kassaBonHandler.getVerkoop().getArtikelenInKassaKlant()){
             artikelen += "\n" +  ac.getArtikelNaam() + "\t\t\t\t" + ac.getAantal() + "\t\t" + ac.getPrijs() + "\n";
         }
         return artikelen;
@@ -40,8 +32,4 @@ public class KassaBonBasis extends KassaBon{
 
     }
 
-    @Override
-    public void setDescription(String string) {
-        this.description = string;
-    }
 }

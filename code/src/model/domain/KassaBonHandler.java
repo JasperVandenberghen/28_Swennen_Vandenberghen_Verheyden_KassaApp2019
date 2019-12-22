@@ -37,7 +37,9 @@ public class KassaBonHandler {
     public String printBTWOpTotaal(){
         return "Totaal: €" + String.format("%.2f",verkoop.getEindTotaal()) + "\nExclusief BTW: €" + String.format("%.2f",verkoop.getEindTotaal() * 0.94)+ "\n" + "BTW 6%";
     }
-
+    public String getTotaalMetKortingString(){
+        return "Totaal: €" + verkoop.getTotaal() + "\nKorting: €" + verkoop.getKorting();
+    }
 
     public void printKassaBon() {
         PropertiesHandler propertiesHandler = new PropertiesHandler();
@@ -49,10 +51,8 @@ public class KassaBonHandler {
         String prijsKortingFooter = properties.getProperty("prijsKortingFooter");
         String datumTijdHeader = properties.getProperty("datumTijdHeader");
         String prijsBtwFooter = properties.getProperty("prijsBtwFooter");
-        KassaBon kassaBon = new KassaBonBasis(getVerkoop());
 
-
-
+        KassaBon kassaBon = new KassaBonBasis(this);
 
         //toevoegen van header door basisbon door te geven
         kassaBon = new KassaBonHeader(kassaBon);
@@ -74,7 +74,7 @@ public class KassaBonHandler {
         }
 
         if(prijsKortingFooter.equalsIgnoreCase("true")){
-            kassaBon.setDescription(verkoop.printTotaalMetKortingString());
+            kassaBon.setDescription(getTotaalMetKortingString());
         }
 
         if(prijsBtwFooter.equalsIgnoreCase("true")){

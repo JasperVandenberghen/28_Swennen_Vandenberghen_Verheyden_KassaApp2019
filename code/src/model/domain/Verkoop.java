@@ -110,11 +110,6 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
             MessageHandler.showAlert("De opgegeven artikelcode is niet beschikbaar");
         }
     }
-
-    public String printTotaalMetKortingString(){
-        return "Totaal: €" + getTotaal() + "\nKorting: €" + korting;
-    }
-
     public void addArtikelToKassaKassier(ArtikelContainer artikelContainer){
         artikelenInKassaKassier.add(artikelContainer);
     }
@@ -366,6 +361,10 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
 
     public void setVerkoopState(VerkoopState verkoopState) {
         this.verkoopState = verkoopState;
+    }
+
+    public double getKorting() {
+        return korting;
     }
 
     @Override
