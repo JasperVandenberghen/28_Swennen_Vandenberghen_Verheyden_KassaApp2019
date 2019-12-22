@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum ArtikelDbEnum {
-    INMEMORY ("InMemory","model.db.ArtikelDbInMemory");
+    INMEMORY ("InMemory","db.ArtikelDbInMemory");
 
     private final String omschrijving;
     private final String klasseNaam;

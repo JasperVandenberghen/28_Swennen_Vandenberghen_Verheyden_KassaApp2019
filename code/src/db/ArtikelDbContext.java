@@ -1,8 +1,7 @@
-package model.db;
+package db;
 
 import model.domain.Artikel;
 import model.domain.ObserverArtikelenInShop;
-import model.domain.Verkoop;
 
 import java.util.HashMap;
 import java.util.List;

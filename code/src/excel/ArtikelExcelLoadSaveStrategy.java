@@ -2,8 +2,8 @@ package excel;
 
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
-import model.db.ConversionToObjectList;
-import model.db.LoadSaveStrategy;
+import db.ConversionToObjectList;
+import db.LoadSaveStrategy;
 import model.domain.Artikel;
 
 import java.io.File;

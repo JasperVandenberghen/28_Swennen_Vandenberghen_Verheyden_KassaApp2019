@@ -1,6 +1,6 @@
 package controller;
 
-import model.db.PropertiesHandler;
+import db.PropertiesHandler;
 import model.domain.KortingHandler;
 import view.panels.SettingsPane;
 

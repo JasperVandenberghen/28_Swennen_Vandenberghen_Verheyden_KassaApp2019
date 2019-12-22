@@ -1,10 +1,7 @@
-package model.domain;
+package model.domain.KassaBon;
 
-import model.db.PropertiesHandler;
-import model.domain.KassaBon.KassaBon;
-import model.domain.KassaBon.KassaBonBasis;
-import model.domain.KassaBon.KassaBonFooter;
-import model.domain.KassaBon.KassaBonHeader;
+import db.PropertiesHandler;
+import model.domain.Verkoop;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,26 +57,26 @@ public class KassaBonHandler {
 
         if(algemeneHeader.equalsIgnoreCase("true")){
             kassaBon.setDescription(algemeneHeaderBoodschap + " \n");
-        }
+        } else{kassaBon.setDescription("");}
         if(datumTijdHeader.equalsIgnoreCase("true")){
             Date date = new Date();
             kassaBon.setDescription(convertDateToString(date));
-        }
+        } else{kassaBon.setDescription("");}
 
         //toevoegen van footer door basis + header door te geven
         kassaBon = new KassaBonFooter(kassaBon);
 
         if(algemeneFooter.equalsIgnoreCase("true")){
             kassaBon.setDescription(algemeneFooterBoodschap + " \n");
-        }
+        }else{kassaBon.setDescription("");}
 
         if(prijsKortingFooter.equalsIgnoreCase("true")){
             kassaBon.setDescription(getTotaalMetKortingString());
-        }
+        } else{kassaBon.setDescription("");}
 
         if(prijsBtwFooter.equalsIgnoreCase("true")){
             kassaBon.setDescription(printBTWOpTotaal());
-        }
+        }else{kassaBon.setDescription("");}
 
         System.out.println(kassaBon.getDescription());
     }

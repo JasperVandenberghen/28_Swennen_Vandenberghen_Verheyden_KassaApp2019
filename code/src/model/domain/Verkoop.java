@@ -3,8 +3,9 @@ package model.domain;
 import controller.KassaKassierController;
 import controller.KassaKlantController;
 import javafx.collections.FXCollections;
-import model.db.ArtikelDbContext;
-import model.db.OnHoldHandler;
+import db.ArtikelDbContext;
+import db.OnHoldHandler;
+import model.domain.KassaBon.KassaBonHandler;
 import model.domain.states.*;
 
 import java.util.ArrayList;
