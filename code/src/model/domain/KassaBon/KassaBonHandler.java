@@ -1,6 +1,6 @@
 package model.domain.KassaBon;
 
-import db.PropertiesHandler;
+import model.domain.PropertiesHandler;
 import model.domain.Verkoop;
 
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package db;
+package database;
 
 import model.domain.Artikel;
 import model.domain.DomainException;

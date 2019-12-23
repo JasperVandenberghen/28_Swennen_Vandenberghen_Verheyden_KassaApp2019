@@ -1,7 +1,5 @@
-package db;
+package database;
 
-
-import model.domain.Artikel;
 
 import java.util.List;
 

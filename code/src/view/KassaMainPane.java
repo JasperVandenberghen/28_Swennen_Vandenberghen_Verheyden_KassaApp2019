@@ -8,14 +8,14 @@ import controller.SettingsController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import view.panels.ProductOverviewPane;
+import view.panels.ArtikelPane;
 
 public class KassaMainPane extends BorderPane {
 	public KassaMainPane(ArtikelController artikelController, KassaKassierController kassaKassierController, SettingsController settingsController, LogController logController){
-        ProductOverviewPane productOverviewPane = new ProductOverviewPane(artikelController);
+        ArtikelPane artikelPane = new ArtikelPane(artikelController);
 	    TabPane tabPane = new TabPane(); 	    
       Tab kassaTab = new Tab("Kassa", kassaKassierController.getKassaKassierPane());
-        Tab artikelTab = new Tab("Artikelen",artikelController.getProductOverviewPane());
+        Tab artikelTab = new Tab("Artikelen",artikelController.getArtikelPane());
         Tab instellingTab = new Tab("Instellingen", settingsController.getSettingsPane());
         Tab logTab = new Tab("Log", logController.getView());
         tabPane.getTabs().add(kassaTab);

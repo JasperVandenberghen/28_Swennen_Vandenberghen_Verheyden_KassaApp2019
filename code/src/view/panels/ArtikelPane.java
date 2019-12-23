@@ -18,12 +18,12 @@ import model.domain.Artikel;
 import java.util.List;
 
 
-public class ProductOverviewPane extends GridPane {
+public class ArtikelPane extends GridPane {
 	private TableView<Artikel> table;
 	private List<Artikel> observableList;
 	
 	
-	public ProductOverviewPane(ArtikelController cont) {
+	public ArtikelPane(ArtikelController cont) {
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -57,7 +57,7 @@ public class ProductOverviewPane extends GridPane {
 
 	}
 
-	public ProductOverviewPane() {
+	public ArtikelPane() {
 
 	}
 

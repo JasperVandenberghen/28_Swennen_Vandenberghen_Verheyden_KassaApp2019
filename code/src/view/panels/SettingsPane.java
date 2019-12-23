@@ -6,10 +6,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import db.ArtikelDbEnum;
+import database.ArtikelDbEnum;
 import model.domain.Korting.KortingEnum;
 import model.domain.MessageHandler;
-import db.SaveEnum;
+import database.SaveEnum;
 import view.PaneMethods;
 
 import java.util.List;
@@ -84,7 +84,7 @@ public class SettingsPane extends GridPane {
         loadSaveBox.getSelectionModel().selectFirst();
         dbTypeBox.getSelectionModel().selectFirst();
         kortingTypeBox.getSelectionModel().selectFirst();
-        opslaan = new Button("Alle settings opslaan");
+        opslaan = new Button("Stel deze nieuwe settings in");
         Node[] firstColumnNodes = {dbTypeLabel, dbTypeBox, loadSaveLabel,loadSaveBox, kortingTypeLabel, kortingTypeBox, drempelLabel, drempelAantal, categorieLabel, categorie, kortingsAantalLabel, kortingsAantalField, opslaan};
         Node[] secondColumnNodes = {titleKassaBonSettings, algemeneBoodschapHeaderBox, boodschaplabelHeaderLabel, algemeneBoodschapHeaderField, datumTijdHeaderBox, totalePrijsKortingFooterBox, prijsBtwFooterBox, algemeneFooterBox, boodschaplabelFooterLabel, algemeneBoodschapFooterField};
         PaneMethods.addToGridPaneAscendingRow(firstColumnNodes, this, 0);
@@ -101,21 +101,24 @@ public class SettingsPane extends GridPane {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Korting toevoegen");
             alert.setHeaderText(null);
-            if(!kortingsAantalField.getText().trim().isEmpty()){
-                if(Double.parseDouble(kortingsAantalField.getText()) >= 0 && (Double.parseDouble(kortingsAantalField.getText()) <= 100)){
-                    settingsController.addKorting(kortingTypeBox.getValue().toString(), kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText());
-                    alert.setContentText("Korting succesvol toegevoegd");}
-                else{
-                    alert.setContentText("Je getal moet tussen 0 en 100 liggen.");
+            String typeKorting = kortingTypeBox.getValue().toString();
+            if(!typeKorting.equals("Geen korting")) {
+                if (!kortingsAantalField.getText().trim().isEmpty()) {
+                    if (Double.parseDouble(kortingsAantalField.getText()) >= 0 && (Double.parseDouble(kortingsAantalField.getText()) <= 100)) {
+                        settingsController.addKorting(kortingTypeBox.getValue().toString(), kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText());
+                        alert.setContentText("Korting succesvol toegevoegd");
+                    } else {
+                        alert.setContentText("Je getal moet tussen 0 en 100 liggen.");
+                        alert.showAndWait();
+                        return;
+                    }
+                } else {
+                    alert.setContentText("Je moet eerst een hoeveelheid korting ingeven.");
+                    alert.showAndWait();
+                    return;
                 }
+                settingsController.setProperties(dbTypeBox.getValue().toString(), loadSaveBox.getValue().toString(), kortingTypeBox.getValue().toString(),kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText(), algemeneHeader, algemeneBoodschapHeaderField.getText(), datumtijdHeader, prijsKortingFooter, prijsbtwFooter, algemeneboodschapFooter, algemeneBoodschapFooterField.getText());
             }
-            else {
-                alert.setContentText("Je moet eerst een hoeveelheid korting ingeven.");
-            }
-
-            alert.showAndWait();
-            settingsController.setProperties(dbTypeBox.getValue().toString(), loadSaveBox.getValue().toString(), kortingTypeBox.getValue().toString(),kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText(), algemeneHeader, algemeneBoodschapHeaderField.getText(), datumtijdHeader, prijsKortingFooter, prijsbtwFooter, algemeneboodschapFooter, algemeneBoodschapFooterField.getText());
-
             MessageHandler.showAlert("Successfully saved");
         });
 

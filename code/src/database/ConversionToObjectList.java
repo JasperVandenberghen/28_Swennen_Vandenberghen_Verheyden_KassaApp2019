@@ -1,4 +1,4 @@
-package db;
+package database;
 
 import javafx.collections.FXCollections;
 import model.domain.Artikel;

@@ -2,8 +2,8 @@ package excel;
 
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
-import db.ConversionToObjectList;
-import db.LoadSaveStrategy;
+import database.ConversionToObjectList;
+import database.LoadSaveStrategy;
 import model.domain.Artikel;
 
 import java.io.File;
@@ -64,7 +64,7 @@ public class ArtikelExcelLoadSaveStrategy implements LoadSaveStrategy {
 
 
     public String getFile() {
-        return "code/artikel.xls";
+        return "code/src/bestanden/artikel.xls";
     }
 
     public void setFile(String file) {

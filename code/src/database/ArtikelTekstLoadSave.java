@@ -1,4 +1,4 @@
-package db;
+package database;
 
 
 
@@ -17,7 +17,7 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate implements LoadS
 
     @Override
     public String getFile() {
-        return "artikel.txt";
+        return "code/src/bestanden/artikel.txt";
     }
 
     @Override

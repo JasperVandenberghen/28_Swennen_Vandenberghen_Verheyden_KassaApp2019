@@ -1,26 +1,22 @@
 package controller;
 
-import javafx.collections.FXCollections;
 import model.domain.Artikel;
 import model.domain.ObserverArtikelenInShop;
 import model.domain.Verkoop;
-import view.panels.ProductOverviewPane;
+import view.panels.ArtikelPane;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class ArtikelController implements ObserverArtikelenInShop {
-    private ProductOverviewPane productOverviewPane;
+    private ArtikelPane artikelPane;
     private Verkoop verkoop;
 
-    public void setView(ProductOverviewPane productOverviewPane){
-        this.productOverviewPane = productOverviewPane;
+    public void setView(ArtikelPane artikelPane){
+        this.artikelPane = artikelPane;
     }
 
-    public ProductOverviewPane getProductOverviewPane(){
-        return productOverviewPane;
+    public ArtikelPane getArtikelPane(){
+        return artikelPane;
     }
 
     public ArtikelController(Verkoop verkoop) {
@@ -28,7 +24,7 @@ public class ArtikelController implements ObserverArtikelenInShop {
     }
 
     public void setArtikelenInView(List<Artikel> artikels){
-        productOverviewPane.setObservableList(artikels);
+        artikelPane.setObservableList(artikels);
     }
 
 

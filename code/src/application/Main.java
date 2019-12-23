@@ -3,8 +3,8 @@ package application;
 import controller.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import db.ArtikelDbContext;
-import db.PropertiesHandler;
+import database.ArtikelDbContext;
+import model.domain.PropertiesHandler;
 import model.domain.*;
 import model.domain.KassaBon.KassaBonHandler;
 import model.domain.Korting.KortingHandler;
@@ -51,10 +51,8 @@ public class Main extends Application {
 
 
 		SettingsController settingsController = new SettingsController(propertiesHandler, kortingHandler);
-		try{
+		if(!typeKorting.equals("Geen korting")){
 			settingsController.getKortingHandler().addKorting(typeKorting,kortingsAantal, categorieKorting, drempelKorting);
-		} catch (NullPointerException e) {
-
 		}
 
 		new SettingsPane(settingsController);

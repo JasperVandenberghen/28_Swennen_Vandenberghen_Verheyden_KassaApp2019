@@ -1,19 +1,17 @@
-package db;
+package database;
 
 import model.domain.DomainException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public enum SaveEnum {
-    EXCEL ("Excel", "excel.ArtikelExcelLoadSaveStrategy"),
-    TXT ("Text", "db.ArtikelTekstLoadSave");
-
+public enum ArtikelDbEnum {
+    INMEMORY ("InMemory","database.ArtikelDbInMemory");
 
     private final String omschrijving;
     private final String klasseNaam;
 
-    SaveEnum(String omschrijving, String klasseNaam) {
+    ArtikelDbEnum(String omschrijving, String klasseNaam) {
         this.omschrijving = omschrijving;
         this.klasseNaam = klasseNaam;
     }
@@ -23,14 +21,14 @@ public enum SaveEnum {
 
     public static List<String> getSaveStrategies(){
         List<String> result = new ArrayList<>();
-        for (SaveEnum save : SaveEnum.values()){
+        for (ArtikelDbEnum save : ArtikelDbEnum.values()){
             result.add(save.omschrijving);
         }
         return result;
     }
     
-    public static SaveEnum getSave(String omschrijving){
-        for (SaveEnum save : SaveEnum.values()){
+    public static ArtikelDbEnum getSave(String omschrijving){
+        for (ArtikelDbEnum save : ArtikelDbEnum.values()){
             if (save.omschrijving.equals(omschrijving)){
                 return save;
             }

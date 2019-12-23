@@ -1,11 +1,13 @@
-package db;
+package model.domain;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Properties;
 import java.util.PropertyPermission;
 
 public class PropertiesHandler {
-    String file = "settings.properties";
+    String file = "code" + File.separator + "src" + File.separator + "bestanden" + File.separator + "settings.properties";
     public void write(Properties properties){
 
         FileOutputStream os = null;

@@ -1,4 +1,4 @@
-package db;
+package database;
 
 import java.lang.reflect.Constructor;
 
@@ -14,7 +14,6 @@ public class ArtikelDbStrategyFactory {
         try {
             Class dbClass = Class.forName(klasseNaam);
             Constructor<?> c = dbClass.getConstructor(String.class);
-            artikelDbStrategy = new ArtikelDbInMemory(typeLoadSave);
             Object dbObject = c.newInstance(typeLoadSave);
             artikelDbStrategy = (ArtikelDbStrategy) dbObject;
         } catch (Exception e) {
