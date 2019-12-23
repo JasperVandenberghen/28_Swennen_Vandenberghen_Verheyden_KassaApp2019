@@ -24,6 +24,7 @@ public class ScanState implements VerkoopState{
         if(verkoop.getArtikelenInKassaKassier().size()==0){
             verkoop.setVerkoopState(verkoop.getLegeMandState());
         }
+        verkoop.setTextTotaal();
     }
 
     @Override

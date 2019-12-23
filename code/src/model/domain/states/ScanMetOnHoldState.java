@@ -22,8 +22,9 @@ public class ScanMetOnHoldState implements VerkoopState{
     public void removeArtikel(List<Integer> indeces) {
         verkoop.removeArtikelen(indeces);
         if(verkoop.getArtikelenInKassaKassier().size()==0){
-            verkoop.setVerkoopState(verkoop.getLegeMandMetOnHoldState());
+            verkoop.setVerkoopState(verkoop.getLegeMandState());
         }
+        verkoop.setTextTotaal();
     }
 
     @Override

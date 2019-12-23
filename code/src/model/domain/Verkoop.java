@@ -165,12 +165,10 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
         for(Integer integer: indeces){
             String artikelId = this.artikelenInKassaKassier.get(integer).getArtikelId();
             double prijs = this.artikelenInKassaKassier.get(integer).getPrijs();
-//            this.artikelenInKassaKlant.removeIf(a -> a.getArtikelId().equals(artikelId) && a.getAantal()==1);
             verwijderArtikelInKassaKlant(artikelId);
             this.artikelenInKassaKassier.remove(integer.intValue());
             totaal-=prijs;
         }
-        this.notifyObservers();
     }
 
     public void calculateKorting(){
@@ -225,13 +223,20 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
         double totaalNakorting = kortingHandler.getNewTotaalNaKorting();
         korting = (totaal - totaalNakorting);
         eindTotaal = totaalNakorting;
-        setText("Totaal: € " + FormatNumberClass.parseToStringTwoDecimals(totaal), "Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting), "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal));
+        setTextMetKorting();
     }
 
-    public void setText(String totaal, String korting, String eindTotaal){
-        this.totaalText = totaal;
-        this.kortingText = korting;
-        this.eindTotaalText = eindTotaal;
+    public void setTextMetKorting(){
+        this.totaalText = "Totaal: € " + FormatNumberClass.parseToStringTwoDecimals(totaal);
+        this.kortingText = "Korting: €" + FormatNumberClass.parseToStringTwoDecimals(korting);
+        this.eindTotaalText = "Eindtotaal: €" + FormatNumberClass.parseToStringTwoDecimals(eindTotaal);
+        this.notifyObservers();
+    }
+
+    public void setTextTotaal(){
+        this.totaalText = "Totaal: € " + FormatNumberClass.parseToStringTwoDecimals(totaal);
+        this.kortingText = "";
+        this.eindTotaalText = "";
         this.notifyObservers();
     }
 
@@ -252,7 +257,7 @@ public class Verkoop implements Observable, ObservableArtikelenInShop, Observabl
     private void resetVerkoopText(){
         afrekenenText = "Afrekenen";
         this.notifyObserversButtonText();
-        setText("Totaal: € 0","","");
+        setTextTotaal();
     }
 
     private void editVoorraadVanProducten(){

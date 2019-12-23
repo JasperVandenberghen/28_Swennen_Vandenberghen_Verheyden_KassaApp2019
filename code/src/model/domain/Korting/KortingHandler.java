@@ -18,12 +18,8 @@ public class KortingHandler {
         KortingsStrategy korting = new KortingsFactory().getKorting(kortingStr);
         korting.setKorting(hoeveelheid);
 
-        for(int i = 0; i != kortingen.size(); i++){
-            KortingsStrategy ks = kortingen.get(i);
-            if(ks.getOmschrijving().equals(korting.getOmschrijving())){
-                throw new DomainException("Korting is al opgenomen.");
-            }
-        }
+        kortingen.clear();
+
         kortingen.add(korting);
 
         if(korting.getOmschrijving().equals("Groepskorting")){

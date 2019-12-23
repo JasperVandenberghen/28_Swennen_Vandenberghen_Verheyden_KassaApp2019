@@ -1,6 +1,7 @@
 package model.domain.states;
 
 import javafx.scene.control.Button;
+import model.domain.MessageHandler;
 import model.domain.Verkoop;
 
 import java.util.List;
@@ -20,6 +21,13 @@ public class AfrekenenMetOnHoldState implements VerkoopState{
     @Override
     public void removeArtikel(List<Integer> indeces) {
         verkoop.removeArtikelen(indeces);
+        if(verkoop.getArtikelenInKassaKassier().size()==0){
+            verkoop.setVerkoopState(verkoop.getLegeMandState());
+            verkoop.setTextTotaal();
+            MessageHandler.showAlert("Verkoop geannuleerd");
+        } else{
+            verkoop.afrekenen();
+        }
     }
 
     @Override

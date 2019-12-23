@@ -59,7 +59,7 @@ public class SettingsPane extends GridPane {
         kortingsAantalLabel = new Label("Geef je kortingshoeveelheid in (%)");
         drempelLabel = new Label("Voeg hier je drempel toe indien drempelkorting.");
         categorieLabel = new Label("Voeg hier je categorie toe indien groepskorting.");
-        kortingsAantalField = new TextField("0");
+        kortingsAantalField = new TextField("");
         algemeneBoodschapHeaderBox = new CheckBox("Algemene boodschap toevoegen aan header");
         boodschaplabelHeaderLabel = new Label("Voeg hier je boodschap voor de header in");
         boodschaplabelFooterLabel = new Label("Voeg hier je boodschap voor de footer in");
@@ -72,7 +72,7 @@ public class SettingsPane extends GridPane {
         titleKassaBonSettings = new Label("Kassabon");
         String style = "-fx-font-weight: bold; -fx-font-size:18;";
         titleKassaBonSettings.setStyle(style);
-        drempelAantal = new TextField("0");
+        drempelAantal = new TextField("");
         categorie = new TextField();
         kortingsAantalField.setTranslateX(5);
         kortingsAantalField.setMinWidth(1);
@@ -89,28 +89,6 @@ public class SettingsPane extends GridPane {
         Node[] secondColumnNodes = {titleKassaBonSettings, algemeneBoodschapHeaderBox, boodschaplabelHeaderLabel, algemeneBoodschapHeaderField, datumTijdHeaderBox, totalePrijsKortingFooterBox, prijsBtwFooterBox, algemeneFooterBox, boodschaplabelFooterLabel, algemeneBoodschapFooterField};
         PaneMethods.addToGridPaneAscendingRow(firstColumnNodes, this, 0);
         PaneMethods.addToGridPaneAscendingRow(secondColumnNodes, this, 1);
-
-
-
-        /*voegKortingToe.setOnAction(event -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Korting toevoegen");
-            alert.setHeaderText(null);
-            if(!kortingsAantalField.getText().trim().isEmpty()){
-                if(Double.parseDouble(kortingsAantalField.getText()) > 0 && (Double.parseDouble(kortingsAantalField.getText()) < 100)){
-                    settingsController.addKorting(kortingTypeBox.getValue().toString(), kortingsAantalField.getText(), categorie.getText(), drempelAantal.getText());
-                    alert.setContentText("Korting succesvol toegevoegd");}
-                else{
-                    alert.setContentText("Je getal moet tussen 0 en 100 liggen.");
-                }
-            }
-            else {
-                alert.setContentText("Je moet eerst een hoeveelheid korting ingeven.");
-            }
-
-            alert.showAndWait();
-        });*/
-
 
 
         opslaan.setOnAction(event -> {
