@@ -1,5 +1,7 @@
-package model.domain;
+package model.domain.Korting;
 
+
+import model.domain.DomainException;
 
 import java.lang.reflect.Constructor;
 

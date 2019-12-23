@@ -6,6 +6,8 @@ import javafx.collections.FXCollections;
 import db.ArtikelDbContext;
 import db.OnHoldHandler;
 import model.domain.KassaBon.KassaBonHandler;
+import model.domain.Korting.KortingHandler;
+import model.domain.Log.LogHandler;
 import model.domain.states.*;
 
 import java.util.ArrayList;

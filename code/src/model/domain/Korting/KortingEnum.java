@@ -1,14 +1,16 @@
-package model.domain;
+package model.domain.Korting;
+
+import model.domain.DomainException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public enum KortingEnum {
 
-    BASIS ("Geen korting", "model.domain.GeenKorting"),
-    GROEP ("Groepskorting", "model.domain.GroepsKorting"),
-    DREMPEL ("Drempelkorting", "model.domain.DrempelKorting"),
-    DUURSTE ("Duurstekorting", "model.domain.DuursteKorting");
+    BASIS ("Geen korting", "model.domain.Korting.GeenKorting"),
+    GROEP ("Groepskorting", "model.domain.Korting.GroepsKorting"),
+    DREMPEL ("Drempelkorting", "model.domain.Korting.DrempelKorting"),
+    DUURSTE ("Duurstekorting", "model.domain.Korting.DuursteKorting");
 
 
     private final String omschrijving;

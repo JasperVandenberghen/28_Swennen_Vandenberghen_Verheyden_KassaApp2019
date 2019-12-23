@@ -1,7 +1,5 @@
 package db;
 
-import model.domain.ArtikelDbEnum;
-
 import java.lang.reflect.Constructor;
 
 public class ArtikelDbStrategyFactory {

@@ -1,6 +1,6 @@
-package model.domain;
+package model.domain.Korting;
 
-import java.util.List;
+import model.domain.ArtikelContainer;
 
 public class DuursteKorting extends Korting  {
     private static final String omschrijving = "Duurstekorting";

@@ -6,11 +6,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import model.domain.ArtikelDbEnum;
-import model.domain.KortingEnum;
+import db.ArtikelDbEnum;
+import model.domain.Korting.KortingEnum;
 import model.domain.MessageHandler;
-import model.domain.SaveEnum;
+import db.SaveEnum;
 import view.PaneMethods;
 
 import java.util.List;

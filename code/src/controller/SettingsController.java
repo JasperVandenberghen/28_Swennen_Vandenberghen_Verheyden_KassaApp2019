@@ -1,7 +1,7 @@
 package controller;
 
 import db.PropertiesHandler;
-import model.domain.KortingHandler;
+import model.domain.Korting.KortingHandler;
 import view.panels.SettingsPane;
 
 import java.util.Properties;

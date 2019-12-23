@@ -1,4 +1,6 @@
-package model.domain;
+package model.domain.Korting;
+
+import model.domain.ArtikelContainer;
 
 import java.util.List;
 

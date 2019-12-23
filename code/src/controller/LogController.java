@@ -1,6 +1,6 @@
 package controller;
 
-import model.domain.LogHandler;
+import model.domain.Log.LogHandler;
 import view.panels.LogView;
 
 public class LogController {

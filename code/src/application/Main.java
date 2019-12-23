@@ -7,6 +7,8 @@ import db.ArtikelDbContext;
 import db.PropertiesHandler;
 import model.domain.*;
 import model.domain.KassaBon.KassaBonHandler;
+import model.domain.Korting.KortingHandler;
+import model.domain.Log.LogHandler;
 import view.KassaView;
 import view.KlantView;
 import view.panels.KassaKassierPane;

@@ -1,7 +1,8 @@
-package model.domain;
+package model.domain.Korting;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import model.domain.ArtikelContainer;
+import model.domain.DomainException;
 import view.panels.KassaKassierPane;
 
 import java.util.ArrayList;
@@ -11,10 +12,6 @@ public class KortingHandler {
     private KassaKassierPane kassaKassierPane;
     private List<KortingsStrategy> kortingen = new ArrayList<KortingsStrategy>();
     private List<ArtikelContainer> artikelContainers;
-
-    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-    }
 
     public void addKorting(String kortingStr, String hoeveelheid, String categorie, String drempel){
         if(kortingStr.trim().isEmpty() || hoeveelheid.trim().isEmpty()){throw new IllegalArgumentException("Voeg een korting of hoeveelheid toe.");}

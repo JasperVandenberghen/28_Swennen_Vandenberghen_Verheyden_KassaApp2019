@@ -1,6 +1,7 @@
-package model.domain;
+package model.domain.Korting;
 
-import java.util.List;
+import model.domain.ArtikelContainer;
+import model.domain.DomainException;
 
 public class DrempelKorting extends Korting {
     private double drempel;

@@ -1,8 +1,5 @@
 package db;
 
-import model.domain.SaveEnum;
-
-
 
 public class LoadSaveStrategyFactory {
     private volatile static LoadSaveStrategyFactory uniqueInstance = new LoadSaveStrategyFactory();

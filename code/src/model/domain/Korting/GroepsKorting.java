@@ -1,6 +1,6 @@
-package model.domain;
+package model.domain.Korting;
 
-import java.util.List;
+import model.domain.ArtikelContainer;
 
 public class GroepsKorting extends Korting{
     private String categorie;

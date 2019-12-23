@@ -1,4 +1,4 @@
-package model.domain;
+package model.domain.Korting;
 
 public class GeenKorting extends Korting {
     private String omschrijving = "Geenkorting";
